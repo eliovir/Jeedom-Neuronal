@@ -105,47 +105,67 @@ $eqLogics = eqLogic::byType('Neuronal');
 		<div class="col-sm-6">
 			<legend>{{Commande d'entrée du neurone}}</legend>
 			<table id="table_cmd_Entree">
-				<tr>
-					<td>
-						<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="E1" style="width : 90%;display : inline-block;margin:5px;">
-						<a style="display : inline-block;margin:5px;" class="btn btn-default btn-xs cursor bt_selectCmdExpression" title="Rechercher une commande">
-							<i class="fa fa-list-alt"></i>
-						</a>
-					</td>
-					<td>
-						<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">
-							<i class="fa fa-plus-circle"></i>
-						</a>
-					</td>
-					<td>
-						<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">
-							<i class="fa fa-minus-circle"></i>
-						</a>
-					</td>
-				</tr>
+				<thead>
+			                <tr>
+			                    	<th>{{Commande}}</th>
+						<th>{{Tolérance}}</th>
+						<th>{{Action}}</th>
+			                </tr>
+			        </thead>
+			        <tbody>
+					<tr>
+						<td>
+							<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="Entree_1_Cmd">
+							<a style="display : inline-block;margin:5px;" class="btn btn-default btn-xs cursor bt_selectCmdExpression" title="Rechercher une commande">
+								<i class="fa fa-list-alt"></i>
+							</a>
+						</td>
+						<td>
+							<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="Entree_1_Tolerance" >
+						</td>
+						<td>
+							<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">
+								<i class="fa fa-plus-circle"></i>
+							</a>
+							<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">
+								<i class="fa fa-minus-circle"></i>
+							</a>
+						</td>
+					</tr>
+			        </tbody>
 			</table>
 		</div>
 		<div class="col-sm-6">
 			<legend>{{Commande de sortie du neurone}}</legend>
-			<table id="table_cmd_Sorite">
-				<tr>
-					<td>
-						<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="S1" style="width : 90%;display : inline-block;margin:5px;">
-						<a style="display : inline-block;margin:5px;" class="btn btn-default btn-xs cursor bt_selectCmdExpression" title="Rechercher une commande">
-							<i class="fa fa-list-alt"></i>
-						</a>
-					</td>
-					<td>
-						<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">
-							<i class="fa fa-plus-circle"></i>
-						</a>
-					</td>
-					<td>
-						<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">
-							<i class="fa fa-minus-circle"></i>
-						</a>
-					</td>
-				</tr>
+			<table id="table_cmd_Sortie">
+				<thead>
+			                <tr>
+			                    	<th>{{Commande}}</th>
+						<th>{{Tolérance}}</th>
+						<th>{{Action}}</th>
+			                </tr>
+			        </thead>
+			        <tbody>
+					<tr>
+						<td>
+							<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="Sortie_1_Cmd">
+							<a style="display : inline-block;margin:5px;" class="btn btn-default btn-xs cursor bt_selectCmdExpression" title="Rechercher une commande">
+								<i class="fa fa-list-alt"></i>
+							</a>
+						</td>
+						<td>
+							<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="Sortie_1_Tolerance" >
+						</td>
+						<td>
+							<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">
+								<i class="fa fa-plus-circle"></i>
+							</a>
+							<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">
+								<i class="fa fa-minus-circle"></i>
+							</a>
+						</td>
+					</tr>
+			        </tbody>
 			</table>
 		</div>
 	</div>
