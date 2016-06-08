@@ -3,6 +3,17 @@
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class Neuronal extends eqLogic {
+	public static function CreateApprentissageTable() {
+		$Table=json_decode($this->getConfiguration('ApprentissageTable'));
+		$ES_Neurone=json_decode($this->getConfiguration('ES_Neurone'));
+		foreach ($ES_Neurone as $ES) {
+			$cmd = cmd::byId(str_replace('#', '', $ES));
+			if(is_object($cmd)){
+				$Table[count($Table)][$cmd->getName()]=$cmd->execCmd();
+			}
+		}
+		return $Table;
+	}
 	public static function dependancy_info() {
 		$return = array();
 		$return['log'] = 'Neuronal_update';
@@ -26,5 +37,7 @@ class Neuronal extends eqLogic {
 }
 class NeuronalCmd extends cmd {
 	public function execute($_options = array())	{
+		$layers=$this->getConfiguration('ApprentissageTable');
+		$ann = fann_create_standard_array (count($layers) , $layers );
 	}
 }
