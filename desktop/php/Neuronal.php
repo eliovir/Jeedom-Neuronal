@@ -104,7 +104,7 @@ $eqLogics = eqLogic::byType('Neuronal');
 		</form>
 		<div class="col-sm-6">
 			<legend>{{Commande d'entrée du neurone}}</legend>
-			<table>
+			<table id="table_cmd_Entree">
 				<tr>
 					<td>
 						<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="E1" style="width : 90%;display : inline-block;margin:5px;">
@@ -119,7 +119,7 @@ $eqLogics = eqLogic::byType('Neuronal');
 					</td>
 					<td>
 						<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">
-							<i class="fa fa-plus-circle"></i>
+							<i class="fa fa-minus-circle"></i>
 						</a>
 					</td>
 				</tr>
@@ -127,7 +127,7 @@ $eqLogics = eqLogic::byType('Neuronal');
 		</div>
 		<div class="col-sm-6">
 			<legend>{{Commande de sortie du neurone}}</legend>
-			<table>
+			<table id="table_cmd_Sorite">
 				<tr>
 					<td>
 						<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="S1" style="width : 90%;display : inline-block;margin:5px;">
@@ -142,7 +142,7 @@ $eqLogics = eqLogic::byType('Neuronal');
 					</td>
 					<td>
 						<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">
-							<i class="fa fa-plus-circle"></i>
+							<i class="fa fa-minus-circle"></i>
 						</a>
 					</td>
 				</tr>
