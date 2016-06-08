@@ -94,20 +94,60 @@ $eqLogics = eqLogic::byType('Neuronal');
 				</div>
 			</fieldset> 
 		</form>
+		<form class="form-horizontal">
+			<fieldset>
+				<div class="form-actions">
+					<a class="btn btn-danger eqLogicAction" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
+					<a class="btn btn-success eqLogicAction" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
+				</div>
+			</fieldset>
+		</form>
 		<div class="col-sm-6">
 			<legend>{{Commande d'entrée du neurone}}</legend>
+			<table>
+				<tr>
+					<td>
+						<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="E1" style="width : 90%;display : inline-block;margin:5px;">
+						<a style="display : inline-block;margin:5px;" class="btn btn-default btn-xs cursor bt_selectCmdExpression" title="Rechercher une commande">
+							<i class="fa fa-list-alt"></i>
+						</a>
+					</td>
+					<td>
+						<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">
+							<i class="fa fa-plus-circle"></i>
+						</a>
+					</td>
+					<td>
+						<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">
+							<i class="fa fa-plus-circle"></i>
+						</a>
+					</td>
+				</tr>
+			</table>
 		</div>
 		<div class="col-sm-6">
 			<legend>{{Commande de sortie du neurone}}</legend>
+			<table>
+				<tr>
+					<td>
+						<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="S1" style="width : 90%;display : inline-block;margin:5px;">
+						<a style="display : inline-block;margin:5px;" class="btn btn-default btn-xs cursor bt_selectCmdExpression" title="Rechercher une commande">
+							<i class="fa fa-list-alt"></i>
+						</a>
+					</td>
+					<td>
+						<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">
+							<i class="fa fa-plus-circle"></i>
+						</a>
+					</td>
+					<td>
+						<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">
+							<i class="fa fa-plus-circle"></i>
+						</a>
+					</td>
+				</tr>
+			</table>
 		</div>
-		<form class="form-horizontal">
-				<fieldset>
-					<div class="form-actions">
-						<a class="btn btn-danger eqLogicAction" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
-						<a class="btn btn-success eqLogicAction" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
-					</div>
-				</fieldset>
-			</form>
 	</div>
 </div>
 <?php include_file('desktop', 'Neuronal', 'js' , 'Neuronal'); ?>
