@@ -1,4 +1,30 @@
-$("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+$('body').on( 'click','.bt_selectCmdExpression', function() {
+	var _this=this;
+	$(this).value()
+	jeedom.cmd.getSelectModal({cmd: {type: ''},eqLogic: {eqType_name : ''}}, function (result) {
+		$(_this).closest('td').find('.eqLogicAttr[data-l1key=configuration][data-l2key=ES_Neurone]').val(result.human);
+	});
+});  
+$('body').on('click','.bt_add',function(){
+	var tr =$('<tr>');
+  	tr.append($('<td>')
+  		.append($('<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="E" style="width : 90%;display : inline-block;margin:5px;">'))
+  		.append($('<a style="display : inline-block;margin:5px;" class="btn btn-default btn-xs cursor bt_selectCmdExpression" title="Rechercher une commande">')
+			.append($('<i class="fa fa-list-alt">'))));
+  	tr.append($('<td>')
+  		.append($('<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">')
+			.append($('<i class="fa fa-plus-circle">'))));
+  	tr.append($('<td>')
+  		.append($('<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">')
+			.append($('<i class="fa fa-list-alt">'))));
+
+	$(this).closest('table').append(tr);
+});
+$('body').on('click','.bt_del',function(){
+	$(this).closest('tr').remove();
+});
+$("#table_cmd_Entree").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+$("#table_cmd_Sorite").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 function addCmdToTable(_cmd) {
 
 	if (!isset(_cmd)) {
@@ -7,39 +33,4 @@ function addCmdToTable(_cmd) {
     if (!isset(_cmd.configuration)) {
         _cmd.configuration = {};
     }
-	var tr =$('<tr class="cmd" data-cmd_id="' + init(_cmd.id) + '">');
-  	tr.append($('<td>')
-		.append($('<div>')
-			.append($('<i class="fa fa-minus-circle pull-right cmdAction cursor" data-action="remove">')))
-		.append($('<div>')
-			.append($('<i class="fa fa-arrows-v pull-left cursor bt_sortable" style="margin-top: 9px;">'))));
-	tr.append($('<td>')
-		.append($('<div>')
-			.append($('<input class="cmdAttr form-control input-sm" data-l1key="id" style="display : none;">'))
-			.append($('<input class="cmdAttr form-control input-sm" data-l1key="name" value="' + init(_cmd.name) + '" placeholder="{{Name}}" title="Name">'))));
-	tr.append($('<td>')
-			.append($('<input type="hidden" class="cmdAttr" data-l1key="template" data-l2key="dashboard" />'))
-			.append($('<input type="hidden" class="cmdAttr" data-l1key="template" data-l2key="mobile" />'))
-			.append($('<input type="hidden" class="cmdAttr" data-l1key="configuration" data-l2key="host_type" />'))
-			.append($('<input type="hidden" class="cmdAttr" data-l1key="type" />'))
-			.append($('<input type="hidden" class="cmdAttr" data-l1key="subType" />'))	
-		.append($('<div style="width : 40%;display : inline-block;">')
-			.append($('<span>')
-				.append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Historiser}}" data-l1key="isHistorized" checked/>')))
-			.append($('</br>'))
-			.append($('<span>')
-				.append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Afficher}}" data-l1key="isVisible" checked/>'))))
-			.append($('<div style="width : 40%;display : inline-block;">')	
-				.append($('<input class="cmdAttr form-control input-sm" data-l1key="unite" placeholder="{{Unité}}" title="Unité"/>'))));  
-		var parmetre=$('<td>');
-	if (is_numeric(_cmd.id)) {
-		parmetre.append($('<a class="btn btn-default btn-xs cmdAction" data-action="test">')
-			.append($('<i class="fa fa-rss">')
-				.text('{{Tester}}')));
-	}
-	parmetre.append($('<a class="btn btn-default btn-xs cmdAction expertModeVisible" data-action="configure">')
-		.append($('<i class="fa fa-cogs">')));
-	tr.append(parmetre);
-	$('#table_cmd tbody').append(tr);
-	$('#table_cmd tbody tr:last').setValues(_cmd, '.cmdAttr');
-	}
+}
