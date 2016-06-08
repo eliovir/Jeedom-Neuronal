@@ -6,15 +6,22 @@ $('body').on( 'click','.bt_selectCmdExpression', function() {
 	});
 });  
 $('body').on('click','.bt_add',function(){
+	var Name="";
+	var NbCmd=$(_this).closest('td').find('tr').length+1;
+	if($(this).closest('table').attr('id')=="table_cmd_Entree") 
+		Name="Entree_"+NbCmd;
+	else
+		Name="Sortie_"+NbCmd;
 	var tr =$('<tr>');
   	tr.append($('<td>')
-  		.append($('<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="E" style="width : 90%;display : inline-block;margin:5px;">'))
+  		.append($('<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="'+Name+'_Cmd">'))
   		.append($('<a style="display : inline-block;margin:5px;" class="btn btn-default btn-xs cursor bt_selectCmdExpression" title="Rechercher une commande">')
 			.append($('<i class="fa fa-list-alt">'))));
   	tr.append($('<td>')
-  		.append($('<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">')
-			.append($('<i class="fa fa-plus-circle">'))));
+  		.append($('<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="'+Name+'_Tolerance">')));
   	tr.append($('<td>')
+  		.append($('<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">')
+			.append($('<i class="fa fa-plus-circle">')))
   		.append($('<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">')
 			.append($('<i class="fa fa-minus-circle">'))));
 
@@ -24,7 +31,7 @@ $('body').on('click','.bt_del',function(){
 	$(this).closest('tr').remove();
 });
 $("#table_cmd_Entree").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
-$("#table_cmd_Sorite").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+$("#table_cmd_Sortie").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 function addCmdToTable(_cmd) {
 
 	if (!isset(_cmd)) {
