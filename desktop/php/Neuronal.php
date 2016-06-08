@@ -100,7 +100,8 @@ $eqLogics = eqLogic::byType('Neuronal');
 				</div>
 			</fieldset> 
         </form>
-		<legend>{{Commande}}</legend>
+        <div class="col-sm-6">
+		<legend>{{Commande d'entrée du neurone}}</legend>
 		<table id="table_cmd" class="table table-bordered table-condensed">
             <thead>
                 <tr>
@@ -113,7 +114,22 @@ $eqLogics = eqLogic::byType('Neuronal');
             <tbody>
             </tbody>
         </table>
-
+	</div>
+	        <div class="col-sm-6">
+		<legend>{{Commande de sortie du neurone}}</legend>
+		<table id="table_cmd" class="table table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th width="20px">{{}}</th>
+                    <th>{{Nom}}</th>
+					<th>{{Action}}</th>
+                    <th>{{}}</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+	</div>
     <form class="form-horizontal">
         <fieldset>
             <div class="form-actions">
