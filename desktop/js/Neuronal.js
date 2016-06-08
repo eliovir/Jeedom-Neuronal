@@ -16,7 +16,7 @@ $('body').on('click','.bt_add',function(){
 			.append($('<i class="fa fa-plus-circle">'))));
   	tr.append($('<td>')
   		.append($('<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">')
-			.append($('<i class="fa fa-list-alt">'))));
+			.append($('<i class="fa fa-minus-circle">'))));
 
 	$(this).closest('table').append(tr);
 });
