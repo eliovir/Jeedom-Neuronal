@@ -57,6 +57,7 @@ $eqLogics = eqLogic::byType('Neuronal');
 						<div class="col-sm-3">
 							<input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
 							<input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom du groupe}}"/>
+					
 						</div>
 					</div>
 					<div class="form-group">
@@ -96,8 +97,6 @@ $eqLogics = eqLogic::byType('Neuronal');
 						<div class="col-sm-9">
 							<input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-label-text="{{Calibration}}" data-l1key="configuration" data-l2key="calibration" />
 						</div>
-					<!--input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ES_Neurone" style="display : none;"-->
-					<input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ES_Neurone">
 					</div>
 				</div>
 			</fieldset> 
