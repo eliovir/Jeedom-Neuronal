@@ -27,6 +27,12 @@ function addCmdToTable(_cmd) {
 	var Table=$("#table_cmd_Entree");
 	if(_cmd.name!="Entree")
 		Table=$("#table_cmd_Sortie");
+	
+	Table.addClass("cmd").data("cmd_id",init(_cmd.id));
+	Table.append($('<input type="hidden" class="cmdAttr form-control input-sm" data-l1key="id">'))
+	Table.append($('<input type="hidden" class="cmdAttr form-control input-sm" data-l1key="name" value="' + init(_cmd.name) + '">')))
+	Table.append($('<input type="hidden" class="cmdAttr" data-l1key="type" value="action" />'))
+	Table.append($('<input type="hidden" class="cmdAttr" data-l1key="subType" value="other" />'))
 	$.each( _cmd.configuration,function(){
 		addToTable(Table);
 	})
