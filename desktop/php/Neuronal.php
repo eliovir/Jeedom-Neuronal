@@ -104,11 +104,11 @@ $eqLogics = eqLogic::byType('Neuronal');
 		</form>
 		<div class="col-sm-6">
 			<legend>{{Commande d'entrée du neurone}}</legend>
-			<table id="table_cmd_Entree">
+			<table id="table_cmd_Entree" class="table table-bordered table-condensed">
 				<thead>
 			                <tr>
 			                    	<th>{{Commande}}</th>
-						<th>{{Tolérance}}</th>
+						<!--th>{{Tolérance}}</th-->
 						<th>{{Action}}</th>
 			                </tr>
 			        </thead>
@@ -120,9 +120,9 @@ $eqLogics = eqLogic::byType('Neuronal');
 								<i class="fa fa-list-alt"></i>
 							</a>
 						</td>
-						<td>
+						<!--td>
 							<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="Entree_1_Tolerance" >
-						</td>
+						</td-->
 						<td>
 							<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">
 								<i class="fa fa-plus-circle"></i>
@@ -137,11 +137,11 @@ $eqLogics = eqLogic::byType('Neuronal');
 		</div>
 		<div class="col-sm-6">
 			<legend>{{Commande de sortie du neurone}}</legend>
-			<table id="table_cmd_Sortie">
+			<table id="table_cmd_Sortie" class="table table-bordered table-condensed">
 				<thead>
 			                <tr>
 			                    	<th>{{Commande}}</th>
-						<th>{{Tolérance}}</th>
+						<!--th>{{Tolérance}}</th-->
 						<th>{{Action}}</th>
 			                </tr>
 			        </thead>
@@ -153,9 +153,9 @@ $eqLogics = eqLogic::byType('Neuronal');
 								<i class="fa fa-list-alt"></i>
 							</a>
 						</td>
-						<td>
+						<!--td>
 							<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="Sortie_1_Tolerance" >
-						</td>
+						</td-->
 						<td>
 							<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">
 								<i class="fa fa-plus-circle"></i>
