@@ -36,6 +36,26 @@ class Neuronal extends eqLogic {
 		$cmd .= ' >> ' . log::getPathToLog('Neuronal_update') . ' 2>&1 &';
 		exec($cmd);
 	}  
+	public function cron(){
+		if($this->getConfiguration('calibration')){
+			$listener = listener::byClassAndFunction('Neuronal', 'CreateApprentissageTable');
+			if (!is_object($listener)) {
+				$listener = new cron();
+				$listener->setClass('Neuronal');
+				$listener->setFunction('CreateApprentissageTable');
+				$listener->setEnable(1);
+				foreach ($this->getCmd() as $cmdNeurone) {
+					for($loop=1;isset($cmdNeurone->getConfiguration($loop));$loop++) {
+						$ES_Neurone=json_decode($cmdNeurone->getConfiguration($loop));
+						$listener->addEvent($ES_Neurone['name'], 'cmd');
+					}
+				}
+				$listener->save();
+			}
+			$listener->start();
+			$listener->run();
+		}
+	}
 	public function postSave() {
 		self::AddCommande($this,'Entree','Entree');
 		self::AddCommande($this,'Sortie','Sortie');
