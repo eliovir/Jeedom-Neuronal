@@ -10,7 +10,7 @@ $('body').on( 'click','.bt_selectCmdExpression', function() {
 	});
 });  
 $('body').on('click','.bt_add',function(){
-	addToTable($(this).closest('table'),'');
+	addToTable($(this).closest('table'));
 });
 $('body').on('click','.bt_del',function(){
 	$(this).closest('tr').remove();
@@ -29,7 +29,12 @@ function addCmdToTable(_cmd) {
     if(_cmd.name!="Entree")
     	Table=$("#table_cmd_Sortie");
     	$.each( _cmd.configuration,function(){
-    		var tr =$('<tr>');
+    		addCmdToTable(Table);
+    	})
+    	Table.setValues(_cmd, '.cmdAttr');
+}
+function addCmdToTable(Table) {
+		var tr =$('<tr>');
   		tr.append($('<td>')
 	  		.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="id" data-l3key="name" style="width:85%;display: inline-block;margin: 5px;">'))
 	  		.append($('<a style="display : inline-block;margin:5px;" class="btn btn-default btn-xs cursor bt_selectCmdExpression" title="Rechercher une commande">')
@@ -43,6 +48,4 @@ function addCmdToTable(_cmd) {
 					.append($('<i class="fa fa-minus-circle">'))));
 		
 			Table.append(tr);
-    	})
-    	Table.setValues(_cmd, '.cmdAttr');
 }
