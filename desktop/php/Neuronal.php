@@ -111,6 +111,10 @@ $eqLogics = eqLogic::byType('Neuronal');
 		</form>
 		<div class="col-sm-6">
 			<legend>{{Commande d'entrée du neurone}}</legend>
+			<input class="cmdAttr form-control input-sm" data-l1key="id">
+			<input class="cmdAttr form-control input-sm" data-l1key="name">
+			<input class="cmdAttr form-control input-sm" data-l1key="type">
+			<input class="cmdAttr form-control input-sm" data-l1key="subtype">
 			<table id="table_cmd_Entree" class="table table-bordered table-condensed">
 				<thead>
 			                <tr>
@@ -124,6 +128,10 @@ $eqLogics = eqLogic::byType('Neuronal');
 		</div>
 		<div class="col-sm-6">
 			<legend>{{Commande de sortie du neurone}}</legend>
+			<input class="cmdAttr form-control input-sm" data-l1key="id">
+			<input class="cmdAttr form-control input-sm" data-l1key="name">
+			<input class="cmdAttr form-control input-sm" data-l1key="type">
+			<input class="cmdAttr form-control input-sm" data-l1key="subtype">
 			<table id="table_cmd_Sortie" class="table table-bordered table-condensed">
 				<thead>
 			                <tr>
