@@ -96,8 +96,9 @@ $eqLogics = eqLogic::byType('Neuronal');
 						<div class="col-sm-9">
 							<input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-label-text="{{Calibration}}" data-l1key="configuration" data-l2key="calibration" />
 						</div>
+					<!--input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ES_Neurone" style="display : none;"-->
+					<input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ES_Neurone">
 					</div>
-					<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ES_Neurone" style="display : none;">
 				</div>
 			</fieldset> 
 		</form>
