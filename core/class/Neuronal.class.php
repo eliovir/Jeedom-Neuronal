@@ -6,13 +6,14 @@ class Neuronal extends eqLogic {
 	public static function CreateApprentissageTable() {
 		$Table=json_decode($this->getConfiguration('ApprentissageTable'));
 		foreach ($this->getCmd() as $cmdNeurone) {
-			for($loop=1;isset($cmdNeurone->getConfiguration($loop));$loop++) {
-				$ES_Neurone=json_decode($cmdNeurone->getConfiguration($loop));
+	        	 $loop=1;
+		         while($cmdNeurone->getConfiguration($loop)!="") {
+			 	$ES_Neurone=json_decode($cmdNeurone->getConfiguration($loop));
 				$cmd = cmd::byId(str_replace('#', '', $ES_Neurone['name']));
 				if(is_object($cmd)){
 					$Table[count($Table)][$cmd->getName()]=$cmd->execCmd();
 				}
-				
+	        		 $loop++;
 			}
 		}
 		$this->setConfiguration('ApprentissageTable',json_encode($Table));
@@ -36,7 +37,7 @@ class Neuronal extends eqLogic {
 		$cmd .= ' >> ' . log::getPathToLog('Neuronal_update') . ' 2>&1 &';
 		exec($cmd);
 	}  
-/*	public static function cron(){
+	public static function cron(){
 		if($this->getConfiguration('calibration')){
 			$listener = listener::byClassAndFunction('Neuronal', 'CreateApprentissageTable');
 			if (!is_object($listener)) {
@@ -45,9 +46,11 @@ class Neuronal extends eqLogic {
 				$listener->setFunction('CreateApprentissageTable');
 				$listener->setEnable(1);
 				foreach ($this->getCmd() as $cmdNeurone) {
-					for($loop=1;isset($cmdNeurone->getConfiguration($loop));$loop++) {
+					$loop=1;
+                  			while($cmdNeurone->getConfiguration($loop)!="") {
 						$ES_Neurone=json_decode($cmdNeurone->getConfiguration($loop));
 						$listener->addEvent($ES_Neurone['name'], 'cmd');
+                				$loop++;
 					}
 				}
 				$listener->save();
@@ -55,7 +58,7 @@ class Neuronal extends eqLogic {
 			$listener->start();
 			$listener->run();
 		}
-	}*/
+	}
 	public function postSave() {
 		self::AddCommande($this,'Entree','Entree');
 		self::AddCommande($this,'Sortie','Sortie');
