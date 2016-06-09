@@ -32,7 +32,25 @@ class Neuronal extends eqLogic {
 		$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install.sh';
 		$cmd .= ' >> ' . log::getPathToLog('Neuronal_update') . ' 2>&1 &';
 		exec($cmd);
-	}
+	}  
+  public function postSave() {
+		self::AddCommande($this,'Entree','Entree');
+		self::AddCommande($this,'Sortie','Sortie');
+    }
+  public static function AddCommande($eqLogic,$Name,$_logicalId) {
+		$Commande = $eqLogic->getCmd(null,$_logicalId);
+		if (!is_object($Commande))
+		{
+			$Commande = new NeuronalCmd();
+			$Commande->setId(null);
+			$Commande->setName($Name);
+			$Commande->setLogicalId($_logicalId);
+			$Commande->setEqLogic_id($eqLogic->getId());
+			$Commande->setType('info');
+			$Commande->setSubType('other');
+		}
+		$Commande->save();
+	
 
 }
 class NeuronalCmd extends cmd {
