@@ -1,3 +1,10 @@
+$('.eqLogicAttr#[data-l1key=configuration][data-l2key=ES_Neurone]').on('change',function(){
+	JSON.parse($(this).val()).forEach(function(element, index){
+		alert("a[" + index + "] = " + element);
+		//addToTable(table,_cmd);
+	})
+	$(this).remove();
+})
 $('body').on( 'click','.bt_selectCmdExpression', function() {
 	var TypeCmd="action";
 	if($(this).closest('table').attr('id')=="table_cmd_Entree") 
@@ -10,9 +17,26 @@ $('body').on( 'click','.bt_selectCmdExpression', function() {
 	});
 });  
 $('body').on('click','.bt_add',function(){
-	var Name="";
-	var NbCmd=$(this).closest('table').find('tr').length+1;
-	if($(this).closest('table').attr('id')=="table_cmd_Entree") 
+	addToTable(if($(this).closest('table'),'')
+});
+$('body').on('click','.bt_del',function(){
+	$(this).closest('tr').remove();
+});
+$("#table_cmd_Entree").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+$("#table_cmd_Sortie").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+function addCmdToTable(_cmd) {
+
+	if (!isset(_cmd)) {
+        var _cmd = {};
+    }
+    if (!isset(_cmd.configuration)) {
+        _cmd.configuration = {};
+    }
+}
+function addToTable(table,_cmd) {
+    var Name="";
+	var NbCmd=table.find('tr').length+1;
+	if(table.attr('id')=="table_cmd_Entree") 
 		Name="Entree_"+NbCmd;
 	else
 		Name="Sortie_"+NbCmd;
@@ -29,19 +53,6 @@ $('body').on('click','.bt_add',function(){
   		.append($('<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">')
 			.append($('<i class="fa fa-minus-circle">'))));
 
-	$(this).closest('table').append(tr);
-});
-$('body').on('click','.bt_del',function(){
-	$(this).closest('tr').remove();
-});
-$("#table_cmd_Entree").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
-$("#table_cmd_Sortie").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
-function addCmdToTable(_cmd) {
-
-	if (!isset(_cmd)) {
-        var _cmd = {};
-    }
-    if (!isset(_cmd.configuration)) {
-        _cmd.configuration = {};
-    }
+	table.append(tr);
+	table.find('tbody tr:last').setValues(_cmd, '.eqLogicAttr');
 }
