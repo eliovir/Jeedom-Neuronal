@@ -6,7 +6,7 @@ $('body').on( 'click','.bt_selectCmdExpression', function() {
 	var _this=this;
 	$(this).value()
 	jeedom.cmd.getSelectModal({cmd: {type: TypeCmd},eqLogic: {eqType_name : ''}}, function (result) {
-		$(_this).closest('td').find('.eqLogicAttr[data-l1key=configuration][data-l2key=ES_Neurone]').val(result.human);
+		$(_this).closest('td').find('.cmdAttr[data-l1key=configuration][data-l2key=id][data-l3key=name]').val(result.human);
 	});
 });  
 $('body').on('click','.bt_add',function(){
