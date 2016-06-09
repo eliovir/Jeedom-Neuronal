@@ -17,8 +17,8 @@ $('body').on('click','.bt_add',function(){
   		.append($('<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="'+Name+'_Cmd">'))
   		.append($('<a style="display : inline-block;margin:5px;" class="btn btn-default btn-xs cursor bt_selectCmdExpression" title="Rechercher une commande">')
 			.append($('<i class="fa fa-list-alt">'))));
-  	tr.append($('<td>')
-  		.append($('<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="'+Name+'_Tolerance">')));
+  //	tr.append($('<td>')
+  //		.append($('<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="'+Name+'_Tolerance">')));
   	tr.append($('<td>')
   		.append($('<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">')
 			.append($('<i class="fa fa-plus-circle">')))
