@@ -42,7 +42,7 @@ function addCmdToTable(_cmd) {
 		  		.append($('<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">')
 					.append($('<i class="fa fa-minus-circle">'))));
 		
-			table.append(tr);
+			Table.append(tr);
     	})
     	Table.setValues(_cmd, '.cmdAttr');
 }
