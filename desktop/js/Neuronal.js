@@ -11,7 +11,7 @@ $('body').on( 'click','.bt_selectCmdExpression', function() {
 });  
 $('body').on('click','.bt_add',function(){
 	var Name="";
-	var NbCmd=$(this).closest('td').find('tr').length+1;
+	var NbCmd=$(this).closest('table').find('tr').length+1;
 	if($(this).closest('table').attr('id')=="table_cmd_Entree") 
 		Name="Entree_"+NbCmd;
 	else
