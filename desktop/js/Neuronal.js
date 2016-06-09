@@ -1,10 +1,15 @@
 $('.eqLogicAttr[data-l1key=configuration][data-l2key=ES_Neurone]').on('change',function(){
-	alert($(this).val());
-/*	JSON.parse($(this).val()).forEach(function(element, index){
-		alert("a[" + index + "] = " + element);
-		//addToTable(table,_cmd);
-	})
-	$(this).remove();*/
+	if($(this).val()==""){
+		JSON.parse($(this).val()).forEach(function(element, index){
+			alert("a[" + index + "] = " + element);
+			//addToTable(table,_cmd);
+		})
+		$(this).remove();
+	}
+	else{
+		addToTable($("#table_cmd_Entree"),'');
+		addToTable($("#table_cmd_Sortie"),'');
+	}
 })
 $('body').on( 'click','.bt_selectCmdExpression', function() {
 	var TypeCmd="action";
