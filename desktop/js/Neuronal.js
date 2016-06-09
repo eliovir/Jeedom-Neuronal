@@ -39,7 +39,7 @@ function addCmdToTable(_cmd) {
 	Table.setValues(_cmd, '.cmdAttr');
 }
 function addToTable(_Table) {
-	var Nb=_Table.find('tr').length()+1;
+	var Nb=_Table.find('tbody tr').length + 1;
 	var tr =$('<tr>');
   	tr.append($('<td>')
 		.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="'+Nb+'" data-l3key="name" style="width:85%;display: inline-block;margin: 5px;">'))
@@ -52,5 +52,5 @@ function addToTable(_Table) {
 			.append($('<i class="fa fa-plus-circle">')))
 		.append($('<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">')
 			.append($('<i class="fa fa-minus-circle">'))));
-	_Table.append(tr);
+	_Table.find('tbody').append(tr);
 }
