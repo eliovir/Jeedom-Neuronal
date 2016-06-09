@@ -33,11 +33,11 @@ class Neuronal extends eqLogic {
 		$cmd .= ' >> ' . log::getPathToLog('Neuronal_update') . ' 2>&1 &';
 		exec($cmd);
 	}  
-  public function postSave() {
+	public function postSave() {
 		self::AddCommande($this,'Entree','Entree');
 		self::AddCommande($this,'Sortie','Sortie');
-    }
-  public static function AddCommande($eqLogic,$Name,$_logicalId) {
+	}
+	public static function AddCommande($eqLogic,$Name,$_logicalId) {
 		$Commande = $eqLogic->getCmd(null,$_logicalId);
 		if (!is_object($Commande))
 		{
@@ -50,7 +50,7 @@ class Neuronal extends eqLogic {
 			$Commande->setSubType('other');
 		}
 		$Commande->save();
-	
+	}
 
 }
 class NeuronalCmd extends cmd {
