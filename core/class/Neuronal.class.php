@@ -5,14 +5,17 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 class Neuronal extends eqLogic {
 	public static function CreateApprentissageTable() {
 		$Table=json_decode($this->getConfiguration('ApprentissageTable'));
-		$ES_Neurone=json_decode($this->getConfiguration('ES_Neurone'));
-		foreach ($ES_Neurone as $ES) {
-			$cmd = cmd::byId(str_replace('#', '', $ES));
-			if(is_object($cmd)){
-				$Table[count($Table)][$cmd->getName()]=$cmd->execCmd();
+		foreach ($this->getCmd() as $cmdNeurone) {
+			for($loop=1;isset($cmdNeurone->getConfiguration($loop));$loop++) {
+				$ES_Neurone=json_decode($cmdNeurone->getConfiguration($loop));
+				$cmd = cmd::byId(str_replace('#', '', $ES_Neurone['name']));
+				if(is_object($cmd)){
+					$Table[count($Table)][$cmd->getName()]=$cmd->execCmd();
+				}
+				
 			}
 		}
-		return $Table;
+		$this->setConfiguration('ApprentissageTable',$Table);
 	}
 	public static function dependancy_info() {
 		$return = array();
