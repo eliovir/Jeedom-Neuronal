@@ -91,6 +91,12 @@ $eqLogics = eqLogic::byType('Neuronal');
 							?>
 						</div>
 					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" >{{Calibration}}</label>
+						<div class="col-sm-9">
+							<input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-label-text="{{Calibration}}" data-l1key="configuration" data-l2key="calibration" />
+						</div>
+					</div>
 				</div>
 			</fieldset> 
 		</form>
@@ -115,7 +121,7 @@ $eqLogics = eqLogic::byType('Neuronal');
 			        <tbody>
 					<tr>
 						<td>
-							<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="Entree_1_Cmd">
+							<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="Entree_1_Cmd" style="width:85%;display: inline-block;margin: 5px; ">
 							<a style="display : inline-block;margin:5px;" class="btn btn-default btn-xs cursor bt_selectCmdExpression" title="Rechercher une commande">
 								<i class="fa fa-list-alt"></i>
 							</a>
@@ -148,7 +154,7 @@ $eqLogics = eqLogic::byType('Neuronal');
 			        <tbody>
 					<tr>
 						<td>
-							<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="Sortie_1_Cmd">
+							<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="Sortie_1_Cmd" style="width:85%;display: inline-block;margin: 5px;">
 							<a style="display : inline-block;margin:5px;" class="btn btn-default btn-xs cursor bt_selectCmdExpression" title="Rechercher une commande">
 								<i class="fa fa-list-alt"></i>
 							</a>
