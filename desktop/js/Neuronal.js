@@ -27,10 +27,10 @@ function addCmdToTable(_cmd) {
 	var Table=$("#table_cmd_Entree");
 	if(_cmd.name!="Entree")
 		Table=$("#table_cmd_Sortie");
-    $.each( _cmd.configuration,function(){
+	$.each( _cmd.configuration,function(){
 		addToTable(Table);
 	})
-  Table.setValues(_cmd, '.cmdAttr');
+	Table.setValues(_cmd, '.cmdAttr');
 }
 function addToTable(_Table) {
 	var tr =$('<tr>');
