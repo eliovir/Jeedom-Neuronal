@@ -1,4 +1,4 @@
-$('.eqLogicAttr#[data-l1key=configuration][data-l2key=ES_Neurone]').on('change',function(){
+$('.eqLogicAttr[data-l1key=configuration][data-l2key=ES_Neurone]').on('change',function(){
 	JSON.parse($(this).val()).forEach(function(element, index){
 		alert("a[" + index + "] = " + element);
 		//addToTable(table,_cmd);
