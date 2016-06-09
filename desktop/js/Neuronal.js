@@ -1,7 +1,11 @@
 $('body').on( 'click','.bt_selectCmdExpression', function() {
+	var TypeCmd="action";
+	if($(this).closest('table').attr('id')=="table_cmd_Entree") 
+		TypeCmd="info";
+	var tr =$('<tr>');
 	var _this=this;
 	$(this).value()
-	jeedom.cmd.getSelectModal({cmd: {type: ''},eqLogic: {eqType_name : ''}}, function (result) {
+	jeedom.cmd.getSelectModal({cmd: {type: TypeCmd},eqLogic: {eqType_name : ''}}, function (result) {
 		$(_this).closest('td').find('.eqLogicAttr[data-l1key=configuration][data-l2key=ES_Neurone]').val(result.human);
 	});
 });  
