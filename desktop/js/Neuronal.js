@@ -18,7 +18,7 @@ $('body').on('click','.bt_add',function(){
 		Name="Sortie_"+NbCmd;
 	var tr =$('<tr>');
   	tr.append($('<td>')
-  		.append($('<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="'+Name+'_Cmd">'))
+  		.append($('<input class="eqLogicAttr form-control input-sm " data-l1key="configuration" data-l2key="ES_Neurone" data-l3key="'+Name+'_Cmd" style="width:85%;display: inline-block;margin: 5px;">'))
   		.append($('<a style="display : inline-block;margin:5px;" class="btn btn-default btn-xs cursor bt_selectCmdExpression" title="Rechercher une commande">')
 			.append($('<i class="fa fa-list-alt">'))));
   //	tr.append($('<td>')
