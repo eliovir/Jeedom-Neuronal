@@ -50,7 +50,6 @@ class Neuronal extends eqLogic {
 				$listener = new listener();
 				$listener->setClass('Neuronal');
 				$listener->setFunction('CreateApprentissageTable');
-				$listener->setEnable(1);
 				foreach ($this->getCmd() as $cmdNeurone) {
 					$loop=1;
                   			while($cmdNeurone->getConfiguration($loop)!="") {
