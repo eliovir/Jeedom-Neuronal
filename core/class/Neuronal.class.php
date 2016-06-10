@@ -3,9 +3,14 @@
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class Neuronal extends eqLogic {
-	public static function CreateApprentissageTable() {
-		$Table=json_decode($this->getConfiguration('ApprentissageTable'));
+	public function CreateApprentissageTable() {
+		$Table=array();
+		if ($this->getConfiguration('ApprentissageTable')!="")
+			$Table=json_decode($this->getConfiguration('ApprentissageTable'));
+		else
+			log::add('Neuronal','debug','Creation de la table de calibration pour le neurone :'.$this->getHumanName());
 		foreach ($this->getCmd() as $cmdNeurone) {
+			log::add('Neuronal','debug','Ajout d\'une ligne a la table de calibration pour le neurone :'.$this->getHumanName());
 	        	 $loop=1;
 		         while($cmdNeurone->getConfiguration($loop)!="") {
 			 	$ES_Neurone=json_decode($cmdNeurone->getConfiguration($loop));
@@ -17,6 +22,7 @@ class Neuronal extends eqLogic {
 			}
 		}
 		$this->setConfiguration('ApprentissageTable',json_encode($Table));
+		log::add('Neuronal','debug','Mise a jours de la table de calibration pour le neurone :'.$this->getHumanName());
 	}
 	public static function dependancy_info() {
 		$return = array();
@@ -47,6 +53,8 @@ class Neuronal extends eqLogic {
 		//if($this->getConfiguration('calibration')){
 			$listener = listener::byClassAndFunction('Neuronal', 'CreateApprentissageTable');
 			if (!is_object($listener)) {
+				
+				log::add('Neuronal','debug','Creation d\'un écouteur d\'evenement :'.$this->getHumanName());
 				$listener = new listener();
 				$listener->setClass('Neuronal');
 				$listener->setFunction('CreateApprentissageTable');
@@ -55,13 +63,14 @@ class Neuronal extends eqLogic {
                   			while($cmdNeurone->getConfiguration($loop)!="") {
 						$ES_Neurone=json_decode($cmdNeurone->getConfiguration($loop));
 						$listener->addEvent($ES_Neurone['name'], 'cmd');
+						log::add('Neuronal','debug','Ajout de '.$ES_Neurone['name'].' de l\'écouteur d\'evenement :'.$this->getHumanName());
                 				$loop++;
 					}
 				}
 				$listener->save();
 			}
-			$listener->start();
 			$listener->run();
+			log::add('Neuronal','debug','Lancement de l\'écouteur d\'evenement :'.$this->getHumanName());
 	//	}
 	}
 	public function postSave() {
