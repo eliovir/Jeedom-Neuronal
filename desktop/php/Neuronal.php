@@ -114,7 +114,10 @@ $eqLogics = eqLogic::byType('Neuronal');
 			</div>
 			<div class="col-sm-6">	
 				<input type="hidden" class="eqLogicAttr" data-l1key="configuration" data-l2key="ApprentissageTable"/>
-				<table id="table_Calibration" class="table table-bordered table-condensed tablesorter"></table>
+				<table id="table_Calibration" class="table table-bordered table-condensed tablesorter">	
+					<thead></thead>
+					<tbody></tbody>
+				</table>
 				<form class="form-horizontal">
 					<fieldset>
 						<div class="form-actions">
