@@ -43,7 +43,7 @@ function addCmdToTable(_cmd) {
 	Table.parent().append($('<input type="hidden" class="cmdAttr form-control input-sm" data-l1key="logicalId" value="' + init(_cmd.logicalId) + '">'));
 	Table.parent().append($('<input type="hidden" class="cmdAttr" data-l1key="type" value="action" />'));
 	Table.parent().append($('<input type="hidden" class="cmdAttr" data-l1key="subType" value="other" />'));
-	$('#table_Calibration').append($('<thead>')).append($('<tr>');
+	$('#table_Calibration').append($('<thead>').append($('<tr>')));
 	$.each( _cmd.configuration,function(){
 		addToTable(Table);
 	})
