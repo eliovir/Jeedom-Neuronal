@@ -1,6 +1,12 @@
 $('body').on( 'change','.eqLogicAttr[data-l1key=configuration][data-l2key=ApprentissageTable]', function() {
-	if($(this).value() =""){
+	if($(this).val() ==""){
 		$('#table_Calibration').append($('<tbody>'));
+		var loop=0;
+		var Calibration=JSON.parse($(this).val());
+		$.each(Calibration,function(){
+			$('#table_Calibration tbody').append($('<tr>').append($('<td>').text(Calibration.loop));
+			loop++;
+		})
 	}
 }); $('body').on( 'click','.bt_selectCmdExpression', function() {
 	var TypeCmd="action";
