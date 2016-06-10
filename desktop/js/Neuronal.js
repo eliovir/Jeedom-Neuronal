@@ -1,5 +1,5 @@
 $('body').on( 'change','.eqLogicAttr[data-l1key=configuration][data-l2key=ApprentissageTable]', function() {
-	if($(this).val() ==""){
+	if($(this).val() !=""){
 		$('#table_Calibration').append($('<tbody>'));
 		var loop=0;
 		var Calibration=JSON.parse($(this).val());
