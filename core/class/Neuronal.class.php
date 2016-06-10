@@ -69,7 +69,7 @@ class Neuronal extends eqLogic {
 				}
 				$listener->save();
 			}
-			$listener->run();
+			//$listener->run();
 			log::add('Neuronal','debug','Lancement de l\'écouteur d\'evenement :'.$this->getHumanName());
 	//	}
 	}
