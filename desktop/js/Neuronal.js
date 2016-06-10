@@ -1,10 +1,13 @@
-$('body').on( 'click','.bt_selectCmdExpression', function() {
+$('body').on( 'change','.eqLogicAttr[data-l1key=configuration][data-l2key=ApprentissageTable]', function() {
+	if($(this).value() =""){
+		$('#table_Calibration').append($('<tbody>'));
+	}
+}); $('body').on( 'click','.bt_selectCmdExpression', function() {
 	var TypeCmd="action";
 	if($(this).closest('table').attr('id')=="table_cmd_Entree") 
 		TypeCmd="info";
 	var tr =$('<tr>');
 	var _this=this;
-	$(this).value()
 	jeedom.cmd.getSelectModal({cmd: {type: TypeCmd},eqLogic: {eqType_name : ''}}, function (result) {
 		$(_this).closest('td').find('.cmdAttr[data-l1key=configuration][data-l3key=name]').val(result.human);
 	});
@@ -34,13 +37,16 @@ function addCmdToTable(_cmd) {
 	Table.parent().append($('<input type="hidden" class="cmdAttr form-control input-sm" data-l1key="logicalId" value="' + init(_cmd.logicalId) + '">'));
 	Table.parent().append($('<input type="hidden" class="cmdAttr" data-l1key="type" value="action" />'));
 	Table.parent().append($('<input type="hidden" class="cmdAttr" data-l1key="subType" value="other" />'));
+	$('#table_Calibration').append($('<thead>'));
 	$.each( _cmd.configuration,function(){
+		
 		addToTable(Table);
 	})
 	Table.setValues(_cmd, '.cmdAttr');
 }
 function addToTable(_Table) {
 	var Nb=_Table.find('tbody tr').length + 1;
+	$('#table_Calibration thead').append($('<tr>').append($('<th class="cmdAttr" data-l1key="configuration" data-l2key="'+Nb+'" data-l3key="name">')));
 	var tr =$('<tr>');
   	tr.append($('<td>')
 		.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="'+Nb+'" data-l3key="name" style="width:85%;display: inline-block;margin: 5px;">'))
