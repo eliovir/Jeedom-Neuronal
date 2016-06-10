@@ -36,12 +36,18 @@ class Neuronal extends eqLogic {
 		$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install.sh';
 		$cmd .= ' >> ' . log::getPathToLog('Neuronal_update') . ' 2>&1 &';
 		exec($cmd);
-	}  
-	public static function cron(){
-		if($this->getConfiguration('calibration')){
+	}
+	public static function cron() {
+		foreach(eqLogic::byType('Neuronal') as $Equipement){		
+			if($Equipement->getIsEnable())
+				$Equipement->createListener();
+		}
+	}
+	public function createListener(){
+		//if($this->getConfiguration('calibration')){
 			$listener = listener::byClassAndFunction('Neuronal', 'CreateApprentissageTable');
 			if (!is_object($listener)) {
-				$listener = new cron();
+				$listener = new listener();
 				$listener->setClass('Neuronal');
 				$listener->setFunction('CreateApprentissageTable');
 				$listener->setEnable(1);
@@ -57,11 +63,12 @@ class Neuronal extends eqLogic {
 			}
 			$listener->start();
 			$listener->run();
-		}
+	//	}
 	}
 	public function postSave() {
 		self::AddCommande($this,'Entree','Entree');
 		self::AddCommande($this,'Sortie','Sortie');
+		$this->createListener();
 	}
 	public static function AddCommande($eqLogic,$Name,$_logicalId) {
 		$Commande = $eqLogic->getCmd(null,$_logicalId);
