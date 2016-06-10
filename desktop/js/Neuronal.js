@@ -52,7 +52,7 @@ function addCmdToTable(_cmd) {
 }
 function addToTable(_Table) {
 	var Nb=_Table.find('tbody tr').length + 1;
-	$('#table_Calibration thead tr').append($('<th class="cmdCalibration" data-l1key="configuration" data-l2key="'+Nb+'" data-l3key="name">')));
+	$('#table_Calibration thead tr').append($('<th class="cmdCalibration" data-l1key="configuration" data-l2key="'+Nb+'" data-l3key="name">'));
 	var tr =$('<tr>');
   	tr.append($('<td>')
 		.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="'+Nb+'" data-l3key="name" style="width:85%;display: inline-block;margin: 5px;">'))
