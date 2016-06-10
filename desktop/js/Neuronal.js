@@ -4,7 +4,7 @@ $('body').on( 'change','.eqLogicAttr[data-l1key=configuration][data-l2key=Appren
 		var loop=0;
 		var Calibration=JSON.parse($(this).val());
 		$.each(Calibration,function(){
-			$('#table_Calibration tbody').append($('<tr>').append($('<td>').text(Calibration.loop));
+			$('#table_Calibration tbody').append($('<tr>').append($('<td>').text(Calibration.loop)));
 			loop++;
 		})
 	}
