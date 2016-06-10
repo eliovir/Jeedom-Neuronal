@@ -19,7 +19,7 @@ $('body').on( 'change','.eqLogicAttr[data-l1key=configuration][data-l2key=Appren
 	});
 });  
 $('body').on('click','.bt_add',function(){
-	addToTable($(this).closest('table'));
+	addToTable($(this).closest('table'),'');
 });
 $('body').on('click','.bt_del',function(){
 	$(this).closest('tr').remove();
@@ -45,14 +45,15 @@ function addCmdToTable(_cmd) {
 	Table.parent().append($('<input type="hidden" class="cmdAttr" data-l1key="subType" value="other" />'));
 	$('#table_Calibration').append($('<thead>').append($('<tr>')));
 	$.each( _cmd.configuration,function(){
-		addToTable(Table);
+		addToTable(Table,_cmd.name);
 	})
 	Table.setValues(_cmd, '.cmdAttr');
-	$('#table_Calibration').setValues(_cmd, '.cmdCalibration');
+	$('#table_Calibration').setValues(_cmd, '.cmdCalibration '+_cmd.name);
 }
-function addToTable(_Table) {
+function addToTable(_Table, type) {
 	var Nb=_Table.find('tbody tr').length + 1;
-	$('#table_Calibration thead tr').append($('<th class="cmdCalibration" data-l1key="configuration" data-l2key="'+Nb+'" data-l3key="name">'));
+	if (type!="")
+		$('#table_Calibration thead tr').append($('<th class="cmdCalibration '+type+'" data-l1key="configuration" data-l2key="'+Nb+'" data-l3key="name">'));
 	var tr =$('<tr>');
   	tr.append($('<td>')
 		.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="'+Nb+'" data-l3key="name" style="width:85%;display: inline-block;margin: 5px;">'))
