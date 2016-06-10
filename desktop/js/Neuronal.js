@@ -43,16 +43,16 @@ function addCmdToTable(_cmd) {
 	Table.parent().append($('<input type="hidden" class="cmdAttr form-control input-sm" data-l1key="logicalId" value="' + init(_cmd.logicalId) + '">'));
 	Table.parent().append($('<input type="hidden" class="cmdAttr" data-l1key="type" value="action" />'));
 	Table.parent().append($('<input type="hidden" class="cmdAttr" data-l1key="subType" value="other" />'));
-	$('#table_Calibration').append($('<thead>'));
+	$('#table_Calibration').append($('<thead>')).append($('<tr>');
 	$.each( _cmd.configuration,function(){
-		
 		addToTable(Table);
 	})
 	Table.setValues(_cmd, '.cmdAttr');
+	$('#table_Calibration').setValues(_cmd, '.cmdCalibration');
 }
 function addToTable(_Table) {
 	var Nb=_Table.find('tbody tr').length + 1;
-	$('#table_Calibration thead').append($('<tr>').append($('<th class="cmdAttr" data-l1key="configuration" data-l2key="'+Nb+'" data-l3key="name">')));
+	$('#table_Calibration thead tr').append($('<th class="cmdCalibration" data-l1key="configuration" data-l2key="'+Nb+'" data-l3key="name">')));
 	var tr =$('<tr>');
   	tr.append($('<td>')
 		.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="'+Nb+'" data-l3key="name" style="width:85%;display: inline-block;margin: 5px;">'))
