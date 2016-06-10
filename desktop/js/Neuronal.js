@@ -1,6 +1,5 @@
 $('body').on( 'change','.eqLogicAttr[data-l1key=configuration][data-l2key=ApprentissageTable]', function() {
 	if($(this).val() !=""){
-		$('#table_Calibration').append($('<tbody>'));
 		var loop=0;
 		var Calibration=JSON.parse($(this).val());
 		$.each(Calibration,function(){
@@ -43,7 +42,6 @@ function addCmdToTable(_cmd) {
 	Table.parent().append($('<input type="hidden" class="cmdAttr form-control input-sm" data-l1key="logicalId" value="' + init(_cmd.logicalId) + '">'));
 	Table.parent().append($('<input type="hidden" class="cmdAttr" data-l1key="type" value="action" />'));
 	Table.parent().append($('<input type="hidden" class="cmdAttr" data-l1key="subType" value="other" />'));
-	$('#table_Calibration').append($('<thead>').append($('<tr>')));
 	$.each( _cmd.configuration,function(){
 		addToTable(Table,_cmd.name);
 	})
