@@ -20,7 +20,7 @@ $('body').on( 'click','.bt_selectCmdExpression', function() {
 	});
 });  
 $('body').on('click','.bt_add',function(){
-	addToTable($(this).closest('table');
+	addToTable($(this).closest('table'));
 });
 $('body').on('click','.bt_del',function(){
 	$(this).closest('tr').remove();
