@@ -12,6 +12,7 @@ class Neuronal extends eqLogic {
 		foreach ($this->getCmd() as $cmdNeurone) {
 	        	 $loop=1;
 		         while($cmdNeurone->getConfiguration($loop)!="") {
+		         	log::add('Neuronal','debug','Ajout d\'une ligne a la table de calibration pour le neurone :'.$cmdNeurone->getConfiguration($loop));
 			 	$ES_Neurone=json_decode($cmdNeurone->getConfiguration($loop), true);
 				log::add('Neuronal','debug','Ajout d\'une ligne a la table de calibration pour le neurone :'.$ES_Neurone['name']);
 				$cmd = cmd::byId(str_replace('#', '', $ES_Neurone['name']));
