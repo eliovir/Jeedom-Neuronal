@@ -6,7 +6,7 @@ $('body').on( 'change','.eqLogicAttr[data-l1key=configuration][data-l2key=Appren
 			$('#table_Calibration thead tr').append($('<th>').text(Parametre));
 			$.each(Ligne,function(key, value){
 				if($('#table_Calibration tbody tr .'+key).length>0)
-					$('#table_Calibration tbody tr .'+key).append($('<td>').append($('<input class="ConfigurationAttr">').val(value))));
+					$('#table_Calibration tbody tr .'+key).append($('<td>').append($('<input class="ConfigurationAttr">').val(value)));
 				else
 					$('#table_Calibration tbody').append($('<tr class="'+key+'">').append($('<td>').append($('<input class="ConfigurationAttr">').val(value))));
 
