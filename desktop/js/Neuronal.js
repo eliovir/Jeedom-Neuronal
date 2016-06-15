@@ -1,13 +1,15 @@
 $('body').on( 'change','.eqLogicAttr[data-l1key=configuration][data-l2key=ApprentissageTable]', function() {
 	if($(this).val() !=""){
-		var loop=0;
 		var Calibration=JSON.parse($(this).val());
-		$.each(Calibration,function(){
-			$('#table_Calibration tbody').append($('<tr>').append($('<td>').text(Calibration.loop)));
-			loop++;
-		})
+		$.each(Calibration,function(Parametre, Ligne){
+			$('#table_Calibration thead tr').append($('<th>').text(Parametre));
+			$.each(Ligne,function(key, value){
+				$('#table_Calibration tbody').append($('<tr>').append($('<td>').append($('<input class="ConfigurationAttr">').val(value))));
+			});
+		});
 	}
-}); $('body').on( 'click','.bt_selectCmdExpression', function() {
+});
+$('body').on( 'click','.bt_selectCmdExpression', function() {
 	var TypeCmd="action";
 	if($(this).closest('table').attr('id')=="table_cmd_Entree") 
 		TypeCmd="info";
@@ -18,7 +20,7 @@ $('body').on( 'change','.eqLogicAttr[data-l1key=configuration][data-l2key=Appren
 	});
 });  
 $('body').on('click','.bt_add',function(){
-	addToTable($(this).closest('table'),'');
+	addToTable($(this).closest('table');
 });
 $('body').on('click','.bt_del',function(){
 	$(this).closest('tr').remove();
@@ -35,7 +37,7 @@ function addCmdToTable(_cmd) {
 	var Table=$("#table_cmd_Entree");
 	if(_cmd.name!="Entree")
 		Table=$("#table_cmd_Sortie");
-	
+	$('#table_Calibration thead tr').html('');
 	Table.parent().addClass("cmd").data("cmd_id",init(_cmd.id));
 	Table.parent().append($('<input type="hidden" class="cmdAttr form-control input-sm" data-l1key="id" value="' + init(_cmd.id) + '">'))
 	Table.parent().append($('<input type="hidden" class="cmdAttr form-control input-sm" data-l1key="name" value="' + init(_cmd.name) + '">'));
@@ -43,15 +45,12 @@ function addCmdToTable(_cmd) {
 	Table.parent().append($('<input type="hidden" class="cmdAttr" data-l1key="type" value="action" />'));
 	Table.parent().append($('<input type="hidden" class="cmdAttr" data-l1key="subType" value="other" />'));
 	$.each( _cmd.configuration,function(){
-		addToTable(Table,_cmd.name);
+		addToTable(Table);
 	})
 	Table.setValues(_cmd, '.cmdAttr');
-	$('#table_Calibration').setValues(_cmd, '.cmdCalibration '+_cmd.name);
 }
-function addToTable(_Table, type) {
+function addToTable(_Table) {
 	var Nb=_Table.find('tbody tr').length + 1;
-	if (type!="")
-		$('#table_Calibration thead tr').append($('<th class="cmdCalibration '+type+'" data-l1key="configuration" data-l2key="'+Nb+'" data-l3key="name">'));
 	var tr =$('<tr>');
   	tr.append($('<td>')
 		.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="'+Nb+'" data-l3key="name" style="width:85%;display: inline-block;margin: 5px;">'))
