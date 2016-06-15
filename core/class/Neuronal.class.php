@@ -6,16 +6,17 @@ class Neuronal extends eqLogic {
 	public function CreateApprentissageTable() {
 		$Table=array();
 		if ($this->getConfiguration('ApprentissageTable')!="")
-			$Table=json_decode($this->getConfiguration('ApprentissageTable'));
+			$Table=json_decode($this->getConfiguration('ApprentissageTable'), true);
 		else
 			log::add('Neuronal','debug','Creation de la table de calibration pour le neurone :'.$this->getHumanName());
 		foreach ($this->getCmd() as $cmdNeurone) {
-			log::add('Neuronal','debug','Ajout d\'une ligne a la table de calibration pour le neurone :'.$this->getHumanName());
 	        	 $loop=1;
 		         while($cmdNeurone->getConfiguration($loop)!="") {
 			 	$ES_Neurone=json_decode($cmdNeurone->getConfiguration($loop));
+				log::add('Neuronal','debug','Ajout d\'une ligne a la table de calibration pour le neurone :'.$ES_Neurone['name']);
 				$cmd = cmd::byId(str_replace('#', '', $ES_Neurone['name']));
 				if(is_object($cmd)){
+					log::add('Neuronal','debug','Ajout d\'une valeur a la table de calibration pour le neurone :'.$ES_Neurone['name']);
 					$Table[$cmd->getName()][count($Table)]=$cmd->execCmd();
 				}
 	        		 $loop++;
