@@ -16,7 +16,7 @@ class Neuronal extends eqLogic {
 			 	$ES_Neurone=json_decode($cmdNeurone->getConfiguration($loop));
 				$cmd = cmd::byId(str_replace('#', '', $ES_Neurone['name']));
 				if(is_object($cmd)){
-					$Table[count($Table)][$cmd->getName()]=$cmd->execCmd();
+					$Table[$cmd->getName()][count($Table)]=$cmd->execCmd();
 				}
 	        		 $loop++;
 			}
@@ -76,6 +76,7 @@ class Neuronal extends eqLogic {
 	public function postSave() {
 		self::AddCommande($this,'Entree','Entree');
 		self::AddCommande($this,'Sortie','Sortie');
+		$this->CreateApprentissageTable();
 		$this->createListener();
 	}
 	public static function AddCommande($eqLogic,$Name,$_logicalId) {
