@@ -2,10 +2,11 @@ $('body').on( 'change','.eqLogicAttr[data-l1key=configuration][data-l2key=Appren
 	if($(this).val() !=""){
 		var Calibration=JSON.parse($(this).val());
 		$.each(Calibration,function(Parametre, Ligne){
+			alert(Parametre);
 			$('#table_Calibration thead tr').append($('<th>').text(Parametre));
-			$.each(Ligne,function(key, value){
+		/*	$.each(Ligne,function(key, value){
 				$('#table_Calibration tbody').append($('<tr>').append($('<td>').append($('<input class="ConfigurationAttr">').val(value))));
-			});
+			});*/
 		});
 	}
 });
