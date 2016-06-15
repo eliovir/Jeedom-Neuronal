@@ -12,8 +12,7 @@ class Neuronal extends eqLogic {
 		foreach ($this->getCmd() as $cmdNeurone) {
 	        	 $loop=1;
 		         while($cmdNeurone->getConfiguration($loop)!="") {
-		         	log::add('Neuronal','debug','Ajout d\'une ligne a la table de calibration pour le neurone :'.$cmdNeurone->getConfiguration($loop));
-			 	$ES_Neurone=$cmdNeurone->getConfiguration($loop);
+		         	$ES_Neurone=$cmdNeurone->getConfiguration($loop);
 				log::add('Neuronal','debug','Ajout d\'une ligne a la table de calibration pour le neurone :'.$ES_Neurone['name']);
 				$cmd = cmd::byId(str_replace('#', '', $ES_Neurone['name']));
 				if(is_object($cmd)){
@@ -24,6 +23,7 @@ class Neuronal extends eqLogic {
 			}
 		}
 		$this->setConfiguration('ApprentissageTable',json_encode($Table));
+		$this->save();
 		log::add('Neuronal','debug','Mise a jours de la table de calibration pour le neurone :'.$this->getHumanName());
 	}
 	public static function dependancy_info() {
