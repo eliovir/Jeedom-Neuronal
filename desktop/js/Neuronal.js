@@ -42,8 +42,8 @@ $('body').on('click','.bt_add',function(){
 			var tr=$('#table_Calibration tbody tr:last').clone();
 			var id=$('#table_Calibration tbody tr').length;
 			tr.attr('id',id);
+			tr.find('.eqLogicAttr').data('l4key',id);
 			$('#table_Calibration tbody').append(tr);
-			$('#table_Calibration tbody tr:last eqLogicAttr').data('l4key',id);
 		break;
 		default:
 			addToTable($(this).closest('table'));
