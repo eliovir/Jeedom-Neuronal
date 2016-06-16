@@ -1,3 +1,4 @@
+initTableSorter();
 $('body').on( 'change','.eqLogicAttr[data-l1key=configuration][data-l2key=ApprentissageTable]', function() {
 	if($(this).val() !=""){
 		$('#table_Calibration thead tr').html('');
@@ -5,14 +6,23 @@ $('body').on( 'change','.eqLogicAttr[data-l1key=configuration][data-l2key=Appren
 		$.each(Calibration,function(Parametre, Ligne){
 			$('#table_Calibration thead tr').append($('<th>').text(Parametre));
 			$.each(Ligne,function(key, value){
-              alert($('#table_Calibration #'+key).length);
+				var ParameterInput=$('<td>').append($('<input type="hidden" class="eqLogicAttr" data-l1key="configuration" data-l2key="ApprentissageTable" data-l3key="'+Parametre+'" data-l4key="'+Parametre+'"/>').val(key));
 				if($('#table_Calibration #'+key).length>0)
-					$('#table_Calibration #'+key).append($('<td>').append($('<input class="ConfigurationAttr">').val(value)));
+					$('#table_Calibration #'+key).append(ParameterInput);
 				else
-					$('#table_Calibration tbody').append($('<tr id="'+key+'">').append($('<td>').append($('<input class="ConfigurationAttr">').val(value))));
+					$('#table_Calibration tbody').append($('<tr id="'+key+'">').append(ParameterInput));
 
 			});
 		});
+		$('#table_Calibration thead tr').append($('<th>').text("Parametre"));
+		$.each($('#table_Calibration tbody tr'),function(){
+			$(this).append($('<td>')
+				.append($('<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">')
+					.append($('<i class="fa fa-plus-circle">')))
+				.append($('<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">')
+					.append($('<i class="fa fa-minus-circle">'))));
+		});
+		$('#table_Calibration').trigger('update');
 	}
 });
 $('body').on( 'click','.bt_selectCmdExpression', function() {
@@ -26,7 +36,16 @@ $('body').on( 'click','.bt_selectCmdExpression', function() {
 	});
 });  
 $('body').on('click','.bt_add',function(){
-	addToTable($(this).closest('table'));
+	switch($(this).closest('table').attr('id')){
+		case 'table_Calibration':
+			var tr=$('#table_Calibration tbody tr:last').clone();
+			tr.attr('id',$('#table_Calibration tbody tr').length+1);
+			$('#table_Calibration tbody').append(tr);
+		break;
+		default:
+			addToTable($(this).closest('table'));
+		break;
+	}
 });
 $('body').on('click','.bt_del',function(){
 	$(this).closest('tr').remove();
