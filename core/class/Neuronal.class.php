@@ -42,7 +42,7 @@ class Neuronal extends eqLogic {
 			}
 		}
 		$this->setConfiguration('ApprentissageTable',json_encode($Table));
-		$this->save();
+	//	$this->save();
 		log::add('Neuronal','debug','Mise a jours de la table de calibration pour le neurone :'.$this->getHumanName());
 	}
 	public static function dependancy_info() {
@@ -95,7 +95,7 @@ class Neuronal extends eqLogic {
 		//$listener->run();
 		log::add('Neuronal','debug','Lancement de l\'écouteur d\'evenement :'.$this->getHumanName());
 	}
-	public function postSave() {
+	public function preSave() {
 		self::AddCommande($this,'Entree','Entree');
 		self::AddCommande($this,'Sortie','Sortie');
 		$this->CreateApprentissageTable();
