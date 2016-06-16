@@ -49,7 +49,7 @@ $eqLogics = eqLogic::byType('Neuronal');
 	</div>
 	<div class="col-lg-10 col-md-9 col-sm-8 eqLogic" style="border-left: solid 1px #EEE; padding-left: 25px;display: none;">
 		<div class="right">
-			<div class="col-sm-6">
+			<div>
 				<form class="form-horizontal">
 					<fieldset>
 						<legend><i class="fa fa-arrow-circle-left eqLogicAction cursor" data-action="returnToThumbnailDisplay"></i> {{Général}}  <i class='fa fa-cogs eqLogicAction pull-right cursor expertModeVisible' data-action='configure'></i></legend>
@@ -112,7 +112,7 @@ $eqLogics = eqLogic::byType('Neuronal');
 					</fieldset>
 				</form>
 			</div>
-			<div class="col-sm-6">	
+			<div>	
 				<input type="hidden" class="eqLogicAttr" data-l1key="configuration" data-l2key="ApprentissageTable"/>
 				<table id="table_Calibration" class="table table-bordered table-condensed tablesorter">	
 					<thead>
