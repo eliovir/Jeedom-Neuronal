@@ -40,8 +40,10 @@ $('body').on('click','.bt_add',function(){
 	switch($(this).closest('table').attr('id')){
 		case 'table_Calibration':
 			var tr=$('#table_Calibration tbody tr:last').clone();
-			tr.attr('id',$('#table_Calibration tbody tr').length+1);
+			var id=$('#table_Calibration tbody tr').length;
+			tr.attr('id',id);
 			$('#table_Calibration tbody').append(tr);
+			$('#table_Calibration tbody tr:last eqLogicAttr').data('l4key',id);
 		break;
 		default:
 			addToTable($(this).closest('table'));
