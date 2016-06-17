@@ -114,11 +114,24 @@ $eqLogics = eqLogic::byType('Neuronal');
 			</div>
 			<div>	
 				<input type="hidden" class="eqLogicAttr" data-l1key="configuration" data-l2key="ApprentissageTable"/>
-				<table id="table_Calibration" class="table table-bordered table-condensed tablesorter">	
+				<table id="table_Calibration" class="table table-bordered table-condensed">
 					<thead>
-						<tr></tr>
+						<tr>
+							<th>Parametre</th>
+						</tr>
 					</thead>
-					<tbody></tbody>
+					<tbody>
+						<tr id="1">
+							<td>
+								<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">
+									<i class="fa fa-plus-circle"></i>
+								</a>
+								<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">
+									<i class="fa fa-minus-circle"></i>
+								</a>
+							</td>
+						</tr>
+					</tbody>
 				</table>
 				<form class="form-horizontal">
 					<fieldset>
@@ -134,6 +147,11 @@ $eqLogics = eqLogic::byType('Neuronal');
 			<div class="col-sm-6">
 				<legend>{{Commande d'entrée du neurone}}</legend>
 				<table id="table_cmd_Entree" class="table table-bordered table-condensed">
+					<input type="hidden" class="cmdAttr" data-l1key="id">
+					<input type="hidden" class="cmdAttr" data-l1key="name" >
+					<input type="hidden" class="cmdAttr" data-l1key="logicalId">
+					<input type="hidden" class="cmdAttr" data-l1key="type" value="action" />
+					<input type="hidden" class="cmdAttr" data-l1key="subType" value="other" />
 					<thead>
 				                <tr>
 				                    	<th>{{Commande}}</th>
@@ -155,6 +173,11 @@ $eqLogics = eqLogic::byType('Neuronal');
 			<div class="col-sm-6">
 				<legend>{{Commande de sortie du neurone}}</legend>
 				<table id="table_cmd_Sortie" class="table table-bordered table-condensed">
+					<input type="hidden" class="cmdAttr" data-l1key="id">
+					<input type="hidden" class="cmdAttr" data-l1key="name" >
+					<input type="hidden" class="cmdAttr" data-l1key="logicalId">
+					<input type="hidden" class="cmdAttr" data-l1key="type" value="action" />
+					<input type="hidden" class="cmdAttr" data-l1key="subType" value="other" />
 					<thead>
 				                <tr>
 				                    	<th>{{Commande}}</th>
