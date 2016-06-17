@@ -95,10 +95,10 @@ class Neuronal extends eqLogic {
 		//$listener->run();
 		log::add('Neuronal','debug','Lancement de l\'écouteur d\'evenement :'.$this->getHumanName());
 	}
-	public function preSave() {
+	public function postSave() {
 		self::AddCommande($this,'Entree','Entree');
 		self::AddCommande($this,'Sortie','Sortie');
-		$this->CreateApprentissageTable();
+	//	$this->CreateApprentissageTable();
 		$this->createListener();
 	}
 	public static function AddCommande($eqLogic,$Name,$_logicalId) {
