@@ -1,5 +1,5 @@
-initTableSorter();
-$('body').on( 'change','.eqLogicAttr[data-l1key=configuration][data-l2key=ApprentissageTable]', function() {
+//initTableSorter();
+/*$('body').on( 'change','.eqLogicAttr[data-l1key=configuration][data-l2key=ApprentissageTable]', function() {
 	if($(this).val() !=""){
 		$('#table_Calibration thead tr').html('');
 		var Calibration=JSON.parse($(this).val());
@@ -25,6 +25,20 @@ $('body').on( 'change','.eqLogicAttr[data-l1key=configuration][data-l2key=Appren
 		$('#table_Calibration').trigger('update');
 		$(this).remove();
 	}
+});*/
+$('body').on( 'change','.cmdAttr[data-l1key=configuration][data-l3key=name]', function() {
+	var key=$(this).attr('data-l2key')
+	var Parametre=$(this).val();
+	if ($('#table_Calibration thead tr #'+key).length==0)
+		$('#table_Calibration thead tr').attr('id',key).append($('<th>').text(Parametre));
+	$.each($('#table_Calibration tbody tr'),function(){
+		var id =$('#table_Calibration tbody tr').length
+		var ParameterInput=$('<td>').append($('<input class="eqLogicAttr" data-l1key="configuration" data-l2key="ApprentissageTable" data-l3key="'+Parametre+'" data-l4key="'+id+'"/>'));
+		if($('#table_Calibration tbody #'+id).length>0)
+			$('#table_Calibration tbody #'+id).append(ParameterInput);
+		else
+			$('#table_Calibration tbody').append($('<tr id="'+id+'">').append(ParameterInput));
+	});
 });
 $('body').on( 'click','.bt_selectCmdExpression', function() {
 	var TypeCmd="action";
@@ -40,7 +54,7 @@ $('body').on('click','.bt_add',function(){
 	switch($(this).closest('table').attr('id')){
 		case 'table_Calibration':
 			var tr=$('#table_Calibration tbody tr:last').clone();
-			var id=$('#table_Calibration tbody tr').length;
+			var id=$('#table_Calibration tbody tr').length+1;
 			tr.attr('id',id);
 			tr.find('.eqLogicAttr').attr('data-l4key',id);
 			$('#table_Calibration tbody').append(tr);
@@ -65,12 +79,7 @@ function addCmdToTable(_cmd) {
 	var Table=$("#table_cmd_Entree");
 	if(_cmd.name!="Entree")
 		Table=$("#table_cmd_Sortie");
-	Table.parent().addClass("cmd").data("cmd_id",init(_cmd.id));
-	Table.parent().append($('<input type="hidden" class="cmdAttr form-control input-sm" data-l1key="id" value="' + init(_cmd.id) + '">'))
-	Table.parent().append($('<input type="hidden" class="cmdAttr form-control input-sm" data-l1key="name" value="' + init(_cmd.name) + '">'));
-	Table.parent().append($('<input type="hidden" class="cmdAttr form-control input-sm" data-l1key="logicalId" value="' + init(_cmd.logicalId) + '">'));
-	Table.parent().append($('<input type="hidden" class="cmdAttr" data-l1key="type" value="action" />'));
-	Table.parent().append($('<input type="hidden" class="cmdAttr" data-l1key="subType" value="other" />'));
+	Table.addClass("cmd").attr("data-cmd_id",init(_cmd.id));
 	$.each( _cmd.configuration,function(){
 		addToTable(Table);
 	})
