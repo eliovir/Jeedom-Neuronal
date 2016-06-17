@@ -1,43 +1,11 @@
-//initTableSorter();
-/*$('body').on( 'change','.eqLogicAttr[data-l1key=configuration][data-l2key=ApprentissageTable]', function() {
-	if($(this).val() !=""){
-		$('#table_Calibration thead tr').html('');
-		var Calibration=JSON.parse($(this).val());
-		$.each(Calibration,function(Parametre, Ligne){
-			$('#table_Calibration thead tr').append($('<th>').text(Parametre));
-			$.each(Ligne,function(key, value){
-				var ParameterInput=$('<td>').append($('<input class="eqLogicAttr" data-l1key="configuration" data-l2key="ApprentissageTable" data-l3key="'+Parametre+'" data-l4key="'+key+'"/>').val(key));
-				if($('#table_Calibration #'+key).length>0)
-					$('#table_Calibration #'+key).append(ParameterInput);
-				else
-					$('#table_Calibration tbody').append($('<tr id="'+key+'">').append(ParameterInput));
-
-			});
-		});
-		$('#table_Calibration thead tr').append($('<th>').text("Parametre"));
-		$.each($('#table_Calibration tbody tr'),function(){
-			$(this).append($('<td>')
-				.append($('<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">')
-					.append($('<i class="fa fa-plus-circle">')))
-				.append($('<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">')
-					.append($('<i class="fa fa-minus-circle">'))));
-		});
-		$('#table_Calibration').trigger('update');
-		$(this).remove();
-	}
-});*/
 $('body').on( 'change','.cmdAttr[data-l1key=configuration][data-l3key=name]', function() {
 	var key=$(this).attr('data-l2key')
 	var Parametre=$(this).val();
 	if ($('#table_Calibration thead tr #'+key).length==0)
 		$('#table_Calibration thead tr').attr('id',key).append($('<th>').text(Parametre));
 	$.each($('#table_Calibration tbody tr'),function(){
-		var id =$('#table_Calibration tbody tr').length
-		var ParameterInput=$('<td>').append($('<input class="eqLogicAttr" data-l1key="configuration" data-l2key="ApprentissageTable" data-l3key="'+Parametre+'" data-l4key="'+id+'"/>'));
-		if($('#table_Calibration tbody #'+id).length>0)
-			$('#table_Calibration tbody #'+id).append(ParameterInput);
-		else
-			$('#table_Calibration tbody').append($('<tr id="'+id+'">').append(ParameterInput));
+		var id=$(this).closest('tr').attr('id');
+		addCalibrationToTable(Parametre, id,0);
 	});
 });
 $('body').on( 'click','.bt_selectCmdExpression', function() {
@@ -54,13 +22,13 @@ $('body').on('click','.bt_add',function(){
 	switch($(this).closest('table').attr('id')){
 		case 'table_Calibration':
 			var tr=$('#table_Calibration tbody tr:last').clone();
-			var id=$('#table_Calibration tbody tr').length+1;
+			var id=createGuid();
 			tr.attr('id',id);
 			tr.find('.eqLogicAttr').attr('data-l4key',id);
 			$('#table_Calibration tbody').append(tr);
 		break;
 		default:
-			addToTable($(this).closest('table'));
+			addToTable($(this).closest('table'),'');
 		break;
 	}
 });
@@ -79,25 +47,78 @@ function addCmdToTable(_cmd) {
 	var Table=$("#table_cmd_Entree");
 	if(_cmd.name!="Entree")
 		Table=$("#table_cmd_Sortie");
-	Table.addClass("cmd").attr("data-cmd_id",init(_cmd.id));
-	$.each( _cmd.configuration,function(){
-		addToTable(Table);
+		if (Table.find('tbody').length==0)
+			Table.append($('<tbody>'));
+	Table.find('tbody').addClass("cmd").attr("data-cmd_id",init(_cmd.id));
+	Table.find('tbody').append($('<input type="hidden" class="cmdAttr" data-l1key="id">'));
+	Table.find('tbody').append($('<input type="hidden" class="cmdAttr" data-l1key="name">'));
+	Table.find('tbody').append($('<input type="hidden" class="cmdAttr" data-l1key="logicalId">'));
+	Table.find('tbody').append($('<input type="hidden" class="cmdAttr" data-l1key="type">'));
+	Table.find('tbody').append($('<input type="hidden" class="cmdAttr" data-l1key="subType">'));
+	$.each( _cmd.configuration,function(key, value){
+		if(key)
+			addToTable(Table,key);
+		else
+			addToTable(Table,'');
 	})
 	Table.setValues(_cmd, '.cmdAttr');
 }
-function addToTable(_Table) {
-	var Nb=_Table.find('tbody tr').length + 1;
+function createGuid(){
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
+        return v.toString(16);
+    });
+}
+function addToTable(_Table, id) {
+	if (id=='')
+		id=createGuid();
 	var tr =$('<tr>');
   	tr.append($('<td>')
-		.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="'+Nb+'" data-l3key="name" style="width:85%;display: inline-block;margin: 5px;">'))
+		.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="'+id+'" data-l3key="name" style="width:85%;display: inline-block;margin: 5px;">'))
 		.append($('<a style="display : inline-block;margin:5px;" class="btn btn-default btn-xs cursor bt_selectCmdExpression" title="Rechercher une commande">')
 			.append($('<i class="fa fa-list-alt">'))));
 //	tr.append($('<td>')
-//		.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l1key="configuration" data-l2key="'+Nb+'" data-l3key="tolerance">')));
+//		.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="'+id+'" data-l3key="tolerance">')));
 	tr.append($('<td>')
 		.append($('<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">')
 			.append($('<i class="fa fa-plus-circle">')))
 		.append($('<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">')
 			.append($('<i class="fa fa-minus-circle">'))));
 	_Table.find('tbody').append(tr);
+}
+function addCalibrationToTable(Parametre, key,value) {
+	var specialChars = " !@#$^&%*()+=-[]\/{}|:<>?,.";
+	for (var i = 0; i < specialChars.length; i++) {
+		Parametre = Parametre .replace(new RegExp("\\" + specialChars[i], 'gi'), '');
+	}
+	var ParameterInput=$('<td>').append($('<input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ApprentissageTable" data-l3key="'+Parametre+'" data-l4key="'+key+'"/>').val(value));
+	var tr=$('#table_Calibration tbody').find('#'+key);
+	if(tr.length<=0){
+		$('#table_Calibration tbody').append($('<tr id="'+key+'">'));
+		tr=$('#table_Calibration tbody').find('#'+key);
+		tr.append($('<td>')
+			.append($('<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">')
+				.append($('<i class="fa fa-plus-circle">')))
+			.append($('<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">')
+				.append($('<i class="fa fa-minus-circle">'))));
+	}
+	if($('.eqLogicAttr[data-l1key=configuration][data-l2key=ApprentissageTable][data-l3key='+Parametre+'][data-l4key='+key+']').length<=0)
+		tr.append(ParameterInput);
+}
+function printEqLogic(data){
+	$('#table_Calibration thead tr').html($('<th>').text('Parametre'));
+	$('#table_Calibration tbody').html('');
+	var id=createGuid();
+	$.each(data.configuration.ApprentissageTable,function(Parametre, Ligne){
+		if(Parametre && typeof Ligne === 'object'){
+			if(Ligne){
+				$.each(Ligne,function(key, value){
+					if(key,value)
+						addCalibrationToTable(Parametre, key,value);
+				});
+			}
+		}
+		else
+			addCalibrationToTable(Parametre, id,Ligne) 
+	});
 }
