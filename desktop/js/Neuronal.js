@@ -1,12 +1,21 @@
-$('body').on( 'change','.cmdAttr[data-l1key=configuration][data-l3key=name]', function() {
-	var key=$(this).attr('data-l2key')
+$('body').on('change','.cmdAttr[data-l1key=configuration][data-l3key=name]', function() {
 	var Parametre=$(this).val();
-	if ($('#table_Calibration thead tr #'+key).length==0)
-		$('#table_Calibration thead tr').attr('id',key).append($('<th>').text(Parametre));
-	$.each($('#table_Calibration tbody tr'),function(){
-		var id=$(this).closest('tr').attr('id');
-		addCalibrationToTable(Parametre, id,0);
-	});
+	var specialChars = " !@#$^&%*()+=-[]\/{}|:<>?,.";
+	for (var i = 0; i < specialChars.length; i++) {
+		Parametre = Parametre .replace(new RegExp("\\" + specialChars[i], 'gi'), '');
+	}
+	if (Parametre!=""){
+			if ($('#table_Calibration thead td[data-id='+Parametre+']').length==0)
+			$('#table_Calibration thead tr').append($('<td>').attr('data-id',Parametre).text($(this).val()));
+		else
+			$('#table_Calibration thead td[data-id='+Parametre+']').text($(this).val());
+		if ($('#table_Calibration tbody tr').length==0)
+			$('#table_Calibration tbody').append($('<tr>').attr('id',createGuid()));
+		$.each($('#table_Calibration tbody tr'),function(){
+			var id=$(this).closest('tr').attr('id');
+			addCalibrationToTable(Parametre, id,0);
+		});
+	}
 });
 $('body').on( 'click','.bt_selectCmdExpression', function() {
 	var TypeCmd="action";
@@ -87,38 +96,45 @@ function addToTable(_Table, id) {
 	_Table.find('tbody').append(tr);
 }
 function addCalibrationToTable(Parametre, key,value) {
-	var specialChars = " !@#$^&%*()+=-[]\/{}|:<>?,.";
-	for (var i = 0; i < specialChars.length; i++) {
-		Parametre = Parametre .replace(new RegExp("\\" + specialChars[i], 'gi'), '');
-	}
-	var ParameterInput=$('<td>').append($('<input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ApprentissageTable" data-l3key="'+Parametre+'" data-l4key="'+key+'"/>').val(value));
 	var tr=$('#table_Calibration tbody').find('#'+key);
 	if(tr.length<=0){
-		$('#table_Calibration tbody').append($('<tr id="'+key+'">'));
+		$('#table_Calibration tbody').append($('#table_Calibration thead tr').clone().attr('id',key));
 		tr=$('#table_Calibration tbody').find('#'+key);
-		tr.append($('<td>')
+		tr.find('td').first().html('')
+			.append($('<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">')
+				.append($('<i class="fa fa-plus-circle">')))
+			.append($('<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">')
+				.append($('<i class="fa fa-minus-circle">')));
+	}
+	if(tr.find('td').length<=0)
+		tr.append($('<td>')			
 			.append($('<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">')
 				.append($('<i class="fa fa-plus-circle">')))
 			.append($('<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">')
 				.append($('<i class="fa fa-minus-circle">'))));
-	}
+	if(tr.find('td[data-id='+Parametre+']').length<=0)
+		tr.append($('<td>').attr('data-id',Parametre));
 	if($('.eqLogicAttr[data-l1key=configuration][data-l2key=ApprentissageTable][data-l3key='+Parametre+'][data-l4key='+key+']').length<=0)
-		tr.append(ParameterInput);
+		tr.find('td[data-id='+Parametre+']').html($('<input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ApprentissageTable" data-l3key="'+Parametre+'" data-l4key="'+key+'"/>').val(value));
 }
 function printEqLogic(data){
-	$('#table_Calibration thead tr').html($('<th>').text('Parametre'));
+	$('#table_Calibration thead tr').html($('<td>').text('Parametre'));
 	$('#table_Calibration tbody').html('');
 	var id=createGuid();
-	$.each(data.configuration.ApprentissageTable,function(Parametre, Ligne){
-		if(Parametre && typeof Ligne === 'object'){
-			if(Ligne){
-				$.each(Ligne,function(key, value){
-					if(key,value)
-						addCalibrationToTable(Parametre, key,value);
-				});
+	$.each(data.configuration.ApprentissageTable,function(Parametre, Ligne){	
+		if(Parametre && Parametre!=''){
+			if ($('#table_Calibration thead td[data-id='+Parametre+']').length==0)
+				$('#table_Calibration thead tr').append($('<td>').attr('data-id',Parametre));
+			if(typeof Ligne === 'object'){
+				if(Ligne){
+					$.each(Ligne,function(key, value){
+						if(key,value)
+							addCalibrationToTable(Parametre, key,value);
+					});
+				}
 			}
+			else
+				addCalibrationToTable(Parametre, id,Ligne) 
 		}
-		else
-			addCalibrationToTable(Parametre, id,Ligne) 
 	});
 }
