@@ -3,7 +3,9 @@
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class Neuronal extends eqLogic {
-	public function ExecNeurone() {
+	public function ExecNeurone() {	
+      	log::add('Neuronal','debug','Execution du resau de neurone');
+	
 		$layers=$this->getConfiguration('ApprentissageTable');
 		$Neurone = fann_create_standard_array (count($layers) , $layers );
 		$Entree=array();
@@ -71,7 +73,7 @@ class Neuronal extends eqLogic {
 		}
 	}
 	public function createListener(){
-		$listener = listener::byClassAndFunction('Neuronal', 'CreateApprentissageTable');
+		$listener = listener::byClass('Neuronal');
 		if (!is_object($listener)) {
 			
 			log::add('Neuronal','debug','Creation d\'un écouteur d\'evenement :'.$this->getHumanName());
@@ -81,24 +83,27 @@ class Neuronal extends eqLogic {
 				$listener->setFunction('CreateApprentissageTable');
 			else
 				$listener->setFunction('ExecNeurone');
-			foreach ($this->getCmd() as $cmdNeurone) {
-				$loop=1;
-          			while($cmdNeurone->getConfiguration($loop)!="") {
-					$ES_Neurone=$cmdNeurone->getConfiguration($loop);
-					$listener->addEvent($ES_Neurone['name'], 'cmd');
-					log::add('Neuronal','debug','Ajout de '.$ES_Neurone['name'].' de l\'écouteur d\'evenement :'.$this->getHumanName());
-        				$loop++;
+			foreach ($this->getCmd() as $cmdEsNeurone) {
+				foreach ($cmdEsNeurone->getConfiguration() as $cmdNeurone) {
+					$cmd=cmd::byId(str_replace('#','',$cmdNeurone['name']));
+					if(is_object($cmd)){
+						$listener->addEvent($cmd->getId(), 'cmd');
+						log::add('Neuronal','debug','Ajout de '.$cmd->getHumanName().' de l\'écouteur d\'evenement :'.$this->getHumanName());
+					}
 				}
 			}
 			$listener->save();
+          	log::add('Neuronal','debug','Lancement de l\'écouteur d\'evenement :'.$this->getHumanName());
 		}
-		//$listener->run();
-		log::add('Neuronal','debug','Lancement de l\'écouteur d\'evenement :'.$this->getHumanName());
+		//$listener->run($listener->getEvent());
 	}
 	public function postSave() {
 		self::AddCommande($this,'Entree','Entree');
 		self::AddCommande($this,'Sortie','Sortie');
 	//	$this->CreateApprentissageTable();
+      	$listener = listener::byClass('Neuronal');
+		if (is_object($listener)) 
+          	$listener->remove();
 		$this->createListener();
 	}
 	public static function AddCommande($eqLogic,$Name,$_logicalId) {
