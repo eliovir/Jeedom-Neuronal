@@ -4,8 +4,7 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class Neuronal extends eqLogic {
 	public function ExecNeurone() {	
-      	log::add('Neuronal','debug','Execution du resau de neurone');
-	
+      		log::add('Neuronal','debug','Execution du resau de neurone');
 		$layers=$this->getConfiguration('ApprentissageTable');
 		$Neurone = fann_create_standard_array (count($layers) , $layers );
 		$Entree=array();
@@ -102,10 +101,7 @@ class Neuronal extends eqLogic {
 		self::AddCommande($this,'Entree','Entree');
 		self::AddCommande($this,'Sortie','Sortie');
 	//	$this->CreateApprentissageTable();
-      	$listener = listener::byClass('Neuronal');
-		if (is_object($listener)) 
-          	$listener->remove();
-		$this->createListener();
+      		$this->createListener();
 	}
 	public static function AddCommande($eqLogic,$Name,$_logicalId) {
 		$Commande = $eqLogic->getCmd(null,$_logicalId);
