@@ -3,8 +3,10 @@
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class Neuronal extends eqLogic {
-	public function ExecNeurone() {	
+	public static function ExecNeurone() {	
       		log::add('Neuronal','debug','Execution du resau de neurone');
+      		/*$listener = listener::byClassAndFunction('Neuronal','ExecNeurone','eqLogic_id');
+		if (!is_object($listener)) {
 		$layers=$this->getConfiguration('ApprentissageTable');
 		$Neurone = fann_create_standard_array (count($layers) , $layers );
 		$Entree=array();
@@ -20,7 +22,7 @@ class Neuronal extends eqLogic {
 			}
 		}
 		$resultat=fann_run ( $Neurone ,$Entree); 
-		log::add('Neuronal','debug','Resultat de l\'execution du neurone :'.json_encode($resultat));
+		log::add('Neuronal','debug','Resultat de l\'execution du neurone :'.json_encode($resultat));*/
 	
 	}
 	public function CreateApprentissageTable() {
@@ -81,7 +83,7 @@ class Neuronal extends eqLogic {
 				$listener->setFunction('CreateApprentissageTable');
 			else
 				$listener->setFunction('ExecNeurone');
-		        $listener->setOption(array('presence_id' => intval($this->getId())));
+		        $listener->setOption(array('eqLogic_id' => intval($this->getId())));
 		        $listener->emptyEvent();
 			foreach ($this->getCmd() as $cmdEsNeurone) {
 				foreach ($cmdEsNeurone->getConfiguration() as $cmdNeurone) {
