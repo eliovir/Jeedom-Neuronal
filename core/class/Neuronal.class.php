@@ -75,7 +75,6 @@ class Neuronal extends eqLogic {
 	public function createListener(){
 		$listener = listener::byClass('Neuronal');
 		if (!is_object($listener)) {
-			
 			log::add('Neuronal','debug','Creation d\'un écouteur d\'evenement :'.$this->getHumanName());
 			$listener = new listener();
 			$listener->setClass('Neuronal');
@@ -83,6 +82,8 @@ class Neuronal extends eqLogic {
 				$listener->setFunction('CreateApprentissageTable');
 			else
 				$listener->setFunction('ExecNeurone');
+		        $listener->setOption(array('presence_id' => intval($this->getId())));
+		        $listener->emptyEvent();
 			foreach ($this->getCmd() as $cmdEsNeurone) {
 				foreach ($cmdEsNeurone->getConfiguration() as $cmdNeurone) {
 					$cmd=cmd::byId(str_replace('#','',$cmdNeurone['name']));
