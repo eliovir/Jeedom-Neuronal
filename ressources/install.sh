@@ -7,7 +7,7 @@ cd ./fann
 cmake .
 sudo make install
 echo 90 > /tmp/compilation_Neuronal_in_progress
-if grep -q "extension=fann.so" /etc/php5/apache2/php.ini  then
+if grep -q "extension=fann.so" /etc/php5/apache2/php.ini ; then
     echo "L'extention fann.so est présent"
 else
   sudo echo "extension=fann.so" >> /etc/php5/apache2/php.ini
