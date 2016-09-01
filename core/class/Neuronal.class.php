@@ -23,10 +23,10 @@ class Neuronal extends eqLogic {
 		exec($cmd);
 	}
 	public static function cron() {
-		foreach(eqLogic::byType('Neuronal') as $Equipement){		
+	/*	foreach(eqLogic::byType('Neuronal') as $Equipement){		
 			if($Equipement->getIsEnable())
 				$Equipement->createListener();
-		}
+		}*/
 	}
 	public static function ListenerEvent($_options) {
 		$eqLogic=eqLogic::byId($_options['eqLogic_id']);
