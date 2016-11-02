@@ -96,12 +96,6 @@ $eqLogics = eqLogic::byType('Neuronal');
 									?>
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="col-sm-2 control-label" >{{Calibration}}</label>
-								<div class="col-sm-9">
-									<input type="checkbox" class="eqLogicAttr" data-label-text="{{Calibration}}" data-l1key="configuration" data-l2key="calibration" />
-								</div>
-							</div>
 						</div>
 					</fieldset> 
 				</form>
