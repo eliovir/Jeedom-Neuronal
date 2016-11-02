@@ -114,74 +114,65 @@ $eqLogics = eqLogic::byType('Neuronal');
 					</fieldset>
 				</form>
 			</div>
-			<div>	
-				<table id="table_Calibration" class="table table-bordered table-condensed">
-					<thead>
-						<tr>
-							<th>Parametre</th>
-						</tr>
-					</thead>
-					<tbody></tbody>
-				</table>
-				<form class="form-horizontal">
-					<fieldset>
-						<div class="form-actions">
-							<a class="btn btn-danger eqLogicAction" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
-							<a class="btn btn-success eqLogicAction" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
-						</div>
-					</fieldset>
-				</form>
+			<div class="row" style="padding-left:25px;">
+				<ul class="nav nav-tabs" id="tab_zones">	
+					<li class="active"><a href="#tab_calibration"><i class="fa fa-cogs"></i> {{Calibration}}</a></li>
+					<li><a href="#entree_neurone"><i class="fa fa-map"></i> {{Commande d'entrée du neurone}}</a></li>
+					<li><a href="#sortie_neurone"><i class="fa fa-pencil"></i> {{Commande de sortie du neurone}}</a></li>	
+				</ul>
+				<div class="tab-content TabCmdZone">
+					<div class="tab-pane active" id="tab_calibration">
+						<table id="table_Calibration" class="table table-bordered table-condensed">
+							<thead>
+								<tr>
+									<th>Parametre</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>	
+					<div class="tab-pane" id="entree_neurone">
+						<legend>{{Commande d'entrée du neurone}}</legend>
+						<table id="table_cmd_Entree" class="table table-bordered table-condensed">
+							<thead>
+										<tr>
+												<th>{{Commande}}</th>
+									<!--th>{{Tolérance}}</th-->
+									<th>{{Action}}</th>
+										</tr>
+								</thead>
+								<tbody></tbody>
+						</table>
+					</div>
+					<div class="tab-pane" id="sortie_neurone">
+						<legend>{{Commande de sortie du neurone}}</legend>
+						<table id="table_cmd_Sortie" class="table table-bordered table-condensed">
+							<input type="hidden" class="cmdAttr" data-l1key="id">
+							<input type="hidden" class="cmdAttr" data-l1key="name" >
+							<input type="hidden" class="cmdAttr" data-l1key="logicalId">
+							<input type="hidden" class="cmdAttr" data-l1key="type" value="action" />
+							<input type="hidden" class="cmdAttr" data-l1key="subType" value="other" />
+							<thead>
+										<tr>
+												<th>{{Commande}}</th>
+									<!--th>{{Tolérance}}</th-->
+									<th>{{Action}}</th>
+										</tr>
+								</thead>
+								<tbody></tbody>
+						</table>
+					</div>
+				</div>
 			</div>
-		</div>		
-		<div class="right">
-			<div class="col-sm-6">
-				<legend>{{Commande d'entrée du neurone}}</legend>
-				<table id="table_cmd_Entree" class="table table-bordered table-condensed">
-					<thead>
-				                <tr>
-				                    	<th>{{Commande}}</th>
-							<!--th>{{Tolérance}}</th-->
-							<th>{{Action}}</th>
-				                </tr>
-				        </thead>
-				        <tbody></tbody>
-				</table>
-				<form class="form-horizontal">
-					<fieldset>
-						<div class="form-actions">
-							<a class="btn btn-danger eqLogicAction" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
-							<a class="btn btn-success eqLogicAction" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
-						</div>
-					</fieldset>
-				</form>
-			</div>
-			<div class="col-sm-6">
-				<legend>{{Commande de sortie du neurone}}</legend>
-				<table id="table_cmd_Sortie" class="table table-bordered table-condensed">
-					<input type="hidden" class="cmdAttr" data-l1key="id">
-					<input type="hidden" class="cmdAttr" data-l1key="name" >
-					<input type="hidden" class="cmdAttr" data-l1key="logicalId">
-					<input type="hidden" class="cmdAttr" data-l1key="type" value="action" />
-					<input type="hidden" class="cmdAttr" data-l1key="subType" value="other" />
-					<thead>
-				                <tr>
-				                    	<th>{{Commande}}</th>
-							<!--th>{{Tolérance}}</th-->
-							<th>{{Action}}</th>
-				                </tr>
-				        </thead>
-				        <tbody></tbody>
-				</table>
-				<form class="form-horizontal">
-					<fieldset>
-						<div class="form-actions">
-							<a class="btn btn-danger eqLogicAction" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
-							<a class="btn btn-success eqLogicAction" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
-						</div>
-					</fieldset>
-				</form>
-			</div>
-		</div>
+			<form class="form-horizontal">
+				<fieldset>
+					<div class="form-actions">
+						<a class="btn btn-danger eqLogicAction" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
+						<a class="btn btn-success eqLogicAction" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
+					</div>
+				</fieldset>
+			</form>
+		</div>	
 	</div>
 </div>
 <?php include_file('desktop', 'Neuronal', 'js' , 'Neuronal'); ?>
