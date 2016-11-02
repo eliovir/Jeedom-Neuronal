@@ -115,7 +115,7 @@ $eqLogics = eqLogic::byType('Neuronal');
 				</form>
 			</div>
 			<div class="row" style="padding-left:25px;">
-				<ul class="nav nav-tabs" id="tab_zones">	
+				<ul class="nav nav-tabs" id="tab_parametre">	
 					<li class="active"><a href="#tab_entree_neurone"><i class="fa fa-map"></i> {{Commande d'entrée du neurone}}</a></li>
 					<li><a href="#tab_sortie_neurone"><i class="fa fa-pencil"></i> {{Commande de sortie du neurone}}</a></li>
 					<li><a href="#tab_calibration"><i class="fa fa-cogs"></i> {{Calibration}}</a></li>	
@@ -162,6 +162,14 @@ $eqLogics = eqLogic::byType('Neuronal');
 							<tbody></tbody>
 						</table>
 					</div>	
+					<form class="form-horizontal">
+						<fieldset>
+							<div class="form-actions">
+								<a class="btn btn-danger eqLogicAction" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
+								<a class="btn btn-success eqLogicAction" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
+							</div>
+						</fieldset>
+					</form>
 				</div>
 			</div>
 		</div>	
