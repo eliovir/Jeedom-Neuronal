@@ -1,3 +1,7 @@
+$('#tab_parametre a').click(function(e) {
+    e.preventDefault();
+    $(this).tab('show');
+});
 $('body').on('change','.cmdAttr[data-l1key=configuration][data-l3key=name]', function() {
 	var Parametre=$(this).val();
 	var specialChars = " !@#$^&%*()+=-[]\/{}|:<>?,.";
