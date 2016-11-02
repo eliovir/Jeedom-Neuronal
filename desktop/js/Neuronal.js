@@ -1,4 +1,5 @@
 $('#tab_parametre a').click(function(e) {
+	alert('re');
     e.preventDefault();
     $(this).tab('show');
 });
