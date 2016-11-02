@@ -116,22 +116,12 @@ $eqLogics = eqLogic::byType('Neuronal');
 			</div>
 			<div class="row" style="padding-left:25px;">
 				<ul class="nav nav-tabs" id="tab_zones">	
-					<li class="active"><a href="#tab_calibration"><i class="fa fa-cogs"></i> {{Calibration}}</a></li>
-					<li><a href="#entree_neurone"><i class="fa fa-map"></i> {{Commande d'entrée du neurone}}</a></li>
-					<li><a href="#sortie_neurone"><i class="fa fa-pencil"></i> {{Commande de sortie du neurone}}</a></li>	
+					<li class="active"><a href="#tab_entree_neurone"><i class="fa fa-map"></i> {{Commande d'entrée du neurone}}</a></li>
+					<li><a href="#tab_sortie_neurone"><i class="fa fa-pencil"></i> {{Commande de sortie du neurone}}</a></li>
+					<li><a href="#tab_calibration"><i class="fa fa-cogs"></i> {{Calibration}}</a></li>	
 				</ul>
-				<div class="tab-content TabCmdZone">
-					<div class="tab-pane active" id="tab_calibration">
-						<table id="table_Calibration" class="table table-bordered table-condensed">
-							<thead>
-								<tr>
-									<th>Parametre</th>
-								</tr>
-							</thead>
-							<tbody></tbody>
-						</table>
-					</div>	
-					<div class="tab-pane" id="entree_neurone">
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_entree_neurone">
 						<legend>{{Commande d'entrée du neurone}}</legend>
 						<table id="table_cmd_Entree" class="table table-bordered table-condensed">
 							<thead>
@@ -144,7 +134,7 @@ $eqLogics = eqLogic::byType('Neuronal');
 								<tbody></tbody>
 						</table>
 					</div>
-					<div class="tab-pane" id="sortie_neurone">
+					<div class="tab-pane" id="tab_sortie_neurone">
 						<legend>{{Commande de sortie du neurone}}</legend>
 						<table id="table_cmd_Sortie" class="table table-bordered table-condensed">
 							<input type="hidden" class="cmdAttr" data-l1key="id">
@@ -162,6 +152,16 @@ $eqLogics = eqLogic::byType('Neuronal');
 								<tbody></tbody>
 						</table>
 					</div>
+					<div class="tab-pane" id="tab_calibration">
+						<table id="table_Calibration" class="table table-bordered table-condensed">
+							<thead>
+								<tr>
+									<th>Parametre</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>	
 				</div>
 			</div>
 			<form class="form-horizontal">
