@@ -56,11 +56,11 @@ class Neuronal extends eqLogic {
 	}
 	public static function ListenerEvent($_option) {
 		log::add('Neuronal', 'debug', 'Objet mis à jour => ' . json_encode($_option));
-		$eqLogic=eqLogic::byId($_options['eqLogic_id']);
-		if (!is_object($eqLogic)) {
+		$ResauNeurones=eqLogic::byId($_options['eqLogic_id']);
+		if (!is_object($ResauNeurones)) {
 	      		log::add('Neuronal','debug','Evenement sur une entree de Neurone');
 	   		//$eqLogic->CreateApprentissageTable();
-	      		$eqLogic->ExecNeurone();
+	      		$ResauNeurones->ExecNeurone();
 		}
 	}
 	public static function AddCommande($eqLogic,$Name,$_logicalId) {
@@ -108,7 +108,7 @@ class Neuronal extends eqLogic {
 	}
 	public function ExecNeurone() {	
       		log::add('Neuronal','debug','Execution du resau de neurone');
-		$layers=$this->getConfiguration('ApprentissageTable');
+		/*$layers=$this->getConfiguration('ApprentissageTable');
 		$Neurone = fann_create_standard_array (count($layers) , $layers );
 		$Entree=array();
 		foreach ($this->getCmd(null,"Entree") as $cmdNeurone) {
@@ -123,7 +123,7 @@ class Neuronal extends eqLogic {
 			}
 		}
 		$resultat=fann_run ( $Neurone ,$Entree); 
-		log::add('Neuronal','debug','Resultat de l\'execution du neurone :'.json_encode($resultat));
+		log::add('Neuronal','debug','Resultat de l\'execution du neurone :'.json_encode($resultat));*/
 	
 	}
 	public function CreateApprentissageTable() {
