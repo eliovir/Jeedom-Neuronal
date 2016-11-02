@@ -43,6 +43,8 @@ class Neuronal extends eqLogic {
 			return;
 		if ($deamon_info['state'] == 'ok') 
 			return;
+		foreach(eqLogic::byType('Neuronal') as $Neuronal)
+			$Neuronal->save();
 	}
 	public static function deamon_stop() {
 		foreach(eqLogic::byType('Neuronal') as $Neuronal){
