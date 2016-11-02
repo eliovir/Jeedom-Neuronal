@@ -22,11 +22,34 @@ class Neuronal extends eqLogic {
 		$cmd .= ' >> ' . log::getPathToLog('Neuronal_update') . ' 2>&1 &';
 		exec($cmd);
 	}
-	public static function cron() {
-	/*	foreach(eqLogic::byType('Neuronal') as $Equipement){		
-			if($Equipement->getIsEnable())
-				$Equipement->createListener();
-		}*/
+	public static function deamon_info() {
+		$return = array();
+		$return['log'] = 'Neuronal';
+		$return['launchable'] = 'ok';
+		$return['state'] = 'nok';
+		foreach(eqLogic::byType('Neuronal') as $Neuronal){
+			$listener = listener::byClassAndFunction('Neuronal', 'ListenerEvent', array('Volets_id' => intval($Neuronal->getId())));
+			if (!is_object($listener))
+				return $return;
+		}
+		$return['state'] = 'ok';
+		return $return;
+	}
+	public static function deamon_start($_debug = false) {
+		log::remove('Neuronal');
+		self::deamon_stop();
+		$deamon_info = self::deamon_info();
+		if ($deamon_info['launchable'] != 'ok') 
+			return;
+		if ($deamon_info['state'] == 'ok') 
+			return;
+	}
+	public static function deamon_stop() {
+		foreach(eqLogic::byType('Neuronal') as $Neuronal){
+			$listener = listener::byClassAndFunction('Neuronal', 'ListenerEvent', array('Volets_id' => intval($Neuronal->getId())));
+			if (is_object($listener))
+				$listener->remove();
+		}
 	}
 	public static function ListenerEvent($_options) {
 		$eqLogic=eqLogic::byId($_options['eqLogic_id']);
