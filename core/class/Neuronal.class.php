@@ -7,10 +7,11 @@ class Neuronal extends eqLogic {
 		$return = array();
 		$return['log'] = 'Neuronal_update';
 		$return['progress_file'] = '/tmp/compilation_Neuronal_in_progress';
+		$return['state'] = 'nok';
+		if (exec('grep -q "extension=fann.so" /etc/php5/apache2/php.ini') ==1)
+			$return['state'] = 'ok';
 		if (exec('dpkg -s libfann-dev | grep -c "Status: install"') ==1)
-				$return['state'] = 'ok';
-		else
-			$return['state'] = 'nok';
+			$return['state'] = 'ok';
 		return $return;
 	}
 	public static function dependancy_install() {
