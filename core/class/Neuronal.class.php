@@ -29,7 +29,7 @@ class Neuronal extends eqLogic {
 		$return['launchable'] = 'ok';
 		$return['state'] = 'nok';
 		foreach(eqLogic::byType('Neuronal') as $Neuronal){
-			$listener = listener::byClassAndFunction('Neuronal', 'ListenerEvent', array('Volets_id' => intval($Neuronal->getId())));
+			$listener = listener::byClassAndFunction('Neuronal', 'ListenerEvent', array('eqLogic_id' => intval($Neuronal->getId())));
 			if (!is_object($listener))
 				return $return;
 		}
@@ -49,7 +49,7 @@ class Neuronal extends eqLogic {
 	}
 	public static function deamon_stop() {
 		foreach(eqLogic::byType('Neuronal') as $Neuronal){
-			$listener = listener::byClassAndFunction('Neuronal', 'ListenerEvent', array('Volets_id' => intval($Neuronal->getId())));
+			$listener = listener::byClassAndFunction('Neuronal', 'ListenerEvent', array('eqLogic_id' => intval($Neuronal->getId())));
 			if (is_object($listener))
 				$listener->remove();
 		}
@@ -86,8 +86,8 @@ class Neuronal extends eqLogic {
 	      		$this->createListener();
 		}
 	public function createListener(){
-		$listener = listener::byClassAndFunction('Neuronal','ExecNeurone',array('eqLogic_id' => intval($this->getId())));
-		if (!is_object($listener)) {
+		$listener = listener::byClassAndFunction('Neuronal', 'ListenerEvent', array('eqLogic_id' => intval($this->getId())));
+			if (!is_object($listener)) {
 			log::add('Neuronal','debug','Creation d\'un écouteur d\'evenement :'.$this->getHumanName());
 			$listener = new listener();
 			$listener->setClass('Neuronal');
