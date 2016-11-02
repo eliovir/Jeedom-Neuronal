@@ -54,10 +54,10 @@ class Neuronal extends eqLogic {
 				$listener->remove();
 		}
 	}
-	public static function ListenerEvent($_option) {
+	public static function ListenerEvent($_options) {
 		log::add('Neuronal', 'debug', 'Objet mis à jour => ' . json_encode($_option));
 		$ResauNeurones=eqLogic::byId($_options['eqLogic_id']);
-		if (!is_object($ResauNeurones)) {
+		if (is_object($ResauNeurones)) {
 	      		log::add('Neuronal','debug','Evenement sur une entree de Neurone');
 	   		//$eqLogic->CreateApprentissageTable();
 	      		$ResauNeurones->ExecNeurone();
