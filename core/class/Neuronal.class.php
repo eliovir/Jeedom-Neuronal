@@ -108,7 +108,7 @@ class Neuronal extends eqLogic {
 	}
 	public function ExecNeurone() {	
       		log::add('Neuronal','debug','Execution du resau de neurone');
-		/*$layers=$this->getConfiguration('ApprentissageTable');
+		$layers=$this->getConfiguration('ApprentissageTable');
 		$Neurone = fann_create_standard_array (count($layers) , $layers );
 		$Entree=array();
 		foreach ($this->getCmd(null,"Entree") as $cmdNeurone) {
@@ -123,7 +123,7 @@ class Neuronal extends eqLogic {
 			}
 		}
 		$resultat=fann_run ( $Neurone ,$Entree); 
-		log::add('Neuronal','debug','Resultat de l\'execution du neurone :'.json_encode($resultat));*/
+		log::add('Neuronal','debug','Resultat de l\'execution du neurone :'.json_encode($resultat));
 	
 	}
 	public function CreateApprentissageTable() {
