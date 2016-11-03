@@ -55,7 +55,7 @@ class Neuronal extends eqLogic {
 		}
 	}
 	public static function ListenerEvent($_options) {
-		log::add('Neuronal', 'debug', 'Objet mis à jour => ' . json_encode($_option));
+		log::add('Neuronal', 'debug', 'Objet mis à jour => ' . json_encode($_options));
 		$ResauNeurones=eqLogic::byId($_options['eqLogic_id']);
 		if (is_object($ResauNeurones)) {
 	      		log::add('Neuronal','debug','Evenement sur une entree de Neurone');
@@ -109,7 +109,8 @@ class Neuronal extends eqLogic {
 	public function ExecNeurone() {	
       		log::add('Neuronal','debug','Execution du resau de neurone');
 		$layers=$this->getConfiguration('ApprentissageTable');
-		$Neurone = fann_create_standard_array (count($layers) , $layers );
+		log::add('Neuronal','debug','Table d\'Apprentissage :'.json_encode($layers));
+		$Neurone = fann_create_standard_array(count($layers) , $layers );
 		$Entree=array();
 		foreach ($this->getCmd(null,"Entree") as $cmdNeurone) {
 	        	 $loop=1;
@@ -122,6 +123,7 @@ class Neuronal extends eqLogic {
 	        		 $loop++;
 			}
 		}
+		log::add('Neuronal','debug','Entree Evenement Neuronal:'.json_encode($Entree));
 		$resultat=fann_run ( $Neurone ,$Entree); 
 		log::add('Neuronal','debug','Resultat de l\'execution du neurone :'.json_encode($resultat));
 	
