@@ -94,8 +94,8 @@ class Neuronal extends eqLogic {
 			$listener->setOption(array('eqLogic_id' => intval($this->getId())));
 			$listener->emptyEvent();
 			foreach ($this->getCmd() as $cmdEsNeurone) {
-				foreach ($cmdEsNeurone->getConfiguration() as $cmdNeurone) {
-					$cmd=cmd::byId(str_replace('#','',$cmdNeurone['name']));
+				foreach ($cmdEsNeurone->getConfiguration('Commandes') as $cmdNeurone) {
+					$cmd=cmd::byId(str_replace('#','',$cmdNeurone['cmd']));
 					if(is_object($cmd)){
 						$listener->addEvent($cmd->getId());
 						log::add('Neuronal','debug','Ajout de '.$cmd->getHumanName().' de l\'écouteur d\'evenement :'.$this->getHumanName());
