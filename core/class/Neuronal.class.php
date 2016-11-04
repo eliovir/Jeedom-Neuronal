@@ -115,109 +115,38 @@ class Neuronal extends eqLogic {
 		log::add('Neuronal','debug','Lancement de l\'écouteur d\'evenement :'.$this->getHumanName());
 	}
 	public function ExecNeurone($idCmdEvent,$ValueCmdEvent) {	
-      		/*log::add('Neuronal','debug','Execution du resau de neurone');
-		$layers=$this->getConfiguration('ApprentissageTable');
-		log::add('Neuronal','debug','Table d\'Apprentissage :'.json_encode($layers));
-		$NbEntree=count($this->getCmd(null,"Entree")->getConfiguration('ListeCommandes'));
-		$NbSorite=count($this->getCmd(null,"Sortie")->getConfiguration('ListeCommandes'));
-		$Entree=array();
-		foreach ($this->getCmd(null,"Entree") as $cmdNeurone) {
-			foreach($cmdNeurone->getConfiguration('ListeCommandes') as $Commande){
-				$cmd = cmd::byId(str_replace('#', '', $Commande['cmd']));
-				if(is_object($cmd)){
-					log::add('Neuronal','debug','Ajout d\'une valeur a la table de calibration pour le neurone :'.$this->getHumanName().$cmd->getHumanName());
-					$Entree[]=$cmd->execCmd();
-				}
-			}
-		}
-		log::add('Neuronal','debug','Entree Evenement Neuronal:'.json_encode($Entree));
-		if ( ($ann = fann_create($NbEntree, $NbEntree*$NbSorite,$NbSorite)) == FALSE ) 
-		 	return;
-		log::add('Neuronal','debug','Le réseau de neurone a correctement été créé');
-		if (fann_train($ann, $layers, 100000, 0.00001) == FALSE )
-		 	return;
-		log::add('Neuronal','debug','La base de calibration a correctement été chargée');
-		if ( ($output = fann_run($ann, $Entree)) == FALSE )
-		 	return;
-		log::add('Neuronal','debug','Resultat de l\'execution du neurone :'.json_encode($output));
-		fann_destroy($ann);*/
-		
-		/*function Pathfinder($ann, $array) {
-		    $calc_out = fann_run($ann, $array);
-		    echo "<h1 class='blue'>Testing Pathfinder:</h1>";
-		    // Display Input Map
-		    for ($i = 0; $i <= 24; $i++){
-			if(abs(round($array[$i]) == 1)) { 
-			    echo "<span class='red'>" . abs(round($array[$i])) . "</span>"; 
-			}else {
-			    echo abs(round($array[$i]));
-			}
-			if($i > 0 && ($i % 5) - 4 == 0){
-			    echo "<br>" . PHP_EOL;
-			}
-		    }
-		    echo "<h1 class='blue'>Results:</h1>";
-		    // Display Output Map
-		    for ($i = 0; $i <= 24; $i++){
-			if(abs(round($calc_out[$i]) == 1)) { 
-			    echo "<span class='red'>" . abs(round($calc_out[$i])) . "</span>"; 
-			}else {
-			    echo abs(round($calc_out[$i]));
-			}
-
-			if($i > 0 && ($i % 5) - 4 == 0){
-			    echo "<br>" . PHP_EOL;
-			}
-		    }
-		}*/
+      		log::add('Neuronal','debug','Execution du resau de neurone');
 		$train_file = (dirname(__FILE__) . "/../../ressources/".$this->getHumanName().".net");
 		if (!is_file($train_file)) 
 			return;
    
-		$pathfinder_ann = fann_create_from_file($train_file);
-		if ($pathfinder_ann) {
-		 /* Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1));
-		    Pathfinder($pathfinder_ann, array(0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-		    Pathfinder($pathfinder_ann, array(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-		    Pathfinder($pathfinder_ann, array(0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-		    Pathfinder($pathfinder_ann, array(0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-		    Pathfinder($pathfinder_ann, array(0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0));
-		    Pathfinder($pathfinder_ann, array(0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1));
-		    Pathfinder($pathfinder_ann, array(0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0))		    Pathfinder($pathfinder_ann, array(0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0));*/
-		    fann_destroy($pathfinder_ann);
+		$ann = fann_create_from_file($train_file);
+		if ($ann) {
+			$Entree=array();
+			foreach ($this->getCmd(null,"Entree") as $cmdNeurone) {
+				foreach($cmdNeurone->getConfiguration('ListeCommandes') as $Commande){
+					$cmd = cmd::byId(str_replace('#', '', $Commande['cmd']));
+					if(is_object($cmd)){
+						log::add('Neuronal','debug','Ajout d\'une valeur a la table de calibration pour le neurone :'.$this->getHumanName().$cmd->getHumanName());
+						$Entree[]=$cmd->execCmd();
+					}
+				}
+			}
+			 if ( ($output = fann_run($ann, $Entree)) == FALSE )
+		 		return;
+			log::add('Neuronal','debug','Resultat de l\'execution du neurone :'.json_encode($output));;
+		    	fann_destroy($ann);
 		}
 	}
 	public function CreateApprentissageTable() {
-		$num_input = 25;
-		$num_output = 25;
+		$NbEntree=count($this->getCmd(null,"Entree")->getConfiguration('ListeCommandes'));
+		$NbSorite=count($this->getCmd(null,"Sortie")->getConfiguration('ListeCommandes'));
 		$num_layers = 3;
 		$num_neurons_hidden = 70;
 		$desired_error = 0.001;
 		$max_epochs = 5000000;
 		$epochs_between_reports = 1000;
-		$ann = fann_create_standard($num_layers, $num_input, $num_neurons_hidden, $num_output);
+		$ann = fann_create_standard($num_layers, $NbEntree, $num_neurons_hidden, $NbSorite);
 		if ($ann) {
 			fann_set_activation_function_hidden($ann, FANN_SIGMOID_SYMMETRIC);
 			fann_set_activation_function_output($ann, FANN_SIGMOID_SYMMETRIC);
