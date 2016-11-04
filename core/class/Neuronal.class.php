@@ -59,7 +59,12 @@ class Neuronal extends eqLogic {
 		$ResauNeurones=eqLogic::byId($_options['eqLogic_id']);
 		if (is_object($ResauNeurones)) {
 	      		log::add('Neuronal','debug','Evenement sur une entree de Neurone');
-	   		//$eqLogic->CreateApprentissageTable();
+			foreach($this->getCmd(null,"Sortie")->getConfiguration('ListeCommandes') as $CmdSortie){
+				if($_options['eqLogic_id'] ==$CmdSortie['cmd']){
+					$eqLogic->CreateApprentissageTable();
+					return;
+				}
+			}
 	      		$ResauNeurones->ExecNeurone();
 		}
 	}
@@ -113,15 +118,13 @@ class Neuronal extends eqLogic {
 		$NbEntree=count($this->getCmd(null,"Entree")->getConfiguration('ListeCommandes'));
 		$NbSorite=count($this->getCmd(null,"Sortie")->getConfiguration('ListeCommandes'));
 		$Entree=array();
-		foreach ($this->getCmd(null,"Entree")->getConfiguration('ListeCommandes') as $cmdNeurone) {
-	        	 $loop=1;
-		         while($cmdNeurone->getConfiguration($loop)!="") {
-		         	$ES_Neurone=$cmdNeurone->getConfiguration($loop);
-				$cmd = cmd::byId(str_replace('#', '', $ES_Neurone['name']));
+		foreach ($this->getCmd(null,"Entree") as $cmdNeurone) {
+			foreach($cmdNeurone->getConfiguration('ListeCommandes') as $Commande){
+				$cmd = cmd::byId(str_replace('#', '', $Commande['cmd']));
 				if(is_object($cmd)){
-						$Entree[]=$cmd->execCmd();
+					log::add('Neuronal','debug','Ajout d\'une valeur a la table de calibration pour le neurone :'.$this->getHumanName().$cmd->getHumanName());
+					$Entree[]=$cmd->execCmd();
 				}
-	        		 $loop++;
 			}
 		}
 		log::add('Neuronal','debug','Entree Evenement Neuronal:'.json_encode($Entree));
@@ -140,26 +143,21 @@ class Neuronal extends eqLogic {
 		log::add('Neuronal','debug','Resultat de l\'execution du neurone :'.json_encode($output));
 	}
 	public function CreateApprentissageTable() {
+		log::add('Neuronal','debug','Mise a jours de la table de calibration pour le neurone :'.$this->getHumanName());
 		$Table=array();
 		if ($this->getConfiguration('ApprentissageTable')!="")
 			$Table=json_decode($this->getConfiguration('ApprentissageTable'), true);
-		else
-			log::add('Neuronal','debug','Creation de la table de calibration pour le neurone :'.$this->getHumanName());
 		foreach ($this->getCmd() as $cmdNeurone) {
-	        	 $loop=1;
-		         while($cmdNeurone->getConfiguration($loop)!="") {
-		         	$ES_Neurone=$cmdNeurone->getConfiguration($loop);
-				log::add('Neuronal','debug','Ajout d\'une ligne a la table de calibration pour le neurone :'.$ES_Neurone['name']);
-				$cmd = cmd::byId(str_replace('#', '', $ES_Neurone['name']));
+			foreach($cmdNeurone->getConfiguration('ListeCommandes') as $Commande){
+				$cmd = cmd::byId(str_replace('#', '', $Commande['cmd']));
 				if(is_object($cmd)){
-					log::add('Neuronal','debug','Ajout d\'une valeur a la table de calibration pour le neurone :'.$ES_Neurone['name']);
+					log::add('Neuronal','debug','Ajout d\'une valeur a la table de calibration pour le neurone :'.$this->getHumanName().$cmd->getHumanName());
 					$Table[$cmd->getName()][count($Table[$cmd->getName()])]=$cmd->execCmd();
 				}
-	        		 $loop++;
 			}
 		}
 		$this->setConfiguration('ApprentissageTable',json_encode($Table));
-	//	$this->save();
+		$this->save();
 		log::add('Neuronal','debug','Mise a jours de la table de calibration pour le neurone :'.$this->getHumanName());
 	}
 }
