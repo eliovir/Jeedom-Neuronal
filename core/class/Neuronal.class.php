@@ -200,8 +200,7 @@ class Neuronal extends eqLogic {
 		    Pathfinder($pathfinder_ann, array(0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
 		    Pathfinder($pathfinder_ann, array(0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0));
 		    Pathfinder($pathfinder_ann, array(0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1));
-		    Pathfinder($pathfinder_ann, array(0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0));
-		    Pathfinder($pathfinder_ann, array(0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+		    Pathfinder($pathfinder_ann, array(0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0))		    Pathfinder($pathfinder_ann, array(0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0));
 		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0));
 		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0));
 		    Pathfinder($pathfinder_ann, array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0));
@@ -218,36 +217,27 @@ class Neuronal extends eqLogic {
 		$desired_error = 0.001;
 		$max_epochs = 5000000;
 		$epochs_between_reports = 1000;
-		$pathfinder_ann = fann_create_standard($num_layers, $num_input, $num_neurons_hidden, $num_output);
-		if ($pathfinder_ann) {
-			fann_set_activation_function_hidden($pathfinder_ann, FANN_SIGMOID_SYMMETRIC);
-			fann_set_activation_function_output($pathfinder_ann, FANN_SIGMOID_SYMMETRIC);
-
-			$filename = (dirname(__FILE__) . "/../../ressources/".$this->getHumanName().".data");
-			$train_file = (dirname(__FILE__) . "/../../ressources/".$this->getHumanName().".net");
-			if (fann_train_on_file($pathfinder_ann, $filename, $max_epochs, $epochs_between_reports, $desired_error))
-				fann_save($pathfinder_ann,$train_file);
-
-			fann_destroy($pathfinder_ann);
-			echo "<h1 class='green'>Training Complete!</h1><a href='pathfinder_test.php'>Test Pathfinder</a>";
-		}
-		/*log::add('Neuronal','debug','Mise a jours de la table de calibration pour le neurone :'.$this->getHumanName());
-		$Table=array();
-		if ($this->getConfiguration('ApprentissageTable')!="")
-			$Table=json_decode($this->getConfiguration('ApprentissageTable'), true);
-		foreach ($this->getCmd() as $cmdNeurone) {
-			foreach($cmdNeurone->getConfiguration('ListeCommandes') as $Commande){
-				$cmd = cmd::byId(str_replace('#', '', $Commande['cmd']));
-				if(is_object($cmd)){
-					log::add('Neuronal','debug','Ajout d\'une valeur a la table de calibration pour le neurone :'.$this->getHumanName().$cmd->getHumanName());
-					$Table[$cmd->getName()][count($Table[$cmd->getName()])]=$cmd->execCmd();
+		$ann = fann_create_standard($num_layers, $num_input, $num_neurons_hidden, $num_output);
+		if ($ann) {
+			fann_set_activation_function_hidden($ann, FANN_SIGMOID_SYMMETRIC);
+			fann_set_activation_function_output($ann, FANN_SIGMOID_SYMMETRIC);
+			$input=new array();
+			foreach ($this->getCmd() as $cmdNeurone) {
+				foreach($cmdNeurone->getConfiguration('ListeCommandes') as $Commande){
+					$cmd = cmd::byId(str_replace('#', '', $Commande['cmd']));
+					if(is_object($cmd)){
+						log::add('Neuronal','debug','Ajout d\'une valeur a la table de calibration pour le neurone :'.$this->getHumanName().$cmd->getHumanName());
+						$input[]=$cmd->execCmd();
+					}
 				}
 			}
+			if(fann_train ($ann , $input , $desired_output ))
+				fann_save($ann,dirname(__FILE__) . "/../../ressources/".$this->getHumanName().".net");
+				
+			fann_destroy($ann);
 		}
-		$this->setConfiguration('ApprentissageTable',json_encode($Table));
-		$this->save();
 		log::add('Neuronal','debug','Mise a jours de la table de calibration pour le neurone :'.$this->getHumanName());
-	}*/
+	}
 }
 class NeuronalCmd extends cmd {
 	public function execute($_options = array())	{
