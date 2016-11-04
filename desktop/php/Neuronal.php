@@ -116,23 +116,38 @@ $eqLogics = eqLogic::byType('Neuronal');
 				</ul>
 				<div class="tab-content">
 					<div class="tab-pane active" id="tab_entree_neurone">
-						<legend>{{Commande d'entrée du neurone}}</legend>
-						<div class="cmd NeuroneEntree">
-							<input type="hidden" class="cmdAttr" data-l1key="id">
-							<input type="hidden" class="cmdAttr" data-l1key="name">
-							<input type="hidden" class="cmdAttr" data-l1key="logicalId">
-							<input type="hidden" class="cmdAttr" data-l1key="type">
-							<input type="hidden" class="cmdAttr" data-l1key="subType">
+						<div class="form-group">
+							<legend>{{Commande d'entrée du neurone}}</legend>
+							<div class="btn-group pull-right" role="group">
+								<a class="modeAction btn btn-default btn-sm" data-l1key="add">
+									<i class="fa fa-flag"></i>
+									{{Ajouter}}
+								</a>
+							</div>
+							<div class="NeuroneEntree">
+								<input type="hidden" class="cmdAttr" data-l1key="id">
+								<input type="hidden" class="cmdAttr" data-l1key="name">
+								<input type="hidden" class="cmdAttr" data-l1key="logicalId">
+								<input type="hidden" class="cmdAttr" data-l1key="type">
+								<input type="hidden" class="cmdAttr" data-l1key="subType">	
+							</div>
 						</div>
 					</div>
-					<div class="tab-pane" id="tab_sortie_neurone">
-						<legend>{{Commande de sortie du neurone}}</legend>
-						<div class="cmd NeuroneSortie">
-							<input type="hidden" class="cmdAttr" data-l1key="id">
-							<input type="hidden" class="cmdAttr" data-l1key="name">
-							<input type="hidden" class="cmdAttr" data-l1key="logicalId">
-							<input type="hidden" class="cmdAttr" data-l1key="type">
-							<input type="hidden" class="cmdAttr" data-l1key="subType">
+					<div class="tab-pane" id="tab_sortie_neurone"><div class="form-group">
+							<legend>{{Commande de sortie du neurone}}</legend>
+							<div class="btn-group pull-right" role="group">
+								<a class="modeAction btn btn-default btn-sm" data-l1key="add">
+									<i class="fa fa-flag"></i>
+									{{Ajouter}}
+								</a>
+							</div>
+							<div class="NeuroneSortie">
+								<input type="hidden" class="cmdAttr" data-l1key="id">
+								<input type="hidden" class="cmdAttr" data-l1key="name">
+								<input type="hidden" class="cmdAttr" data-l1key="logicalId">
+								<input type="hidden" class="cmdAttr" data-l1key="type">
+								<input type="hidden" class="cmdAttr" data-l1key="subType">	
+							</div>
 						</div>
 					</div>
 					<div class="tab-pane" id="tab_calibration">
