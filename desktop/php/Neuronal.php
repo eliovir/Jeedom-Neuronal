@@ -125,11 +125,11 @@ $eqLogics = eqLogic::byType('Neuronal');
 								</a>
 							</div>
 							<div class="NeuroneEntree">
-								<input type="hidden" class="cmdAttr" data-l1key="id">
-								<input type="hidden" class="cmdAttr" data-l1key="name">
-								<input type="hidden" class="cmdAttr" data-l1key="logicalId">
-								<input type="hidden" class="cmdAttr" data-l1key="type">
-								<input type="hidden" class="cmdAttr" data-l1key="subType">	
+								<input type="hidden" class="cmdAttr" data-l1key="id"/>
+								<input type="hidden" class="cmdAttr" data-l1key="name"/>
+								<input type="hidden" class="cmdAttr" data-l1key="logicalId"/>
+								<input type="hidden" class="cmdAttr" data-l1key="type"/>
+								<input type="hidden" class="cmdAttr" data-l1key="subType"/>	
 							</div>
 						</div>
 					</div>
@@ -143,11 +143,11 @@ $eqLogics = eqLogic::byType('Neuronal');
 								</a>
 							</div>
 							<div class="NeuroneSortie">
-								<input type="hidden" class="cmdAttr" data-l1key="id">
-								<input type="hidden" class="cmdAttr" data-l1key="name">
-								<input type="hidden" class="cmdAttr" data-l1key="logicalId">
-								<input type="hidden" class="cmdAttr" data-l1key="type">
-								<input type="hidden" class="cmdAttr" data-l1key="subType">	
+								<input type="hidden" class="cmdAttr" data-l1key="id"/>
+								<input type="hidden" class="cmdAttr" data-l1key="name"/>
+								<input type="hidden" class="cmdAttr" data-l1key="logicalId"/>
+								<input type="hidden" class="cmdAttr" data-l1key="type"/>
+								<input type="hidden" class="cmdAttr" data-l1key="subType"/>	
 							</div>
 						</div>
 					</div>
