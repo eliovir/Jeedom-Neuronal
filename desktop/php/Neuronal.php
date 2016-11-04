@@ -117,34 +117,38 @@ $eqLogics = eqLogic::byType('Neuronal');
 				<div class="tab-content">
 					<div class="tab-pane active" id="tab_entree_neurone">
 						<div class="form-group">
-							<legend>{{Commande d'entrée du neurone}}</legend>
-							<div class="btn-group pull-right" role="group">
-								<a class="CommandeAttr btn btn-default btn-sm" data-l1key="add"><i class="fa fa-flag"></i>{{Ajouter}}</a>
-							</div>	
-							<div class="row NeuroneEntree">
-								<input type="hidden" class="cmdAttr" data-l1key="id"/>
-								<input type="hidden" class="cmdAttr" data-l1key="name"/>
-								<input type="hidden" class="cmdAttr" data-l1key="logicalId"/>
-								<input type="hidden" class="cmdAttr" data-l1key="type"/>
-								<input type="hidden" class="cmdAttr" data-l1key="subType"/>
-								<input type="hidden" class="cmdAttr" data-l1key="configuration" data-l2key="valide"/>	
-							</div>
+							<form class="form-horizontal">
+								<legend>{{Commande d'entrée du neurone}}</legend>
+								<div class="btn-group pull-right" role="group">
+									<a class="CommandeAttr btn btn-default btn-sm" data-l1key="add"><i class="fa fa-flag"></i>{{Ajouter}}</a>
+								</div>	
+								<div class="row NeuroneEntree">
+									<input type="hidden" class="cmdAttr" data-l1key="id"/>
+									<input type="hidden" class="cmdAttr" data-l1key="name"/>
+									<input type="hidden" class="cmdAttr" data-l1key="logicalId"/>
+									<input type="hidden" class="cmdAttr" data-l1key="type"/>
+									<input type="hidden" class="cmdAttr" data-l1key="subType"/>
+									<input type="hidden" class="cmdAttr" data-l1key="configuration" data-l2key="valide"/>	
+								</div>
+							</form>
 						</div>
 					</div>
 					<div class="tab-pane" id="tab_sortie_neurone">
 						<div class="form-group">
-							<legend>{{Commande de sortie du neurone}}</legend>
-							<div class="btn-group pull-right" role="group">
-								<a class="CommandeAttr btn btn-default btn-sm" data-l1key="add"><i class="fa fa-flag"></i>{{Ajouter}}</a>
-							</div>	
-							<div class="row NeuroneSortie">
-								<input type="hidden" class="cmdAttr" data-l1key="id"/>
-								<input type="hidden" class="cmdAttr" data-l1key="name"/>
-								<input type="hidden" class="cmdAttr" data-l1key="logicalId"/>
-								<input type="hidden" class="cmdAttr" data-l1key="type"/>
-								<input type="hidden" class="cmdAttr" data-l1key="subType"/>
-								<input type="hidden" class="cmdAttr" data-l1key="configuration" data-l2key="valide"/>	
-							</div>
+							<form class="form-horizontal">
+								<legend>{{Commande de sortie du neurone}}</legend>
+								<div class="btn-group pull-right" role="group">
+									<a class="CommandeAttr btn btn-default btn-sm" data-l1key="add"><i class="fa fa-flag"></i>{{Ajouter}}</a>
+								</div>	
+								<div class="row NeuroneSortie">
+									<input type="hidden" class="cmdAttr" data-l1key="id"/>
+									<input type="hidden" class="cmdAttr" data-l1key="name"/>
+									<input type="hidden" class="cmdAttr" data-l1key="logicalId"/>
+									<input type="hidden" class="cmdAttr" data-l1key="type"/>
+									<input type="hidden" class="cmdAttr" data-l1key="subType"/>
+									<input type="hidden" class="cmdAttr" data-l1key="configuration" data-l2key="valide"/>	
+								</div>
+							</form>
 						</div>
 					</div>
 					<div class="tab-pane" id="tab_calibration">
