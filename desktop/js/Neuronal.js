@@ -2,51 +2,15 @@ $('#tab_parametre a').click(function(e) {
     e.preventDefault();
     $(this).tab('show');
 });
-$('body').on('change','.cmdAttr[data-l1key=configuration][data-l3key=name]', function() {
-	var Parametre=$(this).val();
-	var specialChars = " !@#$^&%*()+=-[]\/{}|:<>?,.";
-	for (var i = 0; i < specialChars.length; i++) {
-		Parametre = Parametre .replace(new RegExp("\\" + specialChars[i], 'gi'), '');
-	}
-	if (Parametre!=""){
-			if ($('#table_Calibration thead td[data-id='+Parametre+']').length==0)
-			$('#table_Calibration thead tr').append($('<td>').attr('data-id',Parametre).text($(this).val()));
-		else
-			$('#table_Calibration thead td[data-id='+Parametre+']').text($(this).val());
-		if ($('#table_Calibration tbody tr').length==0)
-			$('#table_Calibration tbody').append($('<tr>').attr('id',createGuid()));
-		$.each($('#table_Calibration tbody tr'),function(){
-			var id=$(this).closest('tr').attr('id');
-			addCalibrationToTable(Parametre, id,0);
-		});
-	}
-});
 $('body').on( 'click','.bt_selectCmdExpression', function() {
-	var TypeCmd="action";
-	if($(this).closest('table').attr('id')=="table_cmd_Entree") 
-		TypeCmd="info";
-	var tr =$('<tr>');
-	var _this=this;
+	var TypeCmd=$(this).closest(".CommandeGroup").attr('data-TypeCmd');
+	var Commande=$(this).closest(".CommandeGroup").find("expressionAttr[data-l1key=cmd]");
 	jeedom.cmd.getSelectModal({cmd: {type: TypeCmd},eqLogic: {eqType_name : ''}}, function (result) {
-		$(_this).closest('td').find('.cmdAttr[data-l1key=configuration][data-l3key=name]').val(result.human);
+		Commande.val(result.human);
 	});
 });  
-$('body').on('click','.bt_add',function(){
-	switch($(this).closest('table').attr('id')){
-		case 'table_Calibration':
-			var tr=$('#table_Calibration tbody tr:last').clone();
-			var id=createGuid();
-			tr.attr('id',id);
-			tr.find('.eqLogicAttr').attr('data-l4key',id);
-			$('#table_Calibration tbody').append(tr);
-		break;
-		default:
-			addToTable($(this).closest('table'),'');
-		break;
-	}
-});
 $('body').on('click','.CommandeAttr[data-l1key=add]', function () {
-		addElement({},'{{Element}}',$(this).closest(".form-group").find(".NeuroneEntree"));
+	addElement({},'{{Element}}',$(this).closest(".form-group").find(".NeuroneEntree"));
 });
 $('body').on('click','.CommandeAttr[data-l1key=remove]', function () {
 	$(this).closest(".CommandeGroup").remove();
@@ -76,9 +40,14 @@ function addCmdToTable(_cmd) {
 	if (!isset(_cmd.configuration)) {
 		_cmd.configuration = {};
 	}
-	var div=$(".NeuroneEntree");
-	if(_cmd.name!="Entree")
+	var div=null;
+	if(_cmd.name=="Entree"){
+		div=$(".NeuroneEntree");
+		div.addClass("cmd").attr('data-cmd_id',init(_cmd.id)).attr('data-TypeCmd','info');
+	}else{
 		div=$(".NeuroneSortie");
+		div.addClass("cmd").attr('data-cmd_id',init(_cmd.id)).attr('data-TypeCmd','action');
+	}
 	div.setValues(_cmd, '.cmdAttr');
 	$.each( _cmd.configuration.Commandes,function(key, value){
 		addElement(value,'{{Element}}',div);
@@ -95,12 +64,12 @@ function addElement(_Commande, _name, _el) {
   		.append($('<label class="col-lg-1 control-label">')
 			.text(_name))
    		.append($('<div class="col-lg-1">')
-    			.append($('<a class="btn btn-warning btn-sm listCmdCommande" >')
+    			.append($('<a class="btn btn-warning btn-sm bt_selectCmdExpression" >')
 				.append($('<i class="fa fa-list-alt">'))))
 		.append($('<div class="col-lg-3">')
-			.append($('<input class="expressionAttr form-control input-sm cmdCommande" data-l1key="cmd" />')))
+			.append($('<input class="expressionAttr form-control input-sm" data-l1key="cmd" />')))
  		.append($('<div class="col-lg-1">')
   			.append($('<i class="fa fa-minus-circle pull-left cursor CommandeAttr" data-action="remove">')));
         _el.append(div);
-        _el.find('.ActionCommande:last').setValues(_Commande, '.expressionAttr');
+        _el.find('.CommandeGroup:last').setValues(_Commande, '.expressionAttr');
 }
