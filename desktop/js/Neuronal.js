@@ -45,8 +45,11 @@ $('body').on('click','.bt_add',function(){
 		break;
 	}
 });
-$('body').on('click','.bt_del',function(){
-	$(this).closest('tr').remove();
+$('body').on('click','.CommandeAttr[data-l1key=add]', function () {
+		addElement({},'{{Element}}',$(this).closest(".form-group").find(".NeuroneEntree"));
+});
+$('body').on('click','.CommandeAttr[data-l1key=remove]', function () {
+	$(this).closest(".CommandeGroup").remove();
 });
 $("#table_cmd_Entree").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 $("#table_cmd_Sortie").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
@@ -78,7 +81,7 @@ function addCmdToTable(_cmd) {
 		div=$(".NeuroneSortie");
 	div.setValues(_cmd, '.cmdAttr');
 	$.each( _cmd.configuration,function(key, value){
-		addElement({},'{{Element}}',div);
+		addElement(_cmd,'{{Element}}',div);
 	})
 }
 function addElement(_Commande, _name, _el) {
@@ -97,9 +100,7 @@ function addElement(_Commande, _name, _el) {
 		.append($('<div class="col-lg-3">')
 			.append($('<input class="expressionAttr form-control input-sm cmdCommande" data-l1key="cmd" />')))
  		.append($('<div class="col-lg-1">')
-  			.append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="add">')))
- 		.append($('<div class="col-lg-1">')
-  			.append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="remove">')));
+  			.append($('<i class="fa fa-minus-circle pull-left cursor CommandeAttr" data-action="remove">')));
         _el.append(div);
         _el.find('.ActionCommande:last').setValues(_Commande, '.expressionAttr');
 }
