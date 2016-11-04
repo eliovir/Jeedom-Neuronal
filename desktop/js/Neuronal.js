@@ -24,7 +24,7 @@ function saveEqLogic(_eqLogic) {
 	}	
 	if (typeof( _eqLogic.cmd) !== 'undefined') {
 		for(var index in  _eqLogic.cmd) { 
-			//_eqLogic.cmd[index].configuration.Commandes=new Object();
+			_eqLogic.cmd[index].configuration.Commandes=new Object();
 			var Commandes= new Array();
 			$('.cmd[data-cmd_id=' + init(_eqLogic.cmd[index].id)+ '] .ConditionGroup').each(function( index ) {
 				Commandes.push($(this).getValues('.expressionAttr')[0])
