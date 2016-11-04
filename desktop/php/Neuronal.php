@@ -129,7 +129,8 @@ $eqLogics = eqLogic::byType('Neuronal');
 								<input type="hidden" class="cmdAttr" data-l1key="name"/>
 								<input type="hidden" class="cmdAttr" data-l1key="logicalId"/>
 								<input type="hidden" class="cmdAttr" data-l1key="type"/>
-								<input type="hidden" class="cmdAttr" data-l1key="subType"/>	
+								<input type="hidden" class="cmdAttr" data-l1key="subType"/>
+								<input type="hidden" class="cmdAttr" data-l1key="configuration" data-l2key="valide"/>	
 							</div>
 						</div>
 					</div>
