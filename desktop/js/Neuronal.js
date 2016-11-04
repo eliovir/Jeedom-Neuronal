@@ -24,11 +24,10 @@ function saveEqLogic(_eqLogic) {
 	}	
 	if (typeof( _eqLogic.cmd) !== 'undefined') {
 		for(var index in  _eqLogic.cmd) { 
-			var Commandes= new Array();
+			_eqLogic.cmd[index].configuration.Commandes= new Array();
 			$('.cmd[data-cmd_id=' + init(_eqLogic.cmd[index].id)+ '] .ConditionGroup').each(function( index ) {
-				Commandes.push($(this).getValues('.expressionAttr')[0])
+				_eqLogic.cmd[index].configuration.Commandes.push($(this).getValues('.expressionAttr')[0])
 			});
-			_eqLogic.cmd[index].configuration.Commandes=Commandes;
 		}
 	}
    	return _eqLogic;
