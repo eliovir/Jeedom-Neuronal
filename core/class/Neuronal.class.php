@@ -72,7 +72,7 @@ class Neuronal extends eqLogic {
 			$Commande->setName($Name);
 			$Commande->setLogicalId($_logicalId);
 			$Commande->setEqLogic_id($eqLogic->getId());
-			$Commande->setConfiguration('Commandes','') ;
+			$Commande->setConfiguration('ListeCommandes','') ;
 			$Commande->setType('info');
 			$Commande->setSubType('other');
 		}
@@ -95,7 +95,7 @@ class Neuronal extends eqLogic {
 			$listener->setOption(array('eqLogic_id' => intval($this->getId())));
 			$listener->emptyEvent();
 			foreach ($this->getCmd() as $cmdEsNeurone) {
-				foreach ($cmdEsNeurone->getConfiguration('Commandes') as $cmdNeurone) {
+				foreach ($cmdEsNeurone->getConfiguration('ListeCommandes') as $cmdNeurone) {
 					$cmd=cmd::byId(str_replace('#','',$cmdNeurone['cmd']));
 					if(is_object($cmd)){
 						$listener->addEvent($cmd->getId());
@@ -111,10 +111,10 @@ class Neuronal extends eqLogic {
       		log::add('Neuronal','debug','Execution du resau de neurone');
 		$layers=$this->getConfiguration('ApprentissageTable');
 		log::add('Neuronal','debug','Table d\'Apprentissage :'.json_encode($layers));
-		$NbEntree=count($this->getCmd(null,"Entree")->getConfiguration('Commandes'));
-		$NbSorite=count($this->getCmd(null,"Sortie")->getConfiguration('Commandes'));
+		$NbEntree=count($this->getCmd(null,"Entree")->getConfiguration('ListeCommandes'));
+		$NbSorite=count($this->getCmd(null,"Sortie")->getConfiguration('ListeCommandes'));
 		$Entree=array();
-		foreach ($this->getCmd(null,"Entree")->getConfiguration('Commandes') as $cmdNeurone) {
+		foreach ($this->getCmd(null,"Entree")->getConfiguration('ListeCommandes') as $cmdNeurone) {
 	        	 $loop=1;
 		         while($cmdNeurone->getConfiguration($loop)!="") {
 		         	$ES_Neurone=$cmdNeurone->getConfiguration($loop);
