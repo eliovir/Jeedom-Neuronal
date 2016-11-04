@@ -110,10 +110,10 @@ class Neuronal extends eqLogic {
       		log::add('Neuronal','debug','Execution du resau de neurone');
 		$layers=$this->getConfiguration('ApprentissageTable');
 		log::add('Neuronal','debug','Table d\'Apprentissage :'.json_encode($layers));
-		$NbEntree=count($this->getCmd(null,"Entree"));
-		$NbSorite=count($this->getCmd(null,"Sortie"));
+		$NbEntree=count($this->getCmd(null,"Entree")->getConfiguration('Commandes'));
+		$NbSorite=count($this->getCmd(null,"Sortie")->getConfiguration('Commandes'));
 		$Entree=array();
-		foreach ($this->getCmd(null,"Entree") as $cmdNeurone) {
+		foreach ($this->getCmd(null,"Entree")->getConfiguration('Commandes') as $cmdNeurone) {
 	        	 $loop=1;
 		         while($cmdNeurone->getConfiguration($loop)!="") {
 		         	$ES_Neurone=$cmdNeurone->getConfiguration($loop);
