@@ -81,14 +81,17 @@ class Neuronal extends eqLogic {
 			$Commande->setSubType('other');
 		}
 		$Commande->save();
-	}
-	
+	}	
 	public function postSave() {
 			self::AddCommande($this,'Entree','Entree');
 			self::AddCommande($this,'Sortie','Sortie');
-		//	$this->CreateApprentissageTable();
 	      		$this->createListener();
 		}
+	public function preRemove() {
+		$listener = listener::byClassAndFunction('Neuronal', 'ListenerEvent', array('eqLogic_id' => intval($this->getId())));
+		if (is_object($listener)) 
+			$listener->remove();
+	}
 	public function createListener(){
 		$listener = listener::byClassAndFunction('Neuronal', 'ListenerEvent', array('eqLogic_id' => intval($this->getId())));
 		if (!is_object($listener)) {
