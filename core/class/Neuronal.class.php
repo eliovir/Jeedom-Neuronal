@@ -92,19 +92,19 @@ class Neuronal extends eqLogic {
 			$listener->setClass('Neuronal');
 			$listener->setFunction('ListenerEvent');
 			$listener->setOption(array('eqLogic_id' => intval($this->getId())));
-			$listener->emptyEvent();
-			foreach ($this->getCmd() as $cmdEsNeurone) {
-				foreach ($cmdEsNeurone->getConfiguration('ListeCommandes') as $cmdNeurone) {
-					$cmd=cmd::byId(str_replace('#','',$cmdNeurone['cmd']));
-					if(is_object($cmd)){
-						$listener->addEvent($cmd->getId());
-						log::add('Neuronal','debug','Ajout de '.$cmd->getHumanName().' de l\'écouteur d\'evenement :'.$this->getHumanName());
-					}
+		}
+		$listener->emptyEvent();
+		foreach ($this->getCmd() as $cmdEsNeurone) {
+			foreach ($cmdEsNeurone->getConfiguration('ListeCommandes') as $cmdNeurone) {
+				$cmd=cmd::byId(str_replace('#','',$cmdNeurone['cmd']));
+				if(is_object($cmd)){
+					$listener->addEvent($cmd->getId());
+					log::add('Neuronal','debug','Ajout de '.$cmd->getHumanName().' de l\'écouteur d\'evenement :'.$this->getHumanName());
 				}
 			}
-			$listener->save();
-		log::add('Neuronal','debug','Lancement de l\'écouteur d\'evenement :'.$this->getHumanName());
 		}
+		$listener->save();
+		log::add('Neuronal','debug','Lancement de l\'écouteur d\'evenement :'.$this->getHumanName());
 	}
 	public function ExecNeurone() {	
       		log::add('Neuronal','debug','Execution du resau de neurone');
