@@ -80,8 +80,8 @@ function addCmdToTable(_cmd) {
 	if(_cmd.name!="Entree")
 		div=$(".NeuroneSortie");
 	div.setValues(_cmd, '.cmdAttr');
-	$.each( _cmd.configuration,function(key, value){
-		addElement(_cmd,'{{Element}}',div);
+	$.each( _cmd.configuration.Commandes,function(key, value){
+		addElement(value,'{{Element}}',div);
 	})
 }
 function addElement(_Commande, _name, _el) {
