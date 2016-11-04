@@ -4,7 +4,7 @@ $('#tab_parametre a').click(function(e) {
 });
 $('body').on( 'click','.bt_selectCmdExpression', function() {
 	var TypeCmd=$(this).closest(".CommandeGroup").attr('data-TypeCmd');
-	var Commande=$(this).closest(".CommandeGroup").find("expressionAttr[data-l1key=cmd]");
+	var Commande=$(this).closest(".CommandeGroup").find(".expressionAttr[data-l1key=cmd]");
 	jeedom.cmd.getSelectModal({cmd: {type: TypeCmd},eqLogic: {eqType_name : ''}}, function (result) {
 		Commande.val(result.human);
 	});
