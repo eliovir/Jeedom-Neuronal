@@ -144,6 +144,7 @@ class Neuronal extends eqLogic {
 		 	return;
 		}
 		log::add('Neuronal','debug','Resultat de l\'execution du neurone :'.json_encode($output));
+		fann_destroy($ann);
 	}
 	public function CreateApprentissageTable() {
 		log::add('Neuronal','debug','Mise a jours de la table de calibration pour le neurone :'.$this->getHumanName());
