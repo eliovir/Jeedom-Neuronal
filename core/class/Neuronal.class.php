@@ -150,7 +150,7 @@ class Neuronal extends eqLogic {
 		if ($ann) {
 			fann_set_activation_function_hidden($ann, FANN_SIGMOID_SYMMETRIC);
 			fann_set_activation_function_output($ann, FANN_SIGMOID_SYMMETRIC);
-			$input=new array();
+			$input=array();
 			foreach ($this->getCmd() as $cmdNeurone) {
 				foreach($cmdNeurone->getConfiguration('ListeCommandes') as $Commande){
 					$cmd = cmd::byId(str_replace('#', '', $Commande['cmd']));
