@@ -131,18 +131,14 @@ class Neuronal extends eqLogic {
 			}
 		}
 		log::add('Neuronal','debug','Entree Evenement Neuronal:'.json_encode($Entree));
-		if ( ($ann = fann_create($NbEntree, $NbEntree*$NbSorite,$NbSorite)) == FALSE ) {
-			log::add('Neuronal','debug','Resultat de l\'execution du neurone :'.json_encode($output));
+		if ( ($ann = fann_create($NbEntree, $NbEntree*$NbSorite,$NbSorite)) == FALSE ) 
 		 	return;
-		}
-		if ( fann_train($ann, $layers, 100000, 0.00001) == FALSE ) {
-			log::add('Neuronal','debug','Resultat de l\'execution du neurone :'.json_encode($output));
+		log::add('Neuronal','debug','Le réseau de neurone a correctement été créé');
+		if (fann_train($ann, $layers, 100000, 0.00001) == FALSE )
 		 	return;
-		}
-		if ( ($output = fann_run($ann, $Entree)) == FALSE ) {
-			log::add('Neuronal','debug','Resultat de l\'execution du neurone :'.json_encode($output));
+		log::add('Neuronal','debug','La base de calibration a correctement été chargée');
+		if ( ($output = fann_run($ann, $Entree)) == FALSE )
 		 	return;
-		}
 		log::add('Neuronal','debug','Resultat de l\'execution du neurone :'.json_encode($output));
 		fann_destroy($ann);
 	}
