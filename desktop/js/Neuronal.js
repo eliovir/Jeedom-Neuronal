@@ -50,6 +50,22 @@ $('body').on('click','.bt_del',function(){
 });
 $("#table_cmd_Entree").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 $("#table_cmd_Sortie").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+function saveEqLogic(_eqLogic) {
+	var state_order = '';
+    	if (!isset(_eqLogic.configuration)) {
+    	    _eqLogic.configuration = {};
+	}	
+	if (typeof( _eqLogic.cmd) !== 'undefined') {
+		for(var index in  _eqLogic.cmd) { 
+			var Commandes= new Array();
+			$('.cmd[data-cmd_id=' + init(_eqLogic.cmd[index].id)+ '] .ConditionGroup').each(function( index ) {
+				Commandes.push($(this).getValues('.expressionAttr')[0])
+			});
+			_eqLogic.cmd[index].configuration.Commandes=Commandes;
+		}
+	}
+   	return _eqLogic;
+}
 function addCmdToTable(_cmd) {
 	if (!isset(_cmd)) {
  		var _cmd = {};
@@ -57,88 +73,33 @@ function addCmdToTable(_cmd) {
 	if (!isset(_cmd.configuration)) {
 		_cmd.configuration = {};
 	}
-	var Table=$("#table_cmd_Entree");
+	var div=$(".NeuroneEntree");
 	if(_cmd.name!="Entree")
-		Table=$("#table_cmd_Sortie");
-		if (Table.find('tbody').length==0)
-			Table.append($('<tbody>'));
-	Table.find('tbody').addClass("cmd").attr("data-cmd_id",init(_cmd.id));
-	Table.find('tbody').append($('<input type="hidden" class="cmdAttr" data-l1key="id">'));
-	Table.find('tbody').append($('<input type="hidden" class="cmdAttr" data-l1key="name">'));
-	Table.find('tbody').append($('<input type="hidden" class="cmdAttr" data-l1key="logicalId">'));
-	Table.find('tbody').append($('<input type="hidden" class="cmdAttr" data-l1key="type">'));
-	Table.find('tbody').append($('<input type="hidden" class="cmdAttr" data-l1key="subType">'));
+		div=$(".NeuroneSortie");
+	div.setValues(_cmd, '.cmdAttr');
 	$.each( _cmd.configuration,function(key, value){
-		if(key)
-			addToTable(Table,key);
-		else
-			addToTable(Table,'');
+		addElement({},'{{Element}}',div);
 	})
-	Table.setValues(_cmd, '.cmdAttr');
 }
-function createGuid(){
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
-        return v.toString(16);
-    });
-}
-function addToTable(_Table, id) {
-	if (id=='')
-		id=createGuid();
-	var tr =$('<tr>');
-  	tr.append($('<td>')
-		.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="'+id+'" data-l3key="name" style="width:85%;display: inline-block;margin: 5px;">'))
-		.append($('<a style="display : inline-block;margin:5px;" class="btn btn-default btn-xs cursor bt_selectCmdExpression" title="Rechercher une commande">')
-			.append($('<i class="fa fa-list-alt">'))));
-//	tr.append($('<td>')
-//		.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="'+id+'" data-l3key="tolerance">')));
-	tr.append($('<td>')
-		.append($('<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">')
-			.append($('<i class="fa fa-plus-circle">')))
-		.append($('<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">')
-			.append($('<i class="fa fa-minus-circle">'))));
-	_Table.find('tbody').append(tr);
-}
-function addCalibrationToTable(Parametre, key,value) {
-	var tr=$('#table_Calibration tbody').find('#'+key);
-	if(tr.length<=0){
-		$('#table_Calibration tbody').append($('#table_Calibration thead tr').clone().attr('id',key));
-		tr=$('#table_Calibration tbody').find('#'+key);
-		tr.find('td').first().html('')
-			.append($('<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">')
-				.append($('<i class="fa fa-plus-circle">')))
-			.append($('<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">')
-				.append($('<i class="fa fa-minus-circle">')));
+function addElement(_Commande, _name, _el) {
+	if (!isset(_Commande)) {
+		_Commande = {};
 	}
-	if(tr.find('td').length<=0)
-		tr.append($('<td>')			
-			.append($('<a style="display : inline-block;margin:5px;" class="btn btn-success btn-xs cursor bt_add" title="Ajouter une commande">')
-				.append($('<i class="fa fa-plus-circle">')))
-			.append($('<a style="display : inline-block;margin:5px;" class="btn btn-danger btn-xs cursor bt_del" title="Supprimer une commande">')
-				.append($('<i class="fa fa-minus-circle">'))));
-	if(tr.find('td[data-id='+Parametre+']').length<=0)
-		tr.append($('<td>').attr('data-id',Parametre));
-	if($('.eqLogicAttr[data-l1key=configuration][data-l2key=ApprentissageTable][data-l3key='+Parametre+'][data-l4key='+key+']').length<=0)
-		tr.find('td[data-id='+Parametre+']').html($('<input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ApprentissageTable" data-l3key="'+Parametre+'" data-l4key="'+key+'"/>').val(value));
-}
-function printEqLogic(data){
-	$('#table_Calibration thead tr').html($('<td>').text('Parametre'));
-	$('#table_Calibration tbody').html('');
-	var id=createGuid();
-	$.each(data.configuration.ApprentissageTable,function(Parametre, Ligne){	
-		if(Parametre && Parametre!=''){
-			if ($('#table_Calibration thead td[data-id='+Parametre+']').length==0)
-				$('#table_Calibration thead tr').append($('<td>').attr('data-id',Parametre));
-			if(typeof Ligne === 'object'){
-				if(Ligne){
-					$.each(Ligne,function(key, value){
-						if(key,value)
-							addCalibrationToTable(Parametre, key,value);
-					});
-				}
-			}
-			else
-				addCalibrationToTable(Parametre, id,Ligne) 
-		}
-	});
+	if (!isset(_Commande.options)) {
+		_Commande.options = {};
+	}
+    	var div = $('<div class="form-group CommandeGroup">')
+  		.append($('<label class="col-lg-1 control-label">')
+			.text(_name))
+   		.append($('<div class="col-lg-1">')
+    			.append($('<a class="btn btn-warning btn-sm listCmdCommande" >')
+				.append($('<i class="fa fa-list-alt">'))))
+		.append($('<div class="col-lg-3">')
+			.append($('<input class="expressionAttr form-control input-sm cmdCommande" data-l1key="cmd" />')))
+ 		.append($('<div class="col-lg-1">')
+  			.append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="add">')))
+ 		.append($('<div class="col-lg-1">')
+  			.append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="remove">')));
+        _el.append(div);
+        _el.find('.ActionCommande:last').setValues(_Commande, '.expressionAttr');
 }
