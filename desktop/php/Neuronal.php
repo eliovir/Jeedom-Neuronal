@@ -119,7 +119,7 @@ $eqLogics = eqLogic::byType('Neuronal');
 						<div class="form-group">
 							<legend>{{Commande d'entrée du neurone}}</legend>
 							<div class="btn-group pull-right" role="group">
-								<a class="modeAction btn btn-default btn-sm" data-l1key="add">
+								<a class="CommandeAttr btn btn-default btn-sm" data-l1key="add">
 									<i class="fa fa-flag"></i>
 									{{Ajouter}}
 								</a>
@@ -133,10 +133,11 @@ $eqLogics = eqLogic::byType('Neuronal');
 							</div>
 						</div>
 					</div>
-					<div class="tab-pane" id="tab_sortie_neurone"><div class="form-group">
+					<div class="tab-pane" id="tab_sortie_neurone">
+						<div class="form-group">
 							<legend>{{Commande de sortie du neurone}}</legend>
 							<div class="btn-group pull-right" role="group">
-								<a class="modeAction btn btn-default btn-sm" data-l1key="add">
+								<a class="CommandeAttr btn btn-default btn-sm" data-l1key="add">
 									<i class="fa fa-flag"></i>
 									{{Ajouter}}
 								</a>
