@@ -60,12 +60,12 @@ class Neuronal extends eqLogic {
 		if (is_object($ResauNeurones)) {
 	      		log::add('Neuronal','debug','Evenement sur une entree de Neurone');
 			foreach($this->getCmd(null,"Sortie")->getConfiguration('ListeCommandes') as $CmdSortie){
-				if($_options['eqLogic_id'] ==$CmdSortie['cmd']){
+				if($_options['event_id'] == str_replace('#', '', $CmdSortie['cmd'])){
 					$eqLogic->CreateApprentissageTable();
 					return;
 				}
 			}
-	      		$ResauNeurones->ExecNeurone();
+	      		$ResauNeurones->ExecNeurone($_options['event_id'],$_options['value']);
 		}
 	}
 	public static function AddCommande($eqLogic,$Name,$_logicalId) {
@@ -111,7 +111,7 @@ class Neuronal extends eqLogic {
 		$listener->save();
 		log::add('Neuronal','debug','Lancement de l\'écouteur d\'evenement :'.$this->getHumanName());
 	}
-	public function ExecNeurone() {	
+	public function ExecNeurone($idCmdEvent,$ValueCmdEvent) {	
       		log::add('Neuronal','debug','Execution du resau de neurone');
 		$layers=$this->getConfiguration('ApprentissageTable');
 		log::add('Neuronal','debug','Table d\'Apprentissage :'.json_encode($layers));
