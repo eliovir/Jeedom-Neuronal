@@ -119,12 +119,9 @@ $eqLogics = eqLogic::byType('Neuronal');
 						<div class="form-group">
 							<legend>{{Commande d'entrée du neurone}}</legend>
 							<div class="btn-group pull-right" role="group">
-								<a class="CommandeAttr btn btn-default btn-sm" data-l1key="add">
-									<i class="fa fa-flag"></i>
-									{{Ajouter}}
-								</a>
-							</div>
-							<div class="NeuroneEntree">
+								<a class="CommandeAttr btn btn-default btn-sm" data-l1key="add"><i class="fa fa-flag"></i>{{Ajouter}}</a>
+							</div>	
+							<div class="row NeuroneEntree">
 								<input type="hidden" class="cmdAttr" data-l1key="id"/>
 								<input type="hidden" class="cmdAttr" data-l1key="name"/>
 								<input type="hidden" class="cmdAttr" data-l1key="logicalId"/>
@@ -138,12 +135,9 @@ $eqLogics = eqLogic::byType('Neuronal');
 						<div class="form-group">
 							<legend>{{Commande de sortie du neurone}}</legend>
 							<div class="btn-group pull-right" role="group">
-								<a class="CommandeAttr btn btn-default btn-sm" data-l1key="add">
-									<i class="fa fa-flag"></i>
-									{{Ajouter}}
-								</a>
-							</div>
-							<div class="NeuroneSortie">
+								<a class="CommandeAttr btn btn-default btn-sm" data-l1key="add"><i class="fa fa-flag"></i>{{Ajouter}}</a>
+							</div>	
+							<div class="row NeuroneSortie">
 								<input type="hidden" class="cmdAttr" data-l1key="id"/>
 								<input type="hidden" class="cmdAttr" data-l1key="name"/>
 								<input type="hidden" class="cmdAttr" data-l1key="logicalId"/>
