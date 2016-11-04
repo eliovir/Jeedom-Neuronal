@@ -50,7 +50,7 @@ function addCmdToTable(_cmd) {
 		div.addClass("cmd").attr('data-cmd_id',init(_cmd.id)).attr('data-TypeCmd','action');
 	}
 	div.setValues(_cmd, '.cmdAttr');
-	$.each( _cmd.configuration.Commandes,function(key, value){
+	$.each( _cmd.configuration.ListeCommandes,function(key, value){
 		addElement(value,'{{Element}}',div);
 	})
 }
