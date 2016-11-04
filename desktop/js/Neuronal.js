@@ -10,7 +10,7 @@ $('body').on( 'click','.bt_selectCmdExpression', function() {
 	});
 });  
 $('body').on('click','.CommandeAttr[data-l1key=add]', function () {
-	addElement({},'{{Element}}',$(this).closest(".form-group").find(".NeuroneEntree"));
+	addElement({},'{{Element}}',$(this).closest(".form-group").find(".cmd"));
 });
 $('body').on('click','.CommandeAttr[data-l1key=remove]', function () {
 	$(this).closest(".CommandeGroup").remove();
