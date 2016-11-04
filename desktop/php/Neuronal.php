@@ -117,34 +117,23 @@ $eqLogics = eqLogic::byType('Neuronal');
 				<div class="tab-content">
 					<div class="tab-pane active" id="tab_entree_neurone">
 						<legend>{{Commande d'entrée du neurone}}</legend>
-						<table id="table_cmd_Entree" class="table table-bordered table-condensed">
-							<thead>
-										<tr>
-												<th>{{Commande}}</th>
-									<!--th>{{Tolérance}}</th-->
-									<th>{{Action}}</th>
-										</tr>
-								</thead>
-								<tbody></tbody>
-						</table>
+						<div class="cmd NeuroneEntree">
+							<input type="hidden" class="cmdAttr" data-l1key="id">
+							<input type="hidden" class="cmdAttr" data-l1key="name">
+							<input type="hidden" class="cmdAttr" data-l1key="logicalId">
+							<input type="hidden" class="cmdAttr" data-l1key="type">
+							<input type="hidden" class="cmdAttr" data-l1key="subType">
+						</div>
 					</div>
 					<div class="tab-pane" id="tab_sortie_neurone">
 						<legend>{{Commande de sortie du neurone}}</legend>
-						<table id="table_cmd_Sortie" class="table table-bordered table-condensed">
+						<div class="cmd NeuroneSortie">
 							<input type="hidden" class="cmdAttr" data-l1key="id">
-							<input type="hidden" class="cmdAttr" data-l1key="name" >
+							<input type="hidden" class="cmdAttr" data-l1key="name">
 							<input type="hidden" class="cmdAttr" data-l1key="logicalId">
-							<input type="hidden" class="cmdAttr" data-l1key="type" value="action" />
-							<input type="hidden" class="cmdAttr" data-l1key="subType" value="other" />
-							<thead>
-										<tr>
-												<th>{{Commande}}</th>
-									<!--th>{{Tolérance}}</th-->
-									<th>{{Action}}</th>
-										</tr>
-								</thead>
-								<tbody></tbody>
-						</table>
+							<input type="hidden" class="cmdAttr" data-l1key="type">
+							<input type="hidden" class="cmdAttr" data-l1key="subType">
+						</div>
 					</div>
 					<div class="tab-pane" id="tab_calibration">
 						<table id="table_Calibration" class="table table-bordered table-condensed">
