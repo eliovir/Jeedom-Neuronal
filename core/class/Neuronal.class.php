@@ -72,7 +72,7 @@ class Neuronal extends eqLogic {
 			$Commande->setName($Name);
 			$Commande->setLogicalId($_logicalId);
 			$Commande->setEqLogic_id($eqLogic->getId());
-			$Commande->setConfiguraiton('Commandes','');
+			$Commande->setConfiguration('Commandes','') ;
 			$Commande->setType('info');
 			$Commande->setSubType('other');
 		}
