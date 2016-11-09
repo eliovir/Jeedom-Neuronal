@@ -1,4 +1,9 @@
 #!/bin/bash
+INSTALL_DIR=/usr/local/bin
+FANN_bin=$INSTALL_DIR/fann
+TEMP_DIR=`mktemp -d /tmp/fann.XXXXXX`
+cd $TEMP_DIR
+touch /tmp/compilation_eibd_in_progress
 echo 1 > /tmp/compilation_Neuronal_in_progress
 sudo apt-get install -y --force-yes libfann-dev cmake
 echo 10 > /tmp/compilation_Neuronal_in_progress
