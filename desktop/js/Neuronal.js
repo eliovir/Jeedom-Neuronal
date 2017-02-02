@@ -22,38 +22,36 @@ function saveEqLogic(_eqLogic) {
     	if (!isset(_eqLogic.configuration)) {
     	    _eqLogic.configuration = {};
 	}	
-	if (typeof( _eqLogic.cmd) !== 'undefined') {
-		for(var index in  _eqLogic.cmd) { 
-			if (typeof( _eqLogic.cmd[index].configuration.ListeCommandes) !== 'undefined') 
-				_eqLogic.cmd[index].configuration.ListeCommandes=new Object();
-			var Commandes= new Array();
-			$('.cmd[data-cmd_id=' + init(_eqLogic.cmd[index].id)+ '] .CommandeGroup').each(function( index ) {
-				Commandes.push($(this).getValues('.expressionAttr')[0])
-			});
-			_eqLogic.cmd[index].configuration.ListeCommandes=Commandes;
-		}
-	}
+	if (typeof( _eqLogic.configuration.entrees) !== 'undefined') 
+		_eqLogic.configuration.entrees=new Object();
+	var CommandesEntree= new Array();
+	$('#tab_entree_neurone .CommandeGroup').each(function( index ) {
+		CommandesEntree.push($(this).getValues('.expressionAttr')[0])
+	});
+	_eqLogic.configuration.entrees=CommandesEntree;
+	if (typeof( _eqLogic.configuration.sotries) !== 'undefined') 
+		_eqLogic.configuration.sotries=new Object();
+	var CommandesSortie= new Array();
+	$('#tab_sortie_neurone .CommandeGroup').each(function( index ) {
+		CommandesSortie.push($(this).getValues('.expressionAttr')[0])
+	});
+	_eqLogic.configuration.sotries=CommandesSortie;
    	return _eqLogic;
 }
-function addCmdToTable(_cmd) {
-	if (!isset(_cmd)) {
- 		var _cmd = {};
+function printEqLogic(_eqLogic) {
+	$('.CommandeGroup').remove();
+	if (typeof(_eqLogic.configuration.entrees) !== 'undefined') {
+		for(var index in _eqLogic.configuration.entrees) { 
+			if( (typeof _eqLogic.configuration.entrees[index] === "object") && (_eqLogic.configuration.entrees[index] !== null) )
+				addCondition(_eqLogic.configuration.entrees[index],  '{{Commande}}',$('#tab_entree_neurone').find('.Neurone'));
+		}
+	}	
+	if (typeof(_eqLogic.configuration.sotries) !== 'undefined') {
+		for(var index in _eqLogic.configuration.sotries) { 
+			if( (typeof _eqLogic.configuration.sotries[index] === "object") && (_eqLogic.configuration.sotries[index] !== null) )
+				addCondition(_eqLogic.configuration.sotries[index],  '{{Commande}}',$('#tab_sortie_neurone').find('.Neurone'));
+		}
 	}
-	if (!isset(_cmd.configuration)) {
-		_cmd.configuration = {};
-	}
-	var div=null;
-	if(_cmd.name=="Entree"){
-		div=$(".NeuroneEntree");
-		div.addClass("cmd").attr('data-cmd_id',init(_cmd.id)).attr('data-TypeCmd','info');
-	}else{
-		div=$(".NeuroneSortie");
-		div.addClass("cmd").attr('data-cmd_id',init(_cmd.id)).attr('data-TypeCmd','action');
-	}
-	div.setValues(_cmd, '.cmdAttr');
-	$.each( _cmd.configuration.ListeCommandes,function(key, value){
-		addElement(value,'{{Element}}',div);
-	})
 }
 function addElement(_Commande, _name, _el) {
 	if (!isset(_Commande)) {
