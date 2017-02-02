@@ -19,9 +19,6 @@ $("#table_cmd_Entree").sortable({axis: "y", cursor: "move", items: ".cmd", place
 $("#table_cmd_Sortie").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 function saveEqLogic(_eqLogic) {
 	var state_order = '';
-    	if (!isset(_eqLogic.configuration)) {
-    	    _eqLogic.configuration = {};
-	}	
 	if (typeof( _eqLogic.configuration.entrees) !== 'undefined') 
 		_eqLogic.configuration.entrees=new Object();
 	var CommandesEntree= new Array();
@@ -36,6 +33,13 @@ function saveEqLogic(_eqLogic) {
 		CommandesSortie.push($(this).getValues('.expressionAttr')[0])
 	});
 	_eqLogic.configuration.sotries=CommandesSortie;
+	if (typeof( _eqLogic.configuration.calibration) !== 'undefined') 
+		_eqLogic.configuration.calibration=new Object();
+	var CalibraionLigne= new Array();
+	$('#table_Calibration .CalibraionLigne').each(function( index ) {
+		CalibraionLigne.push($(this).getValues('.CalibraionAttr')[0])
+	});
+	_eqLogic.configuration.calibration=CalibraionLigne;
    	return _eqLogic;
 }
 function printEqLogic(_eqLogic) {
@@ -52,14 +56,14 @@ function printEqLogic(_eqLogic) {
 				addElement(_eqLogic.configuration.sotries[index],  '{{Commande}}',$('#tab_sortie_neurone').find('.Neurone'));
 		}
 	}
+	if (typeof(_eqLogic.configuration.calibration) !== 'undefined') {
+		for(var index in _eqLogic.configuration.calibration) { 
+			if( (typeof _eqLogic.configuration.calibration[index] === "object") && (_eqLogic.configuration.calibration[index] !== null) )
+				addCalibration(_eqLogic.configuration.calibration[index],'{{Calibration}}',$('#table_Calibration'));
+		}
+	}
 }
 function addElement(_Commande, _name, _el) {
-	if (!isset(_Commande)) {
-		_Commande = {};
-	}
-	if (!isset(_Commande.options)) {
-		_Commande.options = {};
-	}
     	var div = $('<div class="form-group CommandeGroup">')
   		.append($('<label class="col-lg-1 control-label">')
 			.text(_name))
@@ -72,4 +76,9 @@ function addElement(_Commande, _name, _el) {
   			.append($('<i class="fa fa-minus-circle pull-left cursor CommandeAttr" data-action="remove">')));
         _el.append(div);
         _el.find('.CommandeGroup:last').setValues(_Commande, '.expressionAttr');
+}
+function addCalibration(_Table, _name, _el){
+	for(var index in _Table) { 
+		_Table[index];
+	}
 }
