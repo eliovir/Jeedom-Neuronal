@@ -43,13 +43,13 @@ function printEqLogic(_eqLogic) {
 	if (typeof(_eqLogic.configuration.entrees) !== 'undefined') {
 		for(var index in _eqLogic.configuration.entrees) { 
 			if( (typeof _eqLogic.configuration.entrees[index] === "object") && (_eqLogic.configuration.entrees[index] !== null) )
-				addCondition(_eqLogic.configuration.entrees[index],  '{{Commande}}',$('#tab_entree_neurone').find('.Neurone'));
+				addElement(_eqLogic.configuration.entrees[index],  '{{Commande}}',$('#tab_entree_neurone').find('.Neurone'));
 		}
 	}	
 	if (typeof(_eqLogic.configuration.sotries) !== 'undefined') {
 		for(var index in _eqLogic.configuration.sotries) { 
 			if( (typeof _eqLogic.configuration.sotries[index] === "object") && (_eqLogic.configuration.sotries[index] !== null) )
-				addCondition(_eqLogic.configuration.sotries[index],  '{{Commande}}',$('#tab_sortie_neurone').find('.Neurone'));
+				addElement(_eqLogic.configuration.sotries[index],  '{{Commande}}',$('#tab_sortie_neurone').find('.Neurone'));
 		}
 	}
 }
