@@ -9,8 +9,8 @@ $('body').on( 'click','.bt_selectCmdExpression', function() {
 		Commande.val(result.human);
 	});
 });  
-$('body').on('click','.CommandeAttr[data-l1key=add]', function () {
-	addElement({},'{{Element}}',$(this).closest(".form-group").find(".cmd"));
+$('body').on('click','.CommandeAttr[data-action=add]', function () {
+	addElement({},'{{Element}}',$(this).closest(".form-horizontal").find(".Neurone"));
 });
 $('body').on('click','.CommandeAttr[data-l1key=remove]', function () {
 	$(this).closest(".CommandeGroup").remove();
