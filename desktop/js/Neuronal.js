@@ -12,7 +12,7 @@ $('body').on( 'click','.bt_selectCmdExpression', function() {
 $('body').on('click','.CommandeAttr[data-action=add]', function () {
 	addElement({},'{{Element}}',$(this).closest(".form-horizontal").find(".Neurone"));
 });
-$('body').on('click','.CommandeAttr[data-l1key=remove]', function () {
+$('body').on('click','.CommandeAttr[data-action=remove]', function () {
 	$(this).closest(".CommandeGroup").remove();
 });
 $("#table_cmd_Entree").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
