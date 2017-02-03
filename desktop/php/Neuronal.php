@@ -119,7 +119,8 @@ $eqLogics = eqLogic::byType('Neuronal');
 						<table id="table_Entree" class="table table-bordered table-condensed">
 							<thead>
 								<tr>
-									<th></th>
+									<th>Commande</th>
+									<th>Parametre</th>
 								</tr>
 							</thead>
 							<tbody></tbody>
@@ -129,7 +130,8 @@ $eqLogics = eqLogic::byType('Neuronal');
 						<table id="table_Sortie" class="table table-bordered table-condensed">
 							<thead>
 								<tr>
-									<th></th>
+									<th>Commande</th>
+									<th>Parametre</th>
 								</tr>
 							</thead>
 							<tbody></tbody>
@@ -139,7 +141,7 @@ $eqLogics = eqLogic::byType('Neuronal');
 						<table id="table_Calibration" class="table table-bordered table-condensed">
 							<thead>
 								<tr>
-									<th></th>
+									<th>Parametre</th>
 								</tr>
 							</thead>
 							<tbody></tbody>
