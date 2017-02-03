@@ -10,7 +10,10 @@ $('body').on( 'click','.bt_selectCmdExpression', function() {
 	});
 });  
 $('body').on('click','.ActionAttr[data-action=add]', function () {
-	addElement({},$(this).closest("table"));
+  if($(this).attr('data-type') == "element")
+    addElement({},$(this).closest("table"));
+  else
+    addCalibration({},$(this).closest("table"));
 });
 $('body').on('click','.ActionAttr[data-action=remove]', function () {
 	$(this).closest("tr").remove();
@@ -46,6 +49,9 @@ function saveEqLogic(_eqLogic) {
 }
 function printEqLogic(_eqLogic) {
 	$('#table_Entree tbody tr').remove();
+	$('#table_Sortie tbody tr').remove();
+	$('#table_Calibration thead').html($('<th>').text('Parametre'));
+	$('#table_Calibration tbody tr').remove();
 	if (typeof(_eqLogic.configuration.entrees) !== 'undefined') {
 		for(var index in _eqLogic.configuration.entrees) { 
 			if(typeof(_eqLogic.configuration.entrees[index]) === "object" && _eqLogic.configuration.entrees[index] != null)
@@ -54,7 +60,6 @@ function printEqLogic(_eqLogic) {
 	}	
 	else
 		addElement({},$('#table_Entree tbody'));
-	$('#table_Sortie tbody tr').remove();
 	if (typeof(_eqLogic.configuration.sotries) !== 'undefined') {
 		for(var index in _eqLogic.configuration.sotries) { 
 			if(typeof(_eqLogic.configuration.sotries[index]) === "object" && _eqLogic.configuration.sotries[index] != null)
@@ -63,7 +68,6 @@ function printEqLogic(_eqLogic) {
 	}
 	else
 		addElement({},$('#table_Sortie tbody'));
-	$('#table_Calibration tbody tr').remove();
 	if (typeof(_eqLogic.configuration.calibration) !== 'undefined') {
 		for(var index in _eqLogic.configuration.calibration) { 
 			if(typeof(_eqLogic.configuration.calibration[index]) === "object" && _eqLogic.configuration.calibration[index] != null)
@@ -74,26 +78,26 @@ function printEqLogic(_eqLogic) {
 		addCalibration({},$('#table_Calibration'));
 }
 function addElement(_Commande, _el) {
-	$('#table_Calibration thead tr th:last').before($('<th>').attr('data-param','1').text(_Commande.cmd));
+	$('#table_Calibration thead tr th:last').before($('<th>').attr('data-param',_Commande.cmd).text(_Commande.cmd));
     	var tr = $('<tr>')
    		.append($('<td>')
     			.append($('<a class="btn btn-warning btn-sm bt_selectCmdExpression" >')
 				.append($('<i class="fa fa-list-alt">')))
 			.append($('<input class="expressionAttr form-control input-sm" data-l1key="cmd" />')))
  		.append($('<td>')
-			.append($('<i class="fa fa-plus-circle pull-left cursor ActionAttr" data-action="add">'))
-			.append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="remove">')));
+			.append($('<i class="fa fa-plus-circle pull-left cursor ActionAttr" data-action="add" data-type="element">'))
+			.append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="remove" data-type="element">')));
         _el.append(tr);
         _el.find('tr:last').setValues(_Commande, '.expressionAttr');
 }
 function addCalibration(_Table, _el){
 	var tr=_el.find('thead tr').clone().insertAfter("tbody tr:last");
 	tr.find('th').each(function(index){
-		 $(this).replaceWith($('<td>').append($('<input class="CalibraionAttr">')));
+		 $(this).replaceWith($('<td>').append($('<input class="CalibraionAttr" data-l1key="'+$(this).attr('data-param')+'">')));
 	});
 	tr.find('td:last').replaceWith($('<td>')
-                                   .append($('<i class="fa fa-plus-circle pull-left cursor ActionAttr" data-action="add">'))
-                                   .append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="remove">')));
+                                   .append($('<i class="fa fa-plus-circle pull-left cursor ActionAttr" data-action="add" data-type="calibration">'))
+                                   .append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="remove" data-type="calibration">')));
         _el.append(tr);
         _el.find('tr:last').setValues(_Table, '.CalibraionAttr');
 
