@@ -10,13 +10,13 @@ $('body').on( 'click','.bt_selectCmdExpression', function() {
 	});
 });  
 $('body').on('click','.CommandeAction[data-action=add]', function () {
-	addElement({},$(this).closest(".form-horizontal").find(".Neurone"));
+	addElement({},$(this).closest("table"));
 });
 $('body').on('click','.CommandeAction[data-action=remove]', function () {
-	$(this).closest(".CommandeGroup").remove();
+	$(this).closest("tr").remove();
 });
 $('body').on('click','.CalibraionAction[data-action=add]', function () {
-	addCalibration({},$('#table_Calibration'));
+	addCalibration({},$(this).closest("table"));
 });
 $('body').on('click','.CalibraionAction[data-action=remove]', function () {
 	$(this).closest("tr").remove();
@@ -57,7 +57,7 @@ function printEqLogic(_eqLogic) {
 	if (typeof(_eqLogic.configuration.entrees) !== 'undefined') {
 		for(var index in _eqLogic.configuration.entrees) { 
 			if(typeof(_eqLogic.configuration.entrees[index]) === "object" && _eqLogic.configuration.entrees[index] != null)
-				addElement(_eqLogic.configuration.entrees[index],$('#tab_entree_neurone').find('.Neurone'));
+				addElement(_eqLogic.configuration.entrees[index],$('#table_Entree'));
 		}
 	}	
 	else
@@ -65,7 +65,7 @@ function printEqLogic(_eqLogic) {
 	if (typeof(_eqLogic.configuration.sotries) !== 'undefined') {
 		for(var index in _eqLogic.configuration.sotries) { 
 			if(typeof(_eqLogic.configuration.sotries[index]) === "object" && _eqLogic.configuration.sotries[index] != null)
-				addElement(_eqLogic.configuration.sotries[index],$('#tab_sortie_neurone').find('.Neurone'));
+				addElement(_eqLogic.configuration.sotries[index],$('#table_Sortie'));
 		}
 	}
 	else
@@ -81,15 +81,14 @@ function printEqLogic(_eqLogic) {
 }
 function addElement(_Commande, _el) {
 	$('#table_Calibration thead tr').append($('<td>').attr('data-param','').text(_Commande.cmd));
-    	var div = $('<div class="form-group CommandeGroup">')
-   		.append($('<div class="col-lg-1">')
+    	var tr = $('<tr class="CommandeGroup">')
+   		.append($('<td>')
     			.append($('<a class="btn btn-warning btn-sm bt_selectCmdExpression" >')
-				.append($('<i class="fa fa-list-alt">'))))
-		.append($('<div class="col-lg-3">')
+				.append($('<i class="fa fa-list-alt">')))
 			.append($('<input class="expressionAttr form-control input-sm" data-l1key="cmd" />')))
- 		.append($('<div class="col-lg-1">')
+ 		.append($('<td>')
   			.append($('<i class="fa fa-minus-circle pull-left cursor CommandeAction" data-action="remove">')));
-        _el.append(div);
+        _el.append(tr);
         _el.find('.CommandeGroup:last').setValues(_Commande, '.expressionAttr');
 }
 function addCalibration(_Table, _el){
