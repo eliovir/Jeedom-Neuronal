@@ -24,7 +24,8 @@ $('body').on('click','.CalibraionAction[data-action=remove]', function () {
 $("#table_cmd_Entree").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 $("#table_cmd_Sortie").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 function saveEqLogic(_eqLogic) {
-	var state_order = '';
+	if (typeof(_eqLogic.configuration) == 'undefined') 
+		_eqLogic.configuration = new Array();
 	if (typeof(_eqLogic.configuration.entrees) == 'undefined') 
 		_eqLogic.configuration.entrees=new Object();
 	var CommandesEntree= new Array();
