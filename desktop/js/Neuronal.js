@@ -92,7 +92,7 @@ function addCalibration(_Table, _el){
 	alert('clibraiton');
 	var tr=_el.find('thead tr').clone().insertAfter("tbody tr:last");
 	tr.find('td').each(function(index){
-		index.append($('<input class="CalibraionAttr" data-l1key="'+index.attr('data-param')+'"'));
+		index.append($('<input class="CalibraionAttr" data-l1key=""'));
 	});
 	tr.find('td:last').html($('<div class="col-lg-1">')
   		.append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="add">')));
