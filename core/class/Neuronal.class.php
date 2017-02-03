@@ -83,9 +83,7 @@ class Neuronal extends eqLogic {
 		$Commande->save();
 	}	
 	public function postSave() {
-			self::AddCommande($this,'Entree','Entree');
-			self::AddCommande($this,'Sortie','Sortie');
-	      		$this->createListener();
+	      		//$this->createListener();
 		}
 	public function preRemove() {
 		$listener = listener::byClassAndFunction('Neuronal', 'ListenerEvent', array('eqLogic_id' => intval($this->getId())));
