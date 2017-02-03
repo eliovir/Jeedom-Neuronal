@@ -47,11 +47,11 @@ function saveEqLogic(_eqLogic) {
    	return _eqLogic;
 }
 function printEqLogic(_eqLogic) {
-	$('.CommandeGroup').remove();
+	$('#table_Entree tbody tr').remove();
 	if (typeof(_eqLogic.configuration.entrees) !== 'undefined') {
 		for(var index in _eqLogic.configuration.entrees) { 
 			if(typeof(_eqLogic.configuration.entrees[index]) === "object" && _eqLogic.configuration.entrees[index] != null)
-				addElement(_eqLogic.configuration.entrees[index],$('#table_Entree'));
+				addElement(_eqLogic.configuration.entrees[index],$('#table_Entree tbody'));
 		}
 	}	
 	else
@@ -59,7 +59,7 @@ function printEqLogic(_eqLogic) {
 	if (typeof(_eqLogic.configuration.sotries) !== 'undefined') {
 		for(var index in _eqLogic.configuration.sotries) { 
 			if(typeof(_eqLogic.configuration.sotries[index]) === "object" && _eqLogic.configuration.sotries[index] != null)
-				addElement(_eqLogic.configuration.sotries[index],$('#table_Sortie'));
+				addElement(_eqLogic.configuration.sotries[index],$('#table_Sortie tbody'));
 		}
 	}
 	else
@@ -75,7 +75,7 @@ function printEqLogic(_eqLogic) {
 }
 function addElement(_Commande, _el) {
 	$('#table_Calibration thead tr').append($('<td>').attr('data-param','1').text(_Commande.cmd));
-    	var tr = $('<tr class="CommandeGroup">')
+    	var tr = $('<tr>')
    		.append($('<td>')
     			.append($('<a class="btn btn-warning btn-sm bt_selectCmdExpression" >')
 				.append($('<i class="fa fa-list-alt">')))
