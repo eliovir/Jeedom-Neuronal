@@ -23,7 +23,7 @@ function saveEqLogic(_eqLogic) {
 	//if (typeof(_eqLogic.configuration.entrees) === 'undefined') 
 		_eqLogic.configuration.entrees=new Object();
 	var CommandesEntree= new Array();
-	$('#table_Entree .CommandeGroup').each(function( index ) {
+	$('#table_Entree tbody tr').each(function( index ) {
 		CommandesEntree.push($(this).getValues('.expressionAttr')[0])
 	});
 	_eqLogic.configuration.entrees=CommandesEntree;
