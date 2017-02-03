@@ -33,7 +33,7 @@ function saveEqLogic(_eqLogic) {
 	});
 	_eqLogic.configuration.entrees=CommandesEntree;
 	
-	if (typeof _eqLogic.configuration.sotries) !== 'undefined') 
+	if (typeof(_eqLogic.configuration.sotries) !== 'undefined') 
 		_eqLogic.configuration.sotries=new Object();
 	var CommandesSortie= new Array();
 	$('#tab_sortie_neurone .CommandeGroup').each(function( index ) {
