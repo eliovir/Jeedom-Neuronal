@@ -24,9 +24,9 @@ $('body').on('click','.CalibraionAction[data-action=remove]', function () {
 $("#table_cmd_Entree").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 $("#table_cmd_Sortie").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 function saveEqLogic(_eqLogic) {
-	if (typeof(_eqLogic.configuration) == 'undefined') 
+	if (typeof(_eqLogic.configuration) === 'undefined') 
 		_eqLogic.configuration = new Array();
-	if (typeof(_eqLogic.configuration.entrees) == 'undefined') 
+	if (typeof(_eqLogic.configuration.entrees) === 'undefined') 
 		_eqLogic.configuration.entrees=new Object();
 	var CommandesEntree= new Array();
 	$('#tab_entree_neurone .CommandeGroup').each(function( index ) {
@@ -34,7 +34,7 @@ function saveEqLogic(_eqLogic) {
 	});
 	_eqLogic.configuration.entrees=CommandesEntree;
 	
-	if (typeof(_eqLogic.configuration.sotries) == 'undefined') 
+	if (typeof(_eqLogic.configuration.sotries) === 'undefined') 
 		_eqLogic.configuration.sotries=new Object();
 	var CommandesSortie= new Array();
 	$('#tab_sortie_neurone .CommandeGroup').each(function( index ) {
@@ -42,7 +42,7 @@ function saveEqLogic(_eqLogic) {
 	});
 	_eqLogic.configuration.sotries=CommandesSortie;
 	
-	if (typeof(_eqLogic.configuration.calibration) == 'undefined') 
+	if (typeof(_eqLogic.configuration.calibration) === 'undefined') 
 		_eqLogic.configuration.calibration=new Object();
 	var CalibraionLigne= new Array();
 	$('#table_Calibration .CalibraionLigne').each(function( index ) {
@@ -54,25 +54,25 @@ function saveEqLogic(_eqLogic) {
 }
 function printEqLogic(_eqLogic) {
 	$('.CommandeGroup').remove();
-	if (typeof(_eqLogic.configuration.entrees) != 'undefined') {
+	if (typeof(_eqLogic.configuration.entrees) !== 'undefined') {
 		for(var index in _eqLogic.configuration.entrees) { 
-			if( (typeof _eqLogic.configuration.entrees[index] == "object") && (_eqLogic.configuration.entrees[index] != null) )
+			if(typeof(_eqLogic.configuration.entrees[index]) === "object" && _eqLogic.configuration.entrees[index] != null)
 				addElement(_eqLogic.configuration.entrees[index],$('#tab_entree_neurone').find('.Neurone'));
 		}
 	}	
 	else
 		addElement({},$('#tab_entree_neurone').find('.Neurone'));
-	if (typeof(_eqLogic.configuration.sotries) != 'undefined') {
+	if (typeof(_eqLogic.configuration.sotries) !== 'undefined') {
 		for(var index in _eqLogic.configuration.sotries) { 
-			if( (typeof _eqLogic.configuration.sotries[index] == "object") && (_eqLogic.configuration.sotries[index] != null) )
+			if(typeof(_eqLogic.configuration.sotries[index]) === "object" && _eqLogic.configuration.sotries[index] != null)
 				addElement(_eqLogic.configuration.sotries[index],$('#tab_sortie_neurone').find('.Neurone'));
 		}
 	}
 	else
 		addElement({},$('#tab_sortie_neurone').find('.Neurone'));
-	if (typeof(_eqLogic.configuration.calibration) != 'undefined') {
+	if (typeof(_eqLogic.configuration.calibration) !== 'undefined') {
 		for(var index in _eqLogic.configuration.calibration) { 
-			if( (typeof _eqLogic.configuration.calibration[index] == "object") && (_eqLogic.configuration.calibration[index] != null) )
+			if(typeof(_eqLogic.configuration.calibration[index]) === "object" && _eqLogic.configuration.calibration[index] != null)
 				addCalibration(_eqLogic.configuration.calibration[index],$('#table_Calibration'));
 		}
 	}
