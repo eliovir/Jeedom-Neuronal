@@ -116,43 +116,30 @@ $eqLogics = eqLogic::byType('Neuronal');
 				</ul>
 				<div class="tab-content">
 					<div class="tab-pane active" id="tab_entree_neurone">
-						<div class="form-group">
-							<form class="form-horizontal">
-								
-								<legend>{{Commande d du neurone :}}
-									<sup>
-										<i class="fa fa-question-circle tooltips" title="Saisir toutes les conditions d'exécution de la gestion"></i>
-									</sup>
-									<a class="btn btn-success btn-xs CommandeAction" data-action="add" style="margin-left: 5px;">
-										<i class="fa fa-plus-circle"></i>
-										{{Ajouter un commande}}
-									</a>
-								</legend>
-								<div class="Neurone Entree"></div>
-							</form>
-						</div>
+						<table id="table_Entree" class="table table-bordered table-condensed">
+							<thead>
+								<tr>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
 					</div>
 					<div class="tab-pane" id="tab_sortie_neurone">
-						<div class="form-group">
-							<form class="form-horizontal">
-								<legend>{{Commande de sortie du neurone :}}
-									<sup>
-										<i class="fa fa-question-circle tooltips" title="Saisir toutes les conditions d'exécution de la gestion"></i>
-									</sup>
-									<a class="btn btn-success btn-xs CommandeAction" data-action="add" style="margin-left: 5px;">
-										<i class="fa fa-plus-circle"></i>
-										{{Ajouter un commande}}
-									</a>
-								</legend>
-								<div class="Neurone Sortie"></div>
-							</form>
-						</div>
+						<table id="table_Sortie" class="table table-bordered table-condensed">
+							<thead>
+								<tr>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
 					</div>
 					<div class="tab-pane" id="tab_calibration">
 						<table id="table_Calibration" class="table table-bordered table-condensed">
 							<thead>
 								<tr>
-									<th>Parametre</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody></tbody>
