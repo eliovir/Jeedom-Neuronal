@@ -74,7 +74,6 @@ function printEqLogic(_eqLogic) {
 		addCalibration({},$('#table_Calibration'));
 }
 function addElement(_Commande, _el) {
-	alert('element');
 	$('#table_Calibration thead tr').append($('<td>').attr('data-param','1').text(_Commande.cmd));
     	var tr = $('<tr class="CommandeGroup">')
    		.append($('<td>')
@@ -88,11 +87,9 @@ function addElement(_Commande, _el) {
         _el.find('.CommandeGroup:last').setValues(_Commande, '.expressionAttr');
 }
 function addCalibration(_Table, _el){
-	
-	alert('clibraiton');
 	var tr=_el.find('thead tr').clone().insertAfter("tbody tr:last");
 	tr.find('td').each(function(index){
-		index.append($('<input class="CalibraionAttr" data-l1key=""'));
+		index.append($('<input class="CalibraionAttr" data-l1key="calib"'));
 	});
 	tr.find('td:last').html($('<div class="col-lg-1">')
   		.append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="add">')));
