@@ -123,7 +123,7 @@ $eqLogics = eqLogic::byType('Neuronal');
 									<sup>
 										<i class="fa fa-question-circle tooltips" title="Saisir toutes les conditions d'exécution de la gestion"></i>
 									</sup>
-									<a class="btn btn-success btn-xs CommandeAttr" data-action="add" style="margin-left: 5px;">
+									<a class="btn btn-success btn-xs CommandeAction" data-action="add" style="margin-left: 5px;">
 										<i class="fa fa-plus-circle"></i>
 										{{Ajouter un commande}}
 									</a>
@@ -139,7 +139,7 @@ $eqLogics = eqLogic::byType('Neuronal');
 									<sup>
 										<i class="fa fa-question-circle tooltips" title="Saisir toutes les conditions d'exécution de la gestion"></i>
 									</sup>
-									<a class="btn btn-success btn-xs CommandeAttr" data-action="add" style="margin-left: 5px;">
+									<a class="btn btn-success btn-xs CommandeAction" data-action="add" style="margin-left: 5px;">
 										<i class="fa fa-plus-circle"></i>
 										{{Ajouter un commande}}
 									</a>
