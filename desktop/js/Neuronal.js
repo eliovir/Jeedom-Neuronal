@@ -81,18 +81,18 @@ function addElement(_Commande, _el) {
 				.append($('<i class="fa fa-list-alt">')))
 			.append($('<input class="expressionAttr form-control input-sm" data-l1key="cmd" />')))
  		.append($('<td>')
-			.append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="add">'))
+			.append($('<i class="fa fa-plus-circle pull-left cursor ActionAttr" data-action="add">'))
 			.append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="remove">')));
         _el.append(tr);
         _el.find('.CommandeGroup:last').setValues(_Commande, '.expressionAttr');
 }
 function addCalibration(_Table, _el){
 	var tr=_el.find('thead tr').clone().insertAfter("tbody tr:last");
-	tr.find('td').each(function(index){
+	/*tr.find('td').each(function(index){
 		index.append($('<input class="CalibraionAttr" data-l1key="calib"'));
-	});
+	});*/
 	tr.find('td:last').html($('<div class="col-lg-1">')
-  		.append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="add">')));
+  		.append($('<i class="fa fa-plus-circle pull-left cursor ActionAttr" data-action="add">')));
 	tr.find('td:last').append($('<div class="col-lg-1">')
   		.append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="remove">')));
         _el.append(tr);
