@@ -9,11 +9,17 @@ $('body').on( 'click','.bt_selectCmdExpression', function() {
 		Commande.val(result.human);
 	});
 });  
-$('body').on('click','.CommandeAttr[data-action=add]', function () {
+$('body').on('click','.CommandeAction[data-action=add]', function () {
 	addElement({},$(this).closest(".form-horizontal").find(".Neurone"));
 });
-$('body').on('click','.CommandeAttr[data-action=remove]', function () {
+$('body').on('click','.CommandeAction[data-action=remove]', function () {
 	$(this).closest(".CommandeGroup").remove();
+});
+$('body').on('click','.CalibraionAction[data-action=add]', function () {
+	addCalibration({},$('#table_Calibration'));
+});
+$('body').on('click','.CalibraionAction[data-action=remove]', function () {
+	$(this).closest("tr").remove();
 });
 $("#table_cmd_Entree").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 $("#table_cmd_Sortie").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
@@ -62,6 +68,8 @@ function printEqLogic(_eqLogic) {
 				addCalibration(_eqLogic.configuration.calibration[index],$('#table_Calibration'));
 		}
 	}
+	else
+		addCalibration({},$('#table_Calibration'));
 }
 function addElement(_Commande, _el) {
 	$('#table_Calibration thead tr').append($('<td>').attr('data-param','').text(_Commande.cmd));
@@ -72,7 +80,7 @@ function addElement(_Commande, _el) {
 		.append($('<div class="col-lg-3">')
 			.append($('<input class="expressionAttr form-control input-sm" data-l1key="cmd" />')))
  		.append($('<div class="col-lg-1">')
-  			.append($('<i class="fa fa-minus-circle pull-left cursor CommandeAttr" data-action="remove">')));
+  			.append($('<i class="fa fa-minus-circle pull-left cursor CommandeAction" data-action="remove">')));
         _el.append(div);
         _el.find('.CommandeGroup:last').setValues(_Commande, '.expressionAttr');
 }
@@ -82,6 +90,10 @@ function addCalibration(_Table, _el){
 	tr.find('td').each(function(index){
 		index.append($('<input class="CalibraionAttr" data-l1key="'+index.attr('data-param')+'"'));
 	});
+	tr.find('td:last').html($('<div class="col-lg-1">')
+  		.append($('<i class="fa fa-minus-circle pull-left cursor CalibraionAction" data-action="add">')));
+	tr.find('td:last').append($('<div class="col-lg-1">')
+  		.append($('<i class="fa fa-minus-circle pull-left cursor CalibraionAction" data-action="remove">')));
         _el.append(tr);
         _el.find('tr:last').setValues(_Table, '.CalibraionAttr');
 
