@@ -59,13 +59,16 @@ class Neuronal extends eqLogic {
 		$eqLogic=eqLogic::byId($_options['eqLogic_id']);
 		if (is_object($eqLogic)) {
 	      		log::add('Neuronal','debug','Evenement sur une entree de Neurone');
-			foreach($eqLogic->getConfiguration('sotries') as $CmdSortie){
-				if($_options['event_id'] == str_replace('#', '', $CmdSortie['cmd'])){
+			foreach($eqLogic->getConfiguration('sotries') as $Cmd){
+				if($_options['event_id'] == str_replace('#', '', $Cmd['cmd'])){
 					$eqLogic->CreateApprentissageTable();
-					break;
 				}
 			}
-	      		$ResauNeurones->ExecNeurone($_options['event_id'],$_options['value']);
+			foreach($eqLogic->getConfiguration('entrees') as $Cmd){
+				if($_options['event_id'] == str_replace('#', '', $Cmd['cmd'])){
+					$eqLogic->ExecNeurone();
+				}
+			}
 		}
 	}
 	public static function AddCommande($eqLogic,$Name,$_logicalId) {
@@ -107,28 +110,32 @@ class Neuronal extends eqLogic {
 				log::add('Neuronal','debug','Ajout de '.$cmd->getHumanName().' de l\'écouteur d\'evenement :'.$this->getHumanName());
 			}
 		}
+		foreach ($this->getConfiguration('sotries') as $cmdNeurone) {
+			$cmd=cmd::byId(str_replace('#','',$cmdNeurone['cmd']));
+			if(is_object($cmd)){
+				$listener->addEvent($cmd->getId());
+				log::add('Neuronal','debug','Ajout de '.$cmd->getHumanName().' de l\'écouteur d\'evenement :'.$this->getHumanName());
+			}
+		}
 		$listener->save();
 		log::add('Neuronal','debug','Lancement de l\'écouteur d\'evenement :'.$this->getHumanName());
 	}
-	public function ExecNeurone($idCmdEvent,$ValueCmdEvent) {	
+	public function ExecNeurone() {	
       		log::add('Neuronal','debug','Execution du resau de neurone');
 		$train_file = (dirname(__FILE__) . "/../../ressources/".$this->getHumanName().".net");
 		if (!is_file($train_file)) 
 			return;
-   
 		$ann = fann_create_from_file($train_file);
 		if ($ann) {
 			$Entree=array();
 			foreach ($this->getConfiguration('entrees') as $cmdNeurone) {
-				foreach($cmdNeurone->getConfiguration('ListeCommandes') as $Commande){
-					$cmd = cmd::byId(str_replace('#', '', $Commande['cmd']));
-					if(is_object($cmd)){
-						log::add('Neuronal','debug','Ajout d\'une valeur a la table de calibration pour le neurone :'.$this->getHumanName().$cmd->getHumanName());
-						$Entree[]=$cmd->execCmd();
-					}
+				$cmd = cmd::byId(str_replace('#', '', $Commande['cmd']));
+				if(is_object($cmd)){
+					log::add('Neuronal','debug','Ajout d\'une valeur a la table de calibration pour le neurone :'.$this->getHumanName().$cmd->getHumanName());
+					$Entree[]=$cmd->execCmd();
 				}
 			}
-			 if ( ($output = fann_run($ann, $Entree)) == FALSE )
+			 if ($output=fann_run($ann, $Entree) === FALSE )
 		 		return;
 			log::add('Neuronal','debug','Resultat de l\'execution du neurone :'.json_encode($output));;
 		    	fann_destroy($ann);
