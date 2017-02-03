@@ -9,16 +9,10 @@ $('body').on( 'click','.bt_selectCmdExpression', function() {
 		Commande.val(result.human);
 	});
 });  
-$('body').on('click','.CommandeAction[data-action=add]', function () {
+$('body').on('click','.ActionAttr[data-action=add]', function () {
 	addElement({},$(this).closest("table"));
 });
-$('body').on('click','.CommandeAction[data-action=remove]', function () {
-	$(this).closest("tr").remove();
-});
-$('body').on('click','.CalibraionAction[data-action=add]', function () {
-	addCalibration({},$(this).closest("table"));
-});
-$('body').on('click','.CalibraionAction[data-action=remove]', function () {
+$('body').on('click','.ActionAttr[data-action=remove]', function () {
 	$(this).closest("tr").remove();
 });
 $("#table_cmd_Entree").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
@@ -61,7 +55,7 @@ function printEqLogic(_eqLogic) {
 		}
 	}	
 	else
-		addElement({},$('#tab_entree_neurone').find('.Neurone'));
+		addElement({},$('#table_Entree'));
 	if (typeof(_eqLogic.configuration.sotries) !== 'undefined') {
 		for(var index in _eqLogic.configuration.sotries) { 
 			if(typeof(_eqLogic.configuration.sotries[index]) === "object" && _eqLogic.configuration.sotries[index] != null)
@@ -69,7 +63,7 @@ function printEqLogic(_eqLogic) {
 		}
 	}
 	else
-		addElement({},$('#tab_sortie_neurone').find('.Neurone'));
+		addElement({},$('#table_Sortie'));
 	if (typeof(_eqLogic.configuration.calibration) !== 'undefined') {
 		for(var index in _eqLogic.configuration.calibration) { 
 			if(typeof(_eqLogic.configuration.calibration[index]) === "object" && _eqLogic.configuration.calibration[index] != null)
@@ -80,27 +74,30 @@ function printEqLogic(_eqLogic) {
 		addCalibration({},$('#table_Calibration'));
 }
 function addElement(_Commande, _el) {
-	$('#table_Calibration thead tr').append($('<td>').attr('data-param','').text(_Commande.cmd));
+	alert('element');
+	$('#table_Calibration thead tr').append($('<td>').attr('data-param','1').text(_Commande.cmd));
     	var tr = $('<tr class="CommandeGroup">')
    		.append($('<td>')
     			.append($('<a class="btn btn-warning btn-sm bt_selectCmdExpression" >')
 				.append($('<i class="fa fa-list-alt">')))
 			.append($('<input class="expressionAttr form-control input-sm" data-l1key="cmd" />')))
  		.append($('<td>')
-  			.append($('<i class="fa fa-minus-circle pull-left cursor CommandeAction" data-action="remove">')));
+			.append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="add">'))
+			.append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="remove">')));
         _el.append(tr);
         _el.find('.CommandeGroup:last').setValues(_Commande, '.expressionAttr');
 }
 function addCalibration(_Table, _el){
 	
+	alert('clibraiton');
 	var tr=_el.find('thead tr').clone().insertAfter("tbody tr:last");
 	tr.find('td').each(function(index){
 		index.append($('<input class="CalibraionAttr" data-l1key="'+index.attr('data-param')+'"'));
 	});
 	tr.find('td:last').html($('<div class="col-lg-1">')
-  		.append($('<i class="fa fa-minus-circle pull-left cursor CalibraionAction" data-action="add">')));
+  		.append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="add">')));
 	tr.find('td:last').append($('<div class="col-lg-1">')
-  		.append($('<i class="fa fa-minus-circle pull-left cursor CalibraionAction" data-action="remove">')));
+  		.append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="remove">')));
         _el.append(tr);
         _el.find('tr:last').setValues(_Table, '.CalibraionAttr');
 
