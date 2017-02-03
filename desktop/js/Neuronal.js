@@ -54,25 +54,25 @@ function saveEqLogic(_eqLogic) {
 }
 function printEqLogic(_eqLogic) {
 	$('.CommandeGroup').remove();
-	if (typeof(_eqLogic.configuration.entrees) !== 'undefined') {
+	if (typeof(_eqLogic.configuration.entrees) != 'undefined') {
 		for(var index in _eqLogic.configuration.entrees) { 
-			if( (typeof _eqLogic.configuration.entrees[index] === "object") && (_eqLogic.configuration.entrees[index] !== null) )
+			if( (typeof _eqLogic.configuration.entrees[index] == "object") && (_eqLogic.configuration.entrees[index] != null) )
 				addElement(_eqLogic.configuration.entrees[index],$('#tab_entree_neurone').find('.Neurone'));
 		}
 	}	
 	else
 		addElement({},$('#tab_entree_neurone').find('.Neurone'));
-	if (typeof(_eqLogic.configuration.sotries) !== 'undefined') {
+	if (typeof(_eqLogic.configuration.sotries) != 'undefined') {
 		for(var index in _eqLogic.configuration.sotries) { 
-			if( (typeof _eqLogic.configuration.sotries[index] === "object") && (_eqLogic.configuration.sotries[index] !== null) )
+			if( (typeof _eqLogic.configuration.sotries[index] == "object") && (_eqLogic.configuration.sotries[index] != null) )
 				addElement(_eqLogic.configuration.sotries[index],$('#tab_sortie_neurone').find('.Neurone'));
 		}
 	}
 	else
 		addElement({},$('#tab_sortie_neurone').find('.Neurone'));
-	if (typeof(_eqLogic.configuration.calibration) !== 'undefined') {
+	if (typeof(_eqLogic.configuration.calibration) != 'undefined') {
 		for(var index in _eqLogic.configuration.calibration) { 
-			if( (typeof _eqLogic.configuration.calibration[index] === "object") && (_eqLogic.configuration.calibration[index] !== null) )
+			if( (typeof _eqLogic.configuration.calibration[index] == "object") && (_eqLogic.configuration.calibration[index] != null) )
 				addCalibration(_eqLogic.configuration.calibration[index],$('#table_Calibration'));
 		}
 	}
