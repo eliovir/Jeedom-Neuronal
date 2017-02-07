@@ -91,7 +91,7 @@ function addElement(_Commande, _el) {
         _el.find('tr:last').setValues(_Commande, '.expressionAttr');
 }
 function addCalibration(_Table, _el){
-	var tr=_el.find('thead tr').clone().insertAfter("tbody tr:last");
+	var tr=_el.find('thead th').clone().insertAfter("tbody tr:last");
 	tr.find('th').each(function(index){
 		 $(this).replaceWith($('<td>').append($('<input class="CalibraionAttr" data-l1key="'+$(this).attr('data-param')+'">')));
 	});
