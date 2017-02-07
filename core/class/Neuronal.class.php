@@ -121,51 +121,39 @@ class Neuronal extends eqLogic {
 		log::add('Neuronal','debug','Lancement de l\'écouteur d\'evenement :'.$this->getHumanName());
 	}
 	public function ExecNeurone() {	
-      		log::add('Neuronal','debug','Execution du resau de neurone');
-		$train_file = (dirname(__FILE__) . "/../../ressources/".$this->getHumanName().".net");
-		if (!is_file($train_file)) 
-			return;
-		$ann = fann_create_from_file($train_file);
-		if ($ann) {
-			$Entree=array();
-			foreach ($this->getConfiguration('entrees') as $cmdNeurone) {
-				$cmd = cmd::byId(str_replace('#', '', $Commande['cmd']));
-				if(is_object($cmd)){
-					log::add('Neuronal','debug','Ajout d\'une valeur a la table de calibration pour le neurone :'.$this->getHumanName().$cmd->getHumanName());
-					$Entree[]=$cmd->execCmd();
-				}
-			}
-			 if ($output=fann_run($ann, $Entree) === FALSE )
-		 		return;
-			log::add('Neuronal','debug','Resultat de l\'execution du neurone :'.json_encode($output));;
-		    	fann_destroy($ann);
-		}
-	}
-	public function CreateApprentissageTable() {
+		$NbCalibration=count($this->getConfiguration('calibration'));
 		$NbEntree=count($this->getConfiguration('entrees'));
 		$NbSorite=count($this->getConfiguration('sotries'));
 		$num_layers = 3;
 		$num_neurons_hidden = 70;
-		$desired_error = 0.001;
 		$max_epochs = 5000000;
 		$epochs_between_reports = 1000;
-		$ann = fann_create_standard($num_layers, $NbEntree, $num_neurons_hidden, $NbSorite);
+		$desired_error = 0.001;
+		//$ann = fann_create_standard($num_layers, $NbEntree, $num_neurons_hidden, $NbSorite);
+		$ann=fann_create_train($NbCalibration,$NbEntree,$NbSorite);
 		if ($ann) {
-			fann_set_activation_function_hidden($ann, FANN_SIGMOID_SYMMETRIC);
-			fann_set_activation_function_output($ann, FANN_SIGMOID_SYMMETRIC);
-			$input=array();
-			foreach ($this->getConfiguration('entrees') as $cmdNeurone) {
-				$cmd = cmd::byId(str_replace('#', '', $cmdNeurone['cmd']));
-				if(is_object($cmd)){
-					log::add('Neuronal','debug','Ajout d\'une valeur a la table de calibration pour le neurone :'.$this->getHumanName().$cmd->getHumanName());
-					$input[]=$cmd->execCmd();
+			$data=array();
+			foreach ($this->getConfiguration('calibration') as $calibration) {
+				$ligne=array();
+				foreach ($this->getConfiguration('calibration') as $calibration) {
+					$ligne[]=$calibration['cmd'];
+				}
+				$data[]=$ligne;
+			}
+			if(fann_train_on_data($ann,$data,$max_epochs,$epochs_between_reports,$desired_error)){
+				$input=array();
+				foreach ($this->getConfiguration('entrees') as $cmdNeurone) {
+					$cmd = cmd::byId(str_replace('#', '', $cmdNeurone['cmd']));
+					if(is_object($cmd)){
+						log::add('Neuronal','debug','Ajout d\'une valeur a la table de calibration pour le neurone :'.$this->getHumanName().$cmd->getHumanName());
+						$input[]=$cmd->execCmd();
+					}
 				}
 			}
-			if(fann_train ($ann , $input , $desired_output ))
-				fann_save($ann,dirname(__FILE__) . "/../../ressources/".$this->getHumanName().".net");
-				
 			fann_destroy($ann);
 		}
+	}
+	public function CreateApprentissageTable() {
 		log::add('Neuronal','debug','Mise a jours de la table de calibration pour le neurone :'.$this->getHumanName());
 	}
 }
