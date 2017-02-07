@@ -154,6 +154,29 @@ class Neuronal extends eqLogic {
 		}
 	}
 	public function CreateApprentissageTable() {
+		$newCalibration=array();
+		foreach ($this->getConfiguration('entrees') as $cmdNeurone) {
+			$cmd = cmd::byId(str_replace('#', '', $cmdNeurone['cmd']));
+			if(is_object($cmd)){
+				log::add('Neuronal','debug','Ajout d\'une valeur a la table de calibration pour le neurone :'.$this->getHumanName().$cmd->getHumanName());
+				$newCalibration[$cmd->getHumanName()]=$cmd->execCmd();
+			}
+		}
+		foreach ($this->getConfiguration('sotries') as $cmdNeurone) {
+			$cmd = cmd::byId(str_replace('#', '', $cmdNeurone['cmd']));
+			if(is_object($cmd)){
+				log::add('Neuronal','debug','Ajout d\'une valeur a la table de calibration pour le neurone :'.$this->getHumanName().$cmd->getHumanName());
+				$newCalibration[$cmd->getHumanName()]=$cmd->execCmd();
+			}
+		}
+		$Calibrations=$this->getConfiguration('calibration');
+		foreach ($Calibrations as $Calibration) {
+			array_diff($Calibration,$newCalibration);
+			if(count($exist) == 0)
+				return;
+		}
+		$Calibrations[]=$newCalibration;
+		$this->setConfiguration('calibration',$Calibrations);
 		log::add('Neuronal','debug','Mise a jours de la table de calibration pour le neurone :'.$this->getHumanName());
 	}
 }
