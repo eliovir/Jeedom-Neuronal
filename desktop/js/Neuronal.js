@@ -48,7 +48,7 @@ function saveEqLogic(_eqLogic) {
 function printEqLogic(_eqLogic) {
 	$('#table_Entree tbody tr').remove();
 	$('#table_Sortie tbody tr').remove();
-	$('#table_Calibration thead').html($('<th>').text('Parametre'));
+	$('#table_Calibration thead tr').html($('<th>').text('Parametre'));
 	$('#table_Calibration tbody tr').remove();
 	if (typeof(_eqLogic.configuration.entrees) !== 'undefined') {
 		for(var index in _eqLogic.configuration.entrees) { 
@@ -76,7 +76,7 @@ function printEqLogic(_eqLogic) {
 		addCalibration({},$('#table_Calibration'));
 }
 function addElement(_Commande, _el) {
-	//$('#table_Calibration thead tr').append($('<th>').attr('data-param',_Commande.cmd).text(_Commande.cmd));
+	$('#table_Calibration thead tr').append($('<th>').attr('data-param',_Commande.cmd).text(_Commande.cmd));
     	var tr = $('<tr>')
    		.append($('<td>')
     			.append($('<a class="btn btn-warning btn-sm bt_selectCmdExpression" >')
@@ -89,7 +89,7 @@ function addElement(_Commande, _el) {
         _el.find('tr:last').setValues(_Commande, '.expressionAttr');
 }
 function addCalibration(_Table, _el){
-/*	var tr=_el.find('thead tr').clone();
+	var tr=_el.find('thead tr').clone();
 	tr.find('th').each(function(index){
 		 $(this).replaceWith($('<td>').append($('<input class="CalibraionAttr" data-l1key="'+$(this).attr('data-param')+'">')));
 	});
@@ -97,6 +97,6 @@ function addCalibration(_Table, _el){
                                    .append($('<i class="fa fa-plus-circle pull-left cursor ActionAttr" data-action="add" data-type="calibration">'))
                                    .append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="remove" data-type="calibration">')));
         _el.append(tr);
-        _el.find('tr:last').setValues(_Table, '.CalibraionAttr');*/
+        _el.find('tr:last').setValues(_Table, '.CalibraionAttr');
 
 }
