@@ -50,7 +50,7 @@ function printEqLogic(_eqLogic) {
 	$('#table_Sortie tbody tr').remove();
 	$('#table_Calibration thead tr').html($('<th>').text('Parametre'));
 	$('#table_Calibration tbody tr').remove();
-	if (typeof(_eqLogic.configuration.entrees) !== 'undefined') {
+	if (typeof(_eqLogic.configuration.entrees) !== 'undefined'&& _eqLogic.configuration.entrees.length >0) {
 		for(var index in _eqLogic.configuration.entrees) { 
 			if(typeof(_eqLogic.configuration.entrees[index]) === "object" && _eqLogic.configuration.entrees[index] != null)
 				addElement(_eqLogic.configuration.entrees[index],$('#table_Entree tbody'));
@@ -58,7 +58,7 @@ function printEqLogic(_eqLogic) {
 	}	
 	else
 		addElement({},$('#table_Entree tbody'));
-	if (typeof(_eqLogic.configuration.sotries) !== 'undefined') {
+	if (typeof(_eqLogic.configuration.sotries) !== 'undefined'&& _eqLogic.configuration.sotries.length >0) {
 		for(var index in _eqLogic.configuration.sotries) { 
 			if(typeof(_eqLogic.configuration.sotries[index]) === "object" && _eqLogic.configuration.sotries[index] != null)
 				addElement(_eqLogic.configuration.sotries[index],$('#table_Sortie tbody'));
@@ -66,7 +66,7 @@ function printEqLogic(_eqLogic) {
 	}
 	else
 		addElement({},$('#table_Sortie tbody'));
-	if (typeof(_eqLogic.configuration.calibration) !== 'undefined' || _eqLogic.configuration.calibration != []) {
+	if (typeof(_eqLogic.configuration.calibration) !== 'undefined' && _eqLogic.configuration.calibration.length >0) {
 		for(var index in _eqLogic.configuration.calibration) { 
 			if(typeof(_eqLogic.configuration.calibration[index]) === "object" && _eqLogic.configuration.calibration[index] != null)
 				addCalibration(_eqLogic.configuration.calibration[index],$('#table_Calibration'));
@@ -89,7 +89,6 @@ function addElement(_Commande, _el) {
         _el.find('tr:last').setValues(_Commande, '.expressionAttr');
 }
 function addCalibration(_Table, _el){
-	alert('newcalibration');
 	var tr=_el.find('thead tr').clone();
 	tr.find('th').each(function(index){
 		 $(this).replaceWith($('<td>').append($('<input class="CalibraionAttr" data-l1key="'+$(this).attr('data-param')+'">')));
