@@ -51,7 +51,7 @@ function printEqLogic(_eqLogic) {
 	$('#table_Calibration thead').html($('<th>').text('Parametre'));
 	$('#table_Calibration tbody tr').remove();
 	if (typeof(_eqLogic.configuration.entrees) !== 'undefined') {
-rr		for(var index in _eqLogic.configuration.entrees) { 
+		for(var index in _eqLogic.configuration.entrees) { 
 			if(typeof(_eqLogic.configuration.entrees[index]) === "object" && _eqLogic.configuration.entrees[index] != null)
 				addElement(_eqLogic.configuration.entrees[index],$('#table_Entree tbody'));
 		}
