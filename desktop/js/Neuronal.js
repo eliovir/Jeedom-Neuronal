@@ -76,7 +76,7 @@ function printEqLogic(_eqLogic) {
 		addCalibration({},$('#table_Calibration'));
 }
 function addElement(_Commande, _el) {
-	$('#table_Calibration thead tr').before($('<th>').attr('data-param',_Commande.cmd).text(_Commande.cmd));
+	$('#table_Calibration thead tr').append($('<th>').attr('data-param',_Commande.cmd).text(_Commande.cmd));
     	var tr = $('<tr>')
    		.append($('<td>')
     			.append($('<a class="btn btn-warning btn-sm bt_selectCmdExpression" >')
