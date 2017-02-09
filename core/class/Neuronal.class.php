@@ -59,9 +59,12 @@ class Neuronal extends eqLogic {
 		$eqLogic=eqLogic::byId($_options['eqLogic_id']);
 		if (is_object($eqLogic)) {
 			foreach($eqLogic->getConfiguration('sotries') as $Cmd){
-				if($_options['event_id'] == str_replace('#', '', $Cmd['cmd'])){
-	      				log::add('Neuronal','debug','Evenement sur une sortie de Neurone');
-					$eqLogic->CreateApprentissageTable();
+				$cmd=cmd::byId(str_replace('#','',$Cmd['cmd']));
+				if(is_object($cmd)){
+					if($_options['event_id'] == str_replace('#','',$cmd->getValue())){
+						log::add('Neuronal','debug','Evenement sur une sortie de Neurone');
+						$eqLogic->CreateApprentissageTable();
+					}
 				}
 			}
 			foreach($eqLogic->getConfiguration('entrees') as $Cmd){
@@ -114,7 +117,7 @@ class Neuronal extends eqLogic {
 		foreach ($this->getConfiguration('sotries') as $cmdNeurone) {
 			$cmd=cmd::byId(str_replace('#','',$cmdNeurone['cmd']));
 			if(is_object($cmd)){
-				$listener->addEvent($cmd->getId());
+				$listener->addEvent($cmd->getValue());
 				log::add('Neuronal','debug','Ajout de '.$cmd->getHumanName().' de l\'écouteur d\'evenement :'.$this->getHumanName());
 			}
 		}
@@ -160,7 +163,7 @@ class Neuronal extends eqLogic {
 			$cmd = cmd::byId(str_replace('#', '', $cmdNeurone['cmd']));
 			if(is_object($cmd)){
 				log::add('Neuronal','debug','Ajout d\'une valeur a la table de calibration pour le neurone :'.$this->getHumanName().$cmd->getHumanName());
-				$newCalibration[$cmd->getHumanName()]=$cmd->execCmd();
+				$newCalibration[$cmd->getHumanName()]=$cmd->getCmdValue()->execCmd();
 			}
 		}
 		foreach ($this->getConfiguration('sotries') as $cmdNeurone) {
