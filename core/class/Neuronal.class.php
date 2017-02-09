@@ -75,22 +75,24 @@ class Neuronal extends eqLogic {
 			}
 		}
 	}
-	public static function AddCommande($eqLogic,$Name,$_logicalId) {
-		$Commande = $eqLogic->getCmd(null,$_logicalId);
-		if (!is_object($Commande))
-		{
+	public function AddCommande($Name,$_logicalId,$type='info',$sousType='other',$template='') {
+		$Commande = $this->getCmd(null,$_logicalId);
+		if (!is_object($Commande)){
 			$Commande = new NeuronalCmd();
 			$Commande->setId(null);
 			$Commande->setName($Name);
 			$Commande->setLogicalId($_logicalId);
-			$Commande->setEqLogic_id($eqLogic->getId());
-			$Commande->setType('info');
-			$Commande->setSubType('other');
+			$Commande->setEqLogic_id($this->getId());
 		}
+		$Commande->setType($type);
+		$Commande->setSubType($sousType);
+     		$Commande->setTemplate('dashboard',$template);
+		$Commande->setTemplate('mobile', $template);
 		$Commande->save();
 	}	
 	public function postSave() {
 	      		$this->createListener();
+			$this->AddCommande('Validité du calibrage','calibValid','info','binary','neurCalibValid');
 		}
 	public function preRemove() {
 		$listener = listener::byClassAndFunction('Neuronal', 'ListenerEvent', array('eqLogic_id' => intval($this->getId())));
@@ -153,9 +155,38 @@ class Neuronal extends eqLogic {
 						$input[]=$cmd->execCmd();
 					}
 				}
+				$Valeurs = fann_run($ann, $input);
+				if($this->getCmd(null,'calibValid')->execCmd())
+					$this->UpdateOutNeurone($Valeurs)
 			}
 			fann_destroy($ann);
 		}*/
+	}
+	public function UpdateOutNeurone($Valeurs) {
+		$sortie=0;
+		foreach ($this->getConfiguration('sotries') as $cmdNeurone) {
+			$cmd = cmd::byId(str_replace('#', '', $cmdNeurone['cmd']));
+			if(is_object($cmd)){
+				switch ($cmd->getSubType()) {
+					case 'slider':    
+						$_options['slider']=$Valeurs[$sortie];
+					break;
+					case 'color':
+						$_options['color']=$Valeurs[$sortie];
+					break;
+					case 'message':
+						$_options['titre']=$Valeurs[$sortie];
+						$_options['message']=$Valeurs[$sortie];
+					break;
+					case 'other':
+						$_options=null;
+					break;
+				}
+				log::add('Neuronal','debug',$this->getHumanName().': Execution de la sortie '.$cmd->getHumanName().' '. json_encode($_options));
+				$cmd->execute($_options);
+			}
+			$sortie++;
+		}
 	}
 	public function CreateApprentissageTable() {
 		$newCalibration=array();
@@ -163,14 +194,14 @@ class Neuronal extends eqLogic {
 			$cmd = cmd::byId(str_replace('#', '', $cmdNeurone['cmd']));
 			if(is_object($cmd)){
 				log::add('Neuronal','debug','Ajout d\'une valeur a la table de calibration pour le neurone :'.$this->getHumanName().$cmd->getHumanName());
-				$newCalibration[$cmd->getHumanName()]=$cmd->getCmdValue()->execCmd();
+				$newCalibration[$cmd->getHumanName()]=$cmd->execCmd();
 			}
 		}
 		foreach ($this->getConfiguration('sotries') as $cmdNeurone) {
 			$cmd = cmd::byId(str_replace('#', '', $cmdNeurone['cmd']));
 			if(is_object($cmd)){
 				log::add('Neuronal','debug','Ajout d\'une valeur a la table de calibration pour le neurone :'.$this->getHumanName().$cmd->getHumanName());
-				$newCalibration[$cmd->getHumanName()]=$cmd->execCmd();
+				$newCalibration[$cmd->getHumanName()]=$cmd->getCmdValue()->execCmd();
 			}
 		}
 		$Calibrations=$this->getConfiguration('calibration');
