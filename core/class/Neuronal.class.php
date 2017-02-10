@@ -192,22 +192,18 @@ class Neuronal extends eqLogic {
 		$newCalibration=array();
 		foreach ($this->getConfiguration('entrees') as $cmdNeurone) {
 			$cmd = cmd::byId(str_replace('#', '', $cmdNeurone['cmd']));
-			if(is_object($cmd)){
-				log::add('Neuronal','debug','Ajout d\'une valeur a la table de calibration pour le neurone :'.$this->getHumanName().$cmd->getHumanName());
+			if(is_object($cmd))
 				$newCalibration[$cmd->getHumanName()]=$cmd->execCmd();
-			}
 		}
 		foreach ($this->getConfiguration('sotries') as $cmdNeurone) {
 			$cmd = cmd::byId(str_replace('#', '', $cmdNeurone['cmd']));
-			if(is_object($cmd)){
-				log::add('Neuronal','debug','Ajout d\'une valeur a la table de calibration pour le neurone :'.$this->getHumanName().$cmd->getHumanName());
+			if(is_object($cmd))
 				$newCalibration[$cmd->getHumanName()]=$cmd->getCmdValue()->execCmd();
-			}
 		}
+		log::add('Neuronal','debug',$this->getHumanName().': Nouvelle calibration: '.json_encode($newCalibration));
 		$Calibrations=$this->getConfiguration('calibration');
 		foreach ($Calibrations as $Calibration) {
-			array_diff($Calibration,$newCalibration);
-			if(count($exist) == 0)
+			if(count(array_diff($Calibration,$newCalibration)) == 0)
 				return;
 		}
 		$Calibrations[]=$newCalibration;
