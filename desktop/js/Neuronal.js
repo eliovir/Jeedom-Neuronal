@@ -70,6 +70,8 @@ function printEqLogic(_eqLogic) {
 		for(var index in _eqLogic.configuration.calibration) { 
 			if(typeof(_eqLogic.configuration.calibration[index]) === "object" && _eqLogic.configuration.calibration[index] != null)
 				addCalibration(_eqLogic.configuration.calibration[index],$('#table_Calibration'));
+			if(typeof(_eqLogic.configuration.calibration[index]) === "string" && _eqLogic.configuration.calibration[index] != null)
+				addCalibration(JSON.parse(_eqLogic.configuration.calibration[index]),$('#table_Calibration'));
 		}
 	}
 	else
