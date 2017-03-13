@@ -207,7 +207,7 @@ class Neuronal extends eqLogic {
 				return;
 		}
 		$Calibrations[]=$newCalibration;
-		$this->setConfiguration('calibration',json_encode($Calibrations));
+		$this->setConfiguration('calibration',json_encode($Calibrations, JSON_FORCE_OBJECT));
 		$this->save();
 		log::add('Neuronal','debug','Mise a jours de la table de calibration pour le neurone :'.$this->getHumanName());
 	}
