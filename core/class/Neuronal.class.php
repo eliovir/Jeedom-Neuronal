@@ -198,7 +198,7 @@ class Neuronal extends eqLogic {
 		foreach ($this->getConfiguration('sotries') as $cmdNeurone) {
 			$cmd = cmd::byId(str_replace('#', '', $cmdNeurone['cmd']));
 			if(is_object($cmd))
-				$newCalibration[$cmd->getHumanName()]=$cmd->getCmdValue()->execCmd();
+				$newCalibration['#'.$cmd->getHumanName().'#']=$cmd->getCmdValue()->execCmd();
 		}
 		log::add('Neuronal','debug',$this->getHumanName().': Nouvelle calibration: '.json_encode($newCalibration));
 		$Calibrations=$this->getConfiguration('calibration');
@@ -207,7 +207,8 @@ class Neuronal extends eqLogic {
 				return;
 		}
 		$Calibrations[]=$newCalibration;
-		$this->setConfiguration('calibration',json_encode($Calibrations, JSON_FORCE_OBJECT));
+		$this->setConfiguration('calibration',$Calibrations);
+		//$this->setConfiguration('calibration',json_encode($Calibrations, JSON_FORCE_OBJECT));
 		$this->save();
 		log::add('Neuronal','debug','Mise a jours de la table de calibration pour le neurone :'.$this->getHumanName());
 	}
@@ -216,3 +217,4 @@ class NeuronalCmd extends cmd {
 	public function execute($_options = array())	{
 	}
 }
+?>
