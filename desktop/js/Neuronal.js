@@ -67,12 +67,9 @@ function printEqLogic(_eqLogic) {
 	else
 		addElement({},$('#table_Sortie tbody'));
 	if (typeof(_eqLogic.configuration.calibration) !== 'undefined' && _eqLogic.configuration.calibration.length >0) {
-      var Calibrations= _eqLogic.configuration.calibration;
-      if(typeof(Calibrations) === "string" )
-        Calibrations=JSON.parse(_eqLogic.configuration.calibration);
-      for(var index in Calibrations) {
-        if(typeof(Calibrations[index]) === "object" && Calibrations[index] != null)
-          addCalibration(Calibrations[index],$('#table_Calibration'));
+      for(var index in _eqLogic.configuration.calibration) {
+        if(typeof(_eqLogic.configuration.calibration[index]) === "object" && _eqLogic.configuration.calibration[index] != null)
+          addCalibration(_eqLogic.configuration.calibration[index],$('#table_Calibration'));
       }
 	}
 	else
