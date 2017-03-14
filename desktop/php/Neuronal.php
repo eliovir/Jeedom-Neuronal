@@ -137,7 +137,7 @@ $eqLogics = eqLogic::byType('Neuronal');
 							<tbody></tbody>
 						</table>
 					</div>
-					<div class="tab-pane" id="tab_calibration">
+					<div class="tab-pane" id="tab_calibration" style="width: 90%; overflow:auto;">
 						<table id="table_Calibration" class="table table-bordered table-condensed">
 							<thead>
 								<tr>
