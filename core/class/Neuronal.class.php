@@ -188,6 +188,9 @@ class Neuronal extends eqLogic {
 			$sortie++;
 		}
 	}
+	public function checkdate($date) {
+		return $date;
+	}
 	public function CreateApprentissageTable() {
 		$newCalibration=array();
 		foreach ($this->getConfiguration('entrees') as $cmdNeurone) {
@@ -203,12 +206,13 @@ class Neuronal extends eqLogic {
 		log::add('Neuronal','debug',$this->getHumanName().': Nouvelle calibration: '.json_encode($newCalibration));
 		$Calibrations=$this->getConfiguration('calibration');
 		foreach ($Calibrations as $Calibration) {
+			if($this->getConfiguration('temporel'))
+				$newCalibration['datetime']=$this->checkdate($Calibration['datetime']);
 			if(count(array_diff($Calibration,$newCalibration)) == 0)
 				return;
 		}
 		$Calibrations[]=$newCalibration;
 		$this->setConfiguration('calibration',$Calibrations);
-		//$this->setConfiguration('calibration',json_encode($Calibrations, JSON_FORCE_OBJECT));
 		$this->save();
 		log::add('Neuronal','debug','Mise a jours de la table de calibration pour le neurone :'.$this->getHumanName());
 	}
