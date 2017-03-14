@@ -193,7 +193,7 @@ class Neuronal extends eqLogic {
 		foreach ($this->getConfiguration('entrees') as $cmdNeurone) {
 			$cmd = cmd::byId(str_replace('#', '', $cmdNeurone['cmd']));
 			if(is_object($cmd))
-				$newCalibration[$cmd->getHumanName()]=$cmd->execCmd();
+				$newCalibration['#'.$cmd->getHumanName().'#']=$cmd->execCmd();
 		}
 		foreach ($this->getConfiguration('sotries') as $cmdNeurone) {
 			$cmd = cmd::byId(str_replace('#', '', $cmdNeurone['cmd']));
