@@ -100,7 +100,7 @@ $eqLogics = eqLogic::byType('Neuronal');
 								<label class="col-md-2 control-label">{{Gestion Temporel}}</label>
 								<div class="col-md-8">
 									<label>{{Activer}}</label>
-									<input type="checkbox" class="eqLogicAttr" data-label-text="{{Activer}}" data-l1key="temporel"/>
+									<input type="checkbox" class="eqLogicAttr" data-label-text="{{Activer}}" data-l1key="configuration" data-l2key="temporel"/>
 								</div>
 							</div>
 						</div>
