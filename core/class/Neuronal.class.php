@@ -127,7 +127,7 @@ class Neuronal extends eqLogic {
 		log::add('Neuronal','debug','Lancement de l\'écouteur d\'evenement :'.$this->getHumanName());
 	}
 	public function ExecNeurone() {	
-		/*$NbCalibration=count($this->getConfiguration('calibration'));
+		$NbCalibration=count($this->getConfiguration('calibration'));
 		$NbEntree=count($this->getConfiguration('entrees'));
 		$NbSorite=count($this->getConfiguration('sotries'));
 		$num_layers = 3;
@@ -156,11 +156,12 @@ class Neuronal extends eqLogic {
 					}
 				}
 				$Valeurs = fann_run($ann, $input);
-				if($this->getCmd(null,'calibValid')->execCmd())
-					$this->UpdateOutNeurone($Valeurs)
+				log::add('Neuronal','debug',$this->getHumanName().' Resultat: '.json_encode($Valeurs));
+				//if($this->getCmd(null,'calibValid')->execCmd())
+					//$this->UpdateOutNeurone($Valeurs)
 			}
 			fann_destroy($ann);
-		}*/
+		}
 	}
 	public function UpdateOutNeurone($Valeurs) {
 		$sortie=0;
